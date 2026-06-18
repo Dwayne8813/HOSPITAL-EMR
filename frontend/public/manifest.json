@@ -1,0 +1,17 @@
+{
+  "name": "Hospital EMR - Sistema de Registros Médicos",
+  "short_name": "Hospital EMR",
+  "description": "Sistema de Registros Médicos Electrónicos para hospitales y clínicas",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f0f7fa",
+  "theme_color": "#0d6b89",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

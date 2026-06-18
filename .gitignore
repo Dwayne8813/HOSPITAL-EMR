@@ -1,0 +1,240 @@
+# Hospital EMR/EHR System - Git Ignore Configuration
+
+# ================================
+# Backend (.gitignore)
+# ================================
+
+# Dependencies
+/backend/vendor/
+/backend/node_modules/
+
+# Environment Files
+/backend/.env
+/backend/.env.local
+
+# Database Files
+/backend/database/database.sqlite
+/backend/database/*.sqlite
+
+# Storage Files (uploads, backups, logs)
+/backend/storage/app/uploads/*
+!/backend/storage/app/uploads/.gitkeep
+/backend/storage/app/backups/*
+!/backend/storage/app/backups/.gitkeep
+/backend/storage/logs/*
+!/backend/storage/logs/.gitkeep
+
+# Cache Files
+/backend/storage/framework/cache/data/*
+!/backend/storage/framework/cache/data/.gitkeep
+/backend/bootstrap/cache/*
+!/backend/bootstrap/cache/.gitkeep
+
+# Log Files
+/backend/storage/logs/*.log
+/backend/storage/logs/*.pid
+
+# Session Files
+/backend/storage/framework/sessions/*
+!/backend/framework/sessions/.gitkeep
+
+# Compiled Files
+/backend/public/build/*
+/backend/public/hot
+
+# ================================
+# Frontend (.gitignore)
+# ================================
+
+# Dependencies
+/frontend/node_modules/
+/frontend/.pnp
+/frontend/.pnp.js
+
+# Build Output
+/frontend/dist/
+/frontend/dist-ssr/
+/frontend/build/
+/frontend/out/
+
+# Environment Files
+/frontend/.env
+/frontend/.env.local
+/frontend/.env.development.local
+/frontend/.env.test.local
+/frontend/.env.production.local
+
+# Debug Logs
+/frontend/npm-debug.log*
+/frontend/yarn-debug.log*
+/frontend/yarn-error.log*
+/frontend/pnpm-debug.log*
+
+# Editor Directories and Files
+/frontend/.vscode/*
+!/frontend/.vscode/extensions.json
+/frontend.idea
+/frontend.vs
+/frontend*.swp
+/frontend*.swo
+/frontend*~
+
+# OS Files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ================================
+# General (.gitignore)
+# ================================
+
+# Compiled Files
+*.class
+*.jar
+*.war
+*.ear
+
+# Archive Files
+*.tar.gz
+*.rar
+*.zip
+
+# Temporary Files
+*.tmp
+*.bak
+*.swp
+*.swo
+*~
+
+# Cache Files
+.cache/
+*.cache
+
+# Coverage Reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# IDE Files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.project
+.classpath
+.settings/
+
+# Docker Files
+.docker/
+docker-compose.yml
+Dockerfile
+
+# Package Files
+*.egg-info/
+.installed.cfg
+*.egg
+*.whl
+*.msi
+*.msix
+*.appx
+*.appxbundle
+*.appxupload
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Runtime Data
+*.pid
+*.seed
+*.pid.lock
+
+# Optional npm dependencies
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build Output
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# Environment Variables
+.env
+.env.*
+!.env.example
+!.env.local
+!.env.production
+
+# Temp Files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Backup Files
+*.bak
+*.backup
+*.old
+*.orig
+
+# Cache Directories
+.cache/
+.parcel-cache/
+.npm/
+.eslintcache
+.stylelintcache
+
+# Output
+dist/
+build/
+out/
+output/
+
+# Dependency Directories
+node_modules/
+jspm_packages/
+bower_components/
+vendor/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Misc
+*.pem
+*.key
+*.crt
+*.csr
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.truststore

@@ -1,0 +1,52 @@
+# Hospital EMR/EHR Installer - Apache Configuration
+
+# Deny access to installer directory after installation
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # If .env exists and APP_INSTALLED=true, deny access
+    RewriteCond %{ENV:REDIRECT_APP_INSTALLED} true
+    RewriteRule ^ - [R=403,L]
+
+    # Check if installed via env file
+    RewriteCond %{DOCUMENT_ROOT}/../.env -f
+    RewriteCond %{DOCUMENT_ROOT}/../.env ^(.*)$
+    RewriteMap envfile txt:%1
+
+    # Block installer if already installed
+    RewriteCond %{REQUEST_URI}installer/
+    RewriteCond %{DOCUMENT_ROOT}/../.env -f
+    RewriteRule ^ - [R=403,L]
+</IfModule>
+
+# Block access to sensitive files
+<FilesMatch "\.(env|log|sqlite)$">
+    Require all denied
+</FilesMatch>
+
+# Allow installer assets
+<IfModule mod_rewrite.c>
+    RewriteRule ^installer/assets/ - [L]
+    RewriteRule ^installer/includes/ - [L]
+    RewriteRule ^installer/steps/ - [L]
+</IfModule>
+
+# Set default directory index
+DirectoryIndex index.php
+
+# Prevent directory listing
+Options -Indexes
+
+# Enable mod_rewrite
+<IfModule mod_rewrite.c>
+    Options +FollowSymLinks
+    RewriteEngine On
+</IfModule>
+
+# PHP settings for installer
+<IfModule mod_php.c>
+    php_value max_execution_time 300
+    php_value memory_limit 256M
+    php_value post_max_size 32M
+    php_value upload_max_filesize 32M
+</IfModule>
