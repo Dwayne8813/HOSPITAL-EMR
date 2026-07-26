@@ -1,254 +1,527 @@
-# Hospital EMR/EHR System
+<div align="center">
 
-A comprehensive Electronic Medical Records (EMR) and Electronic Health Records (EHR) system designed for healthcare facilities. Built with Laravel backend and React frontend, featuring multi-tenant architecture, role-based access control, and complete clinical workflow management.
+# 🏥 Hospital EMR/EHR System
 
-## Features
+### Sistema Integral de Historias Clínicas Electrónicas
 
-### Core Clinical Features
-- **Patient Management** - Complete patient profiles with demographics, contacts, allergies, and insurance
-- **Medical Records** - Digital health records with SOAP notes, evolutions, and clinical documentation
-- **Appointments** - Scheduling system with doctor availability, reminders, and calendar integration
-- **Prescriptions** - Electronic prescribing with medication catalog and drug interaction checks
-- **Laboratory** - Lab orders, results management, and specimen tracking
-- **Radiology** - Imaging orders, results, and PACS integration support
-- **Diagnosis** - CIE-10/ICD-10 coding system integration
+[![Laravel](https://img.shields.io/badge/Laravel-11-FF2D20?style=flat-square&logo=laravel&logoColor=white)](https://laravel.com)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev)
+[![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=flat-square&logo=mysql&logoColor=white)](https://mysql.com)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://typescriptlang.org)
+[![JWT](https://img.shields.io/badge/Auth-JWT-000000?style=flat-square)](https://jwt.io)
+
+**Arquitectura completa para gestión hospitalaria — diseñada para Bolivia, escalable para Latinoamérica**
+
+[Ver Demo](#-demo) · [Documentación API](#-api-documentation) · [Arquitectura](#-architecture) · [Instalación](#-quick-start)
+
+</div>
+
+---
+
+## 📋 Table of Contents
+
+- [Demo](#-demo)
+- [Overview](#-overview)
+- [Key Features](#-key-features)
+- [Architecture](#-architecture)
+- [Tech Stack](#-tech-stack)
+- [Project Structure](#-project-structure)
+- [Database](#-database)
+- [API Documentation](#-api-documentation)
+- [Quick Start](#-quick-start)
+- [Modules](#-modules)
+- [Security](#-security)
+- [Deployment](#-deployment)
+- [Author](#-author)
+
+---
+
+## 🖼 Demo
+
+### Dashboard
+![Dashboard](screenshots/v2-01-dashboard.png)
+
+### Pacientes
+![Pacientes](screenshots/v2-02-patients.png)
+
+### Historial Clínico
+![Clinical Records](screenshots/v2-04-clinical-records.png)
+
+### Citas Médicas
+![Appointments](screenshots/v2-05-appointments.png)
+
+### Laboratorio
+![Lab Results](screenshots/v2-07-lab-results.png)
+
+### Farmacia
+![Medications](screenshots/v2-09-medications.png)
+
+### Facturación
+![Invoices](screenshots/v2-12-invoices.png)
+
+### Reportes
+![Reports](screenshots/v2-14-reports.png)
+
+---
+
+## 🎯 Overview
+
+A **full-stack Electronic Medical Records (EMR) / Electronic Health Records (EHR) system** built from scratch with a decoupled architecture. Designed specifically for the Bolivian healthcare system with SIN (Servicio de Impuestos Nacionales) billing compliance, CIE-10 diagnostic coding, and BOB currency support.
+
+### Numbers
+
+| Metric | Value |
+|--------|-------|
+| Database Tables | **108** |
+| API Endpoints | **150+** |
+| Frontend Pages | **47** |
+| Backend Controllers | **39** |
+| Service Classes | **12** |
+| Eloquent Models | **100+** |
+| Database Migrations | **110+** |
+| UI Components | **15** |
+| Custom Hooks | **12** |
+| API Tests | **77/77 passing** |
+
+---
+
+## ✨ Key Features
+
+### Clinical
+- **Patient Management** — Complete profiles: demographics, contacts, allergies, insurance, medical history
+- **Medical Records** — SOAP notes, clinical evolutions, vital signs, treatment plans
+- **Appointments** — Scheduling with doctor availability, reminders, calendar view
+- **Prescriptions** — Electronic prescribing with medication catalog and dosage management
+- **Laboratory** — Lab orders, result entry with reference ranges, specimen tracking
+- **Radiology** — Imaging orders, result recording, PACS integration support
+- **Diagnosis** — CIE-10/ICD-10 coding system with 50+ pre-loaded codes
 
 ### Hospital Operations
-- **Hospitalization** - Patient admission, bed management, transfers, and discharge
-- **Surgery** - Operating room scheduling, surgery team management, and reports
-- **Emergency** - Triage system with priority-based patient queue management
-- **Pharmacy** - Medication inventory, dispensation, and batch tracking
-- **Inventory** - Medical supplies and equipment inventory management
+- **Hospitalization** — Admission, bed management, transfers, discharge planning
+- **Surgery** — OR scheduling, team assignment, materials tracking, surgery reports
+- **Emergency** — Triage system with priority-based queuing and protocols
+- **Pharmacy** — Medication inventory, batch tracking, dispensation, low-stock alerts
+- **Inventory** — Medical supplies and equipment management
 
-### Financial Management
-- **Billing** - Invoice generation, payment processing, and service catalog
-- **Cash Register** - Point-of-sale operations with cash movement tracking
-- **Insurance** - Insurance claims processing and authorizations
-- **Reports** - Financial reports, revenue analytics, and export capabilities
+### Financial
+- **Billing** — Invoice generation (FAC-000001 sequential), payment processing
+- **Cash Register** — POS operations with cash movement tracking
+- **Insurance** — Claims processing and discount authorizations
+- **Reports** — Revenue analytics, monthly reports, export capabilities
 
-### Communication & Collaboration
-- **Telemedicine** - Virtual consultation sessions with messaging
-- **Notifications** - Real-time alerts and system notifications
-- **Certificates** - Medical certificate generation and PDF export
-- **Referral Letters** - Doctor-to-doctor referral management
+### System
+- **Multi-Institution** — Shared database, isolated data per institution
+- **RBAC** — Granular permissions for admin, doctor, nurse, billing, lab, pharmacy roles
+- **Audit Logging** — Complete activity tracking for HIPSSA/SOAP compliance
+- **JWT Authentication** — Secure token-based auth with refresh and MFA support
+- **Print Pages** — Dedicated print views for invoices, prescriptions, lab results
 
-### System Features
-- **Multi-Tenant** - Support for multiple healthcare institutions
-- **Role-Based Access** - Granular permissions for doctors, nurses, admin, billing, etc.
-- **Audit Logging** - Complete activity tracking for compliance
-- **Backup System** - Automated database backups with restore capability
-- **Dashboard** - Customizable widgets with real-time statistics
+---
 
-## Tech Stack
+## 🏗 Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     PRESENTATION LAYER                       │
+│  ┌─────────────┐  ┌──────────────┐  ┌───────────────────┐  │
+│  │ React 19    │  │ Tailwind v4  │  │ React Query       │  │
+│  │ TypeScript  │  │ Custom Theme │  │ State Management  │  │
+│  └─────────────┘  └──────────────┘  └───────────────────┘  │
+└──────────────────────────┬──────────────────────────────────┘
+                           │ REST API (JSON)
+┌──────────────────────────▼──────────────────────────────────┐
+│                     APPLICATION LAYER                        │
+│  ┌─────────────┐  ┌──────────────┐  ┌───────────────────┐  │
+│  │ Controllers │→ │ Services     │→ │ Repositories      │  │
+│  │ 39 endpoints│  │ Business     │  │ Data Access       │  │
+│  │ Validation  │  │ Logic        │  │ Eloquent ORM      │  │
+│  └─────────────┘  └──────────────┘  └───────────────────┘  │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+┌──────────────────────────▼──────────────────────────────────┐
+│                       DATA LAYER                             │
+│  ┌─────────────┐  ┌──────────────┐  ┌───────────────────┐  │
+│  │ MySQL 8.0   │  │ 108 Tables   │  │ Stored Procedures │  │
+│  │ XAMPP       │  │ 110 Migr.    │  │ Views             │  │
+│  └─────────────┘  └──────────────┘  └───────────────────┘  │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Design Patterns
+- **Repository Pattern** — Abstracted data access layer
+- **Service Layer** — Separated business logic from HTTP concerns
+- **DTO Pattern** — Typed data transfer objects for API contracts
+- **API Versioning** — `/api/v1/` prefix for backward compatibility
+- **Middleware Pipeline** — CORS, JWT Auth, Rate Limiting, Audit Logging
+
+---
+
+## 🛠 Tech Stack
 
 ### Backend
-- **Framework:** Laravel 11
-- **PHP Version:** 8.2+
-- **Database:** SQLite (default) / MySQL 8.0+ / PostgreSQL 15+
-- **Authentication:** JWT (tymon/jwt-auth)
-- **Queue:** Database driver
+| Component | Technology |
+|-----------|------------|
+| Framework | Laravel 11 |
+| Language | PHP 8.2 |
+| Database | MySQL 8.0 (XAMPP) |
+| Authentication | JWT (tymon/jwt-auth) |
+| Architecture | Clean Architecture + DDD |
+| Patterns | Repository, Service Layer, DTO |
 
 ### Frontend
-- **Framework:** React 18 with TypeScript
-- **Build Tool:** Vite
-- **Styling:** Tailwind CSS
-- **State Management:** React Query + Context
-- **Forms:** React Hook Form + Zod validation
-- **Routing:** React Router v6
+| Component | Technology |
+|-----------|------------|
+| Framework | React 19 |
+| Language | TypeScript 5.x |
+| Build Tool | Vite 6 |
+| Styling | Tailwind CSS v4 |
+| State | React Query + Context |
+| Forms | React Hook Form + Zod |
+| Routing | React Router v6 |
+| Charts | Chart.js |
 
-## Directory Structure
+### DevOps
+| Component | Technology |
+|-----------|------------|
+| Version Control | Git + GitHub |
+| Testing | Playwright (E2E) |
+| Deployment | Hostinger Shared Hosting |
+| CI/CD | GitHub Actions (planned) |
+
+---
+
+## 📁 Project Structure
 
 ```
 hospital/
-├── backend/                    # Laravel API
+├── backend/                         # Laravel 11 REST API
 │   ├── app/
-│   │   ├── DTOs/              # Data Transfer Objects
-│   │   ├── Enums/             # PHP Enums
-│   │   ├── Exceptions/        # Custom Exceptions
+│   │   ├── DTOs/                    # Data Transfer Objects (12)
+│   │   ├── Enums/                   # PHP Enums (35)
 │   │   ├── Http/
-│   │   │   ├── Controllers/   # API Controllers (V1)
-│   │   │   ├── Middleware/     # Request Middleware
-│   │   │   └── Requests/      # Form Requests
-│   │   ├── Models/            # Eloquent Models (100+)
-│   │   ├── Providers/         # Service Providers
-│   │   ├── Repositories/      # Repository Pattern
-│   │   └── Services/          # Business Logic
-│   ├── config/                # Configuration Files
+│   │   │   ├── Controllers/V1/      # API Controllers (39)
+│   │   │   ├── Middleware/           # Request Middleware (7)
+│   │   │   └── Requests/            # Form Request Validation
+│   │   ├── Models/                  # Eloquent Models (100+)
+│   │   ├── Providers/               # Service Providers
+│   │   ├── Repositories/            # Repository Pattern
+│   │   │   ├── Eloquent/            # Concrete Implementations
+│   │   │   └── Interfaces/          # Contracts
+│   │   └── Services/                # Business Logic (12)
+│   │       ├── Appointment/
+│   │       ├── Auth/
+│   │       ├── Billing/
+│   │       ├── Clinical/
+│   │       ├── Laboratory/
+│   │       ├── Patient/
+│   │       └── Pharmacy/
 │   ├── database/
-│   │   ├── factories/         # Model Factories
-│   │   ├── migrations/        # Database Migrations (110+)
-│   │   ├── procedures/        # Stored Procedures
-│   │   ├── seeders/           # Database Seeders
-│   │   └── views/             # Database Views
-│   ├── routes/
-│   │   ├── api.php            # API Routes
-│   │   └── web.php            # Web Routes
-│   └── storage/               # Application Storage
-├── frontend/                  # React Application
+│   │   ├── migrations/              # 110+ migrations
+│   │   ├── procedures/              # Stored procedures
+│   │   ├── seeders/                 # Database seeders (24)
+│   │   └── views/                   # Database views
+│   ├── routes/api.php               # 150+ API routes
+│   └── tests/                       # Backend tests
+│
+├── frontend/                        # React 19 SPA
 │   ├── src/
-│   │   ├── components/        # Reusable Components
-│   │   ├── hooks/             # Custom React Hooks
-│   │   ├── lib/               # Utility Libraries
-│   │   ├── pages/             # Page Components
-│   │   ├── router/            # Route Configuration
-│   │   ├── types/             # TypeScript Types
-│   │   └── validations/       # Zod Schemas
-│   └── public/                # Static Assets
-├── installer/                 # Web Installer
-├── docs/                      # Documentation
-└── .gitignore
+│   │   ├── components/
+│   │   │   ├── layout/              # AppLayout, Header, Sidebar
+│   │   │   └── ui/                  # Reusable UI (15 components)
+│   │   ├── hooks/                   # Custom React Hooks (12)
+│   │   ├── lib/                     # API client, utilities
+│   │   ├── pages/                   # Page Components (47)
+│   │   │   ├── dashboard/
+│   │   │   ├── patients/
+│   │   │   ├── clinical/
+│   │   │   ├── appointments/
+│   │   │   ├── laboratory/
+│   │   │   ├── prescriptions/
+│   │   │   ├── billing/
+│   │   │   ├── pharmacy/
+│   │   │   ├── hospitalization/
+│   │   │   ├── emergency/
+│   │   │   ├── surgery/
+│   │   │   ├── radiology/
+│   │   │   ├── reports/
+│   │   │   ├── settings/
+│   │   │   └── auth/
+│   │   ├── router/                  # Route configuration
+│   │   ├── styles/                  # Tailwind + print CSS
+│   │   ├── types/                   # TypeScript type definitions
+│   │   └── validations/             # Zod validation schemas
+│   └── tailwind.config.js           # Custom theme (teal/green/orange)
+│
+├── installer/                       # Web-based installer
+├── database.sql                     # Full database export (493 KB)
+├── docs/                            # Documentation
+│   ├── API.md
+│   ├── ARCHITECTURE.md
+│   ├── DATABASE.md
+│   ├── DEPLOYMENT.md
+│   └── INSTALLATION.md
+└── screenshots/                     # 65+ UI screenshots
 ```
 
-## Quick Start
+---
+
+## 🗄 Database
+
+### Schema Overview
+
+**108 tables** covering all hospital operations:
+
+| Domain | Tables | Key Entities |
+|--------|--------|-------------|
+| Patients | 6 | patients, contacts, allergies, documents, insurances |
+| Clinical | 8 | medical_records, consultations, diagnoses, soap_notes, evolutions, vital_signs |
+| Appointments | 4 | appointments, slots, doctor_schedules, reminders |
+| Laboratory | 5 | lab_orders, lab_order_items, lab_results, specimens |
+| Pharmacy | 6 | medications, batches, dispensations, suppliers, purchase_orders |
+| Billing | 8 | invoices, invoice_items, payments, cash_registers, cash_movements |
+| Hospitalization | 5 | hospitalizations, bed_transfers, hospitalization_evolutions |
+| Surgery | 5 | surgery_schedules, surgery_team, surgery_materials, surgery_reports |
+| Emergency | 4 | emergency_triage, emergency_records, triage_protocols |
+| System | 15+ | users, roles, permissions, audit_logs, settings, institutions |
+
+### Database Features
+- **Stored Procedures** — `sp_patient_stats`, `sp_monthly_revenue`, `sp_appointment_stats`, etc.
+- **Views** — `v_dashboard_summary`, `v_bed_occupancy`, `v_top_diagnoses`, etc.
+- **Soft Deletes** — Institutions, patients, and key entities
+- **Audit Trail** — Timestamps and user tracking on all operations
+
+Full schema documentation: [docs/DATABASE.md](docs/DATABASE.md)
+
+---
+
+## 📡 API Documentation
+
+### Authentication
+
+```bash
+# Login
+POST /api/v1/auth/login
+{
+  "email": "admin@hospital.bo",
+  "password": "password"
+}
+
+# Response
+{
+  "success": true,
+  "data": {
+    "access_token": "eyJ0eXAiOiJKV1Qi...",
+    "token_type": "bearer",
+    "expires_in": 3600
+  }
+}
+```
+
+### Endpoints
+
+| Module | Method | Endpoint | Description |
+|--------|--------|----------|-------------|
+| Auth | POST | `/auth/login` | Login |
+| Auth | POST | `/auth/logout` | Logout |
+| Auth | GET | `/auth/me` | Current user |
+| Users | GET | `/users` | List users |
+| Users | POST | `/users` | Create user |
+| Patients | GET | `/patients` | List patients |
+| Patients | POST | `/patients` | Create patient |
+| Patients | GET | `/patients/{id}/medical-history` | Medical history |
+| Appointments | GET | `/appointments` | List appointments |
+| Appointments | POST | `/appointments` | Create appointment |
+| Lab Results | GET | `/lab-results/{id}` | Get lab result |
+| Prescriptions | GET | `/prescriptions` | List prescriptions |
+| Invoices | GET | `/invoices` | List invoices |
+| Medications | GET | `/medications` | List medications |
+| CIE-10 | GET | `/cie10` | Search CIE-10 codes |
+| Institution | GET | `/institution` | Get institution |
+| Dashboard | GET | `/dashboard/stats` | Dashboard statistics |
+
+**150+ endpoints total** — Full documentation: [docs/API.md](docs/API.md)
+
+---
+
+## 🚀 Quick Start
 
 ### Prerequisites
-- PHP 8.2 or higher
+- PHP 8.2+
 - Composer
-- Node.js 18+ and npm
-- SQLite, MySQL, or PostgreSQL
+- Node.js 18+
+- MySQL 8.0 (XAMPP recommended)
+- Git
 
 ### Installation
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd hospital
-   ```
+```bash
+# 1. Clone
+git clone https://github.com/Rodrigo-Silva-Alarcon/hospital-emr-system.git
+cd hospital-emr-system
 
-2. **Backend Setup**
-   ```bash
-   cd backend
-   composer install
-   cp .env.example .env
-   php artisan key:generate
-   php artisan jwt:secret
-   php artisan migrate --seed
-   php artisan serve
-   ```
+# 2. Database
+mysql -u root -e "CREATE DATABASE hospital_system"
+mysql -u root hospital_system < database.sql
 
-3. **Frontend Setup**
-   ```bash
-   cd frontend
-   npm install
-   cp .env.example .env
-   npm run dev
-   ```
+# 3. Backend
+cd backend
+cp .env.example .env
+# Configure .env with your MySQL credentials
+composer install
+php artisan key:generate
+php artisan jwt:secret
+php artisan serve
 
-4. **Access the Application**
-   - Frontend: http://localhost:5173
-   - API: http://localhost:8000/api/v1
+# 4. Frontend
+cd ../frontend
+npm install
+cp .env.example .env
+# Set VITE_API_URL=http://localhost:8000/api/v1
+npm run dev
+```
 
-### Web Installer (Alternative)
-1. Upload files to your web server
-2. Navigate to `http://your-domain/install`
-3. Follow the installation wizard
-4. Configure database and admin account
+### Access
+| Service | URL |
+|---------|-----|
+| Frontend | http://localhost:3000 |
+| Backend API | http://localhost:8000/api/v1 |
 
-## Default Credentials
+### Default Credentials
 
-### Admin Account
-- **Email:** admin@hospital.com
-- **Password:** password
-- **Role:** Administrator
+| Role | Email | Password |
+|------|-------|----------|
+| Super Admin | admin@hospital.bo | password |
+| Doctor | doctor@hospital.bo | password |
+| Nurse | nurse@hospital.bo | password |
 
-### Doctor Account
-- **Email:** doctor@hospital.com
-- **Password:** password
-- **Role:** Doctor
+---
 
-### Nurse Account
-- **Email:** nurse@hospital.com
-- **Password:** password
-- **Role:** Nurse
+## 📦 Modules
 
-### Billing Account
-- **Email:** billing@hospital.com
-- **Password:** password
-- **Role:** Billing Staff
+### 1. Patient Management
+Complete patient lifecycle: registration → demographics → medical history → allergies → insurance → documents. Search, filter, and pagination.
 
-> **Note:** Change these credentials immediately after installation in production environments.
+### 2. Clinical Records
+SOAP notes, vital signs monitoring, clinical evolutions, diagnosis coding (CIE-10), treatment plans. Full audit trail.
 
-## Module Descriptions
+### 3. Appointments
+Doctor availability, scheduling, confirmation workflows, calendar view, reminders, no-show tracking.
 
-### 1. Patient Module
-Complete patient management with registration, demographics, medical history, allergies, contacts, and insurance information. Supports patient search and advanced filtering.
+### 4. Laboratory
+Lab orders with test catalog, specimen collection, result entry with reference ranges, abnormal value flagging, validation workflow.
 
-### 2. Clinical Module
-Electronic health records management including SOAP notes, clinical evolutions, vital signs monitoring, diagnosis coding (CIE-10), and treatment plans. Full audit trail for all clinical documentation.
+### 5. Prescriptions
+Electronic prescribing with medication catalog, dosage/frequency management, prescription printing.
 
-### 3. Appointment Module
-Scheduling system with doctor availability management, appointment slots, confirmation workflows, reminders, and calendar integration. Supports recurring appointments and waitlist management.
+### 6. Billing
+Sequential invoice generation (FAC-000001), payment processing, cash register, service catalog, insurance claims.
 
-### 4. Prescription Module
-Electronic prescribing with access to medication catalog, dosage calculations, drug interaction warnings, and prescription PDF generation. Integration with pharmacy module for dispensation tracking.
+### 7. Pharmacy
+Medication inventory, batch tracking with expiration, dispensation records, supplier management, purchase orders.
 
-### 5. Laboratory Module
-Lab order management with test catalog, specimen collection tracking, result entry, validation workflows, and patient result history. Supports reference ranges and abnormal value flagging.
+### 8. Hospitalization
+Patient admission, bed assignment, inter-department transfers, hospitalization evolutions, discharge planning.
 
-### 6. Radiology Module
-Imaging order management, result recording with structured reporting, and integration points for PACS systems. Template-based reporting for common imaging studies.
+### 9. Emergency
+Triage system with configurable protocols (Manchester), priority-based queuing, emergency records.
 
-### 7. Hospitalization Module
-Patient admission workflow, bed assignment and tracking, inter-department transfers, hospitalization evolutions, and discharge planning. Real-time bed occupancy dashboard.
+### 10. Reports
+Dashboard analytics, patient statistics, revenue reports, appointment analytics, export capabilities.
 
-### 8. Surgery Module
-Operating room scheduling, surgery team assignment, material/resource tracking, pre-operative and post-operative documentation, and surgery reports.
+---
 
-### 9. Emergency Module
-Triage system with configurable protocols, priority-based patient queuing, emergency records, and real-time waiting room dashboard.
+## 🔒 Security
 
-### 10. Pharmacy Module
-Medication inventory management, batch tracking with expiration dates, dispensation records, low stock alerts, and supplier management.
+- **JWT Authentication** — Stateless token-based auth with refresh
+- **RBAC** — Role-based access control (admin, doctor, nurse, billing, lab, pharmacy)
+- **Password Hashing** — bcrypt via `Hash::make()`
+- **Input Validation** — Laravel Form Requests on all endpoints
+- **SQL Injection Prevention** — Eloquent ORM parameterized queries
+- **XSS Protection** — React's automatic escaping + CSP headers
+- **Rate Limiting** — API throttling middleware
+- **Audit Logging** — Complete activity trail for compliance
+- **CORS Configuration** — Controlled cross-origin access
 
-### 11. Billing Module
-Service catalog management, invoice generation, payment processing, cash register operations, insurance claims, and financial reporting.
+---
 
-### 12. Telemedicine Module
-Virtual consultation sessions with real-time messaging, session recording, and integration with appointment system.
+## 🚢 Deployment
 
-### 13. Reports Module
-Comprehensive reporting with dashboard analytics, patient statistics, appointment analytics, revenue reports, lab and pharmacy reports, and export to Excel/PDF.
+### Hostinger Shared Hosting
+This system is designed for deployment on shared hosting:
 
-### 14. Administration Module
-User management, role and permission configuration, system settings, backup management, audit logs, and institution configuration.
+```bash
+# 1. Upload backend/ to public_html/api/
+# 2. Upload frontend/ build to public_html/
+# 3. Import database.sql via phpMyAdmin
+# 4. Configure .env on server
+# 5. Run: php artisan migrate --force
+```
 
-## API Documentation
+Full deployment guide: [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
 
-See [docs/API.md](docs/API.md) for complete API documentation.
+### Web Installer
+Built-in installer available at `/install` for guided setup.
 
-## Database Documentation
+---
 
-See [docs/DATABASE.md](docs/DATABASE.md) for database schema and relationships.
+## 🧪 Testing
 
-## Architecture
+```bash
+# Backend tests
+cd backend && php artisan test
 
-See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for system architecture details.
+# E2E tests (Playwright)
+npx playwright test test-all-endpoints.mjs
+```
 
-## Installation Guide
+**Results: 77/77 tests passing** across all modules:
+- Auth (8 tests)
+- Users (11 tests)
+- Patients (12 tests)
+- Appointments (5 tests)
+- Lab Results (5 tests)
+- Prescriptions (2 tests)
+- Invoices (3 tests)
+- Medications (1 test)
+- Suppliers (1 test)
+- CIE-10 (1 test)
+- Services (1 test)
+- Buildings/Rooms/Beds (3 tests)
+- Certificates (5 tests)
+- Institution (1 test)
+- Diagnosis (2 tests)
+- Vital Signs (4 tests)
+- Frontend Pages (12 tests)
 
-See [docs/INSTALLATION.md](docs/INSTALLATION.md) for detailed installation instructions.
+---
 
-## Deployment Guide
+## 📄 Documentation
 
-See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for production deployment instructions.
+| Document | Description |
+|----------|-------------|
+| [API Documentation](docs/API.md) | Complete API reference |
+| [Architecture](docs/ARCHITECTURE.md) | System design and patterns |
+| [Database Schema](docs/DATABASE.md) | Table relationships and schema |
+| [Deployment Guide](docs/DEPLOYMENT.md) | Production deployment steps |
+| [Installation Guide](docs/INSTALLATION.md) | Setup instructions |
 
-## Security Features
+---
 
-- JWT-based authentication with refresh tokens
-- Multi-factor authentication (MFA) support
-- Role-based access control (RBAC)
-- Account lockout after failed attempts
-- Password history tracking
-- Complete audit logging
-- API rate limiting
-- Input validation and sanitization
-- SQL injection prevention
-- XSS protection
+## 👨‍💻 Author
 
-## License
+**Rodrigo Silva Alarcón**
 
-This software is proprietary and confidential. Unauthorized copying, modification, distribution, or use of this software is strictly prohibited.
+- 🎓 Software Engineer
+- 💼 Open to opportunities
+- 📧 [GitHub](https://github.com/Rodrigo-Silva-Alarcon)
 
-## Support
+---
 
-For technical support and inquiries, please contact your system administrator.
+<div align="center">
+
+### Built with passion for healthcare technology
+
+**If you find this project useful, consider giving it a ⭐**
+
+</div>

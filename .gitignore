@@ -89,6 +89,11 @@ Desktop.ini
 # General (.gitignore)
 # ================================
 
+# Test files
+/test-*.mjs
+/test-results/
+/backend/test-*.php
+
 # Compiled Files
 *.class
 *.jar
