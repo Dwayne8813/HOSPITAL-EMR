@@ -346,6 +346,25 @@ POST /api/v1/auth/login
 
 ## 🚀 Quick Start
 
+### Docker (recommended)
+
+Docker builds and runs both services, creates the SQLite database, runs all migrations,
+and seeds the demo data automatically on first start.
+
+```bash
+docker compose up -d --build      # build images and start API (:8000) + web (:3000)
+docker compose logs -f            # follow logs from both services
+docker compose down               # stop containers (database volume is preserved)
+docker compose down -v            # stop and delete the database volume (fresh reset)
+```
+
+Open **http://localhost:3000** and sign in with `admin@hospital.bo` / `password`.
+The API is available at **http://localhost:8000/api/v1** (and `/api/v1/health`).
+
+Requirements: Docker Engine with the Compose plugin. No PHP, Composer, or Node.js
+installation is needed on the host. To access the database from outside, the API
+uses a named volume (`api-db`) so data survives container restarts.
+
 ### Local development (recommended)
 
 The repository ships with a pre-seeded SQLite database, so MySQL is not required to run the system locally.

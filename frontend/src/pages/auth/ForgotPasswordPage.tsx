@@ -85,7 +85,7 @@ export default function ForgotPasswordPage() {
                 label="Email"
                 type="email"
                 autoComplete="email"
-                placeholder="tu@hospital.com"
+                placeholder="you@hospital.com"
                 leftIcon={<Mail className="h-4 w-4" />}
                 error={errors.email?.message}
                 {...register('email')}

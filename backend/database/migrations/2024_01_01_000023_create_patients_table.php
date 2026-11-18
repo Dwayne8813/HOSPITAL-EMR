@@ -30,8 +30,8 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('photo')->nullable();
             $table->enum('blood_type', ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])->nullable();
-            $table->string('emergency_contact_name');
-            $table->string('emergency_contact_phone');
+            $table->string('emergency_contact_name')->nullable();
+            $table->string('emergency_contact_phone')->nullable();
             $table->string('insurance_company')->nullable();
             $table->string('insurance_number')->nullable();
             $table->date('insurance_expiry')->nullable();

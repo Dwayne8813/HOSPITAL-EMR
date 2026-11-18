@@ -137,11 +137,6 @@ coverage.xml
 .classpath
 .settings/
 
-# Docker Files
-.docker/
-docker-compose.yml
-Dockerfile
-
 # Package Files
 *.egg-info/
 .installed.cfg

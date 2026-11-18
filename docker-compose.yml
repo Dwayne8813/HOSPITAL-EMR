@@ -1,0 +1,44 @@
+services:
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: hospital-emr-api
+    container_name: hospital-emr-api
+    ports:
+      - "8000:8000"
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_URL: http://localhost:8000
+      FRONTEND_URL: http://localhost:3000
+      DB_CONNECTION: sqlite
+      DB_DATABASE: /data/database.sqlite
+      PHP_CLI_SERVER_WORKERS: "4"
+    volumes:
+      - api-db:/data
+    healthcheck:
+      test: ["CMD", "php", "-r", "exit(@file_get_contents('http://127.0.0.1:8000/api/v1/health') !== false ? 0 : 1);"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    restart: unless-stopped
+
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: hospital-emr-web
+    container_name: hospital-emr-web
+    ports:
+      - "3000:3000"
+    environment:
+      VITE_API_URL: http://localhost:8000/api/v1
+      VITE_API_PROXY_TARGET: http://api:8000
+    depends_on:
+      - api
+    restart: unless-stopped
+
+volumes:
+  api-db:

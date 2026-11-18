@@ -255,7 +255,7 @@ export default function InstitutionSettingsPage() {
         </CardContent>
       </Card>
 
-      {/* Guardar */}
+      {/* Save */}
       <div className="flex justify-end">
         <Button leftIcon={<Save className="h-4 w-4" />} onClick={handleSave} isLoading={updateMutation.isPending} size="lg">
           Save Settings
