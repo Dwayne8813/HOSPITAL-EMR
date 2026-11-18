@@ -30,17 +30,17 @@ export default function PatientDetailPage() {
   const { data: labOrders } = useLabOrders({ patient_id: id })
 
   if (patientLoading) return <PageLoadingSpinner />
-  if (!patient) return <EmptyState title="Paciente no encontrado" />
+  if (!patient) return <EmptyState title="Patient not found" />
 
   const tabs: { key: Tab; label: string; icon: React.ReactNode }[] = [
-    { key: 'personal', label: 'Datos Personales', icon: <User className="h-4 w-4" /> },
-    { key: 'history', label: 'Historial Médico', icon: <FileText className="h-4 w-4" /> },
-    { key: 'consultations', label: 'Consultas', icon: <Calendar className="h-4 w-4" /> },
-    { key: 'prescriptions', label: 'Recetas', icon: <Pill className="h-4 w-4" /> },
-    { key: 'lab', label: 'Laboratorio', icon: <TestTube className="h-4 w-4" /> },
-    { key: 'documents', label: 'Documentos', icon: <FileText className="h-4 w-4" /> },
-    { key: 'insurance', label: 'Seguro', icon: <Shield className="h-4 w-4" /> },
-    { key: 'allergies', label: 'Alergias', icon: <AlertTriangle className="h-4 w-4" /> },
+    { key: 'personal', label: 'Personal Details', icon: <User className="h-4 w-4" /> },
+    { key: 'history', label: 'Medical History', icon: <FileText className="h-4 w-4" /> },
+    { key: 'consultations', label: 'Consultations', icon: <Calendar className="h-4 w-4" /> },
+    { key: 'prescriptions', label: 'Prescriptions', icon: <Pill className="h-4 w-4" /> },
+    { key: 'lab', label: 'Laboratory', icon: <TestTube className="h-4 w-4" /> },
+    { key: 'documents', label: 'Documents', icon: <FileText className="h-4 w-4" /> },
+    { key: 'insurance', label: 'Insurance', icon: <Shield className="h-4 w-4" /> },
+    { key: 'allergies', label: 'Allergies', icon: <AlertTriangle className="h-4 w-4" /> },
   ]
 
   return (
@@ -66,17 +66,17 @@ export default function PatientDetailPage() {
                 {patient.first_name} {patient.last_name}
               </h1>
               <p className="text-sm text-gray-500">
-                N° {patient.medical_record_number} • {patient.document_type}: {patient.document_number}
+                No. {patient.medical_record_number} • {patient.document_type}: {patient.document_number}
               </p>
             </div>
           </div>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" leftIcon={<Printer className="h-4 w-4" />}>
-            Imprimir
+            Print
           </Button>
           <Button leftIcon={<Edit className="h-4 w-4" />} onClick={() => navigate(`/patients/${id}/edit`)}>
-            Editar
+            Edit
           </Button>
         </div>
       </div>
@@ -106,15 +106,15 @@ export default function PatientDetailPage() {
         <Card variant="elevated">
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <InfoItem label="Nombre Completo" value={`${patient.first_name} ${patient.last_name}`} />
-              <InfoItem label="Fecha de Nacimiento" value={`${formatDate(patient.birth_date)} (${calculateAge(patient.birth_date)} años)`} />
-              <InfoItem label="Sexo" value={patient.gender === 'M' ? 'Masculino' : patient.gender === 'F' ? 'Femenino' : 'Otro'} />
-              <InfoItem label="Tipo de Sangre" value={patient.blood_type || 'No registrado'} icon={<Droplets className="h-4 w-4 text-red-500" />} />
-              <InfoItem label="Teléfono" value={patient.phone || 'No registrado'} icon={<Phone className="h-4 w-4 text-gray-400" />} />
-              <InfoItem label="Email" value={patient.email || 'No registrado'} icon={<Mail className="h-4 w-4 text-gray-400" />} />
-              <InfoItem label="Dirección" value={patient.address || 'No registrado'} icon={<MapPin className="h-4 w-4 text-gray-400" />} />
-              <InfoItem label="Contacto de Emergencia" value={patient.emergency_contact_name || 'No registrado'} />
-              <InfoItem label="Tel. Emergencia" value={patient.emergency_contact_phone || 'No registrado'} />
+              <InfoItem label="Full Name" value={`${patient.first_name} ${patient.last_name}`} />
+              <InfoItem label="Date of Birth" value={`${formatDate(patient.birth_date)} (${calculateAge(patient.birth_date)} years)`} />
+              <InfoItem label="Sex" value={patient.gender === 'M' ? 'Male' : patient.gender === 'F' ? 'Female' : 'Other'} />
+              <InfoItem label="Blood Type" value={patient.blood_type || 'Not recorded'} icon={<Droplets className="h-4 w-4 text-red-500" />} />
+              <InfoItem label="Phone" value={patient.phone || 'Not recorded'} icon={<Phone className="h-4 w-4 text-gray-400" />} />
+              <InfoItem label="Email" value={patient.email || 'Not recorded'} icon={<Mail className="h-4 w-4 text-gray-400" />} />
+              <InfoItem label="Address" value={patient.address || 'Not recorded'} icon={<MapPin className="h-4 w-4 text-gray-400" />} />
+              <InfoItem label="Emergency Contact" value={patient.emergency_contact_name || 'Not recorded'} />
+              <InfoItem label="Emergency Phone" value={patient.emergency_contact_phone || 'Not recorded'} />
             </div>
           </CardContent>
         </Card>
@@ -126,13 +126,13 @@ export default function PatientDetailPage() {
             <LoadingSpinner />
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <HistoryCard title="Antecedentes Personales" content={medicalHistory?.personal} />
-              <HistoryCard title="Antecedentes Familiares" content={medicalHistory?.family} />
-              <HistoryCard title="Antecedentes Patológicos" content={medicalHistory?.pathological} />
-              <HistoryCard title="Antecedentes Quirúrgicos" content={medicalHistory?.surgical} />
-              <HistoryCard title="Antecedentes Traumáticos" content={medicalHistory?.traumatic} />
-              <HistoryCard title="Alergias" content={medicalHistory?.allergic} />
-              <HistoryCard title="Antecedentes Farmacológicos" content={medicalHistory?.pharmacological} />
+              <HistoryCard title="Personal History" content={medicalHistory?.personal} />
+              <HistoryCard title="Family History" content={medicalHistory?.family} />
+              <HistoryCard title="Pathological History" content={medicalHistory?.pathological} />
+              <HistoryCard title="Surgical History" content={medicalHistory?.surgical} />
+              <HistoryCard title="Traumatic History" content={medicalHistory?.traumatic} />
+              <HistoryCard title="Allergies" content={medicalHistory?.allergic} />
+              <HistoryCard title="Pharmacological History" content={medicalHistory?.pharmacological} />
             </div>
           )}
         </div>
@@ -141,7 +141,7 @@ export default function PatientDetailPage() {
       {activeTab === 'consultations' && (
         <Card variant="elevated">
           <CardHeader>
-            <CardTitle>Consultas Médicas</CardTitle>
+            <CardTitle>Medical Consultations</CardTitle>
           </CardHeader>
           <CardContent>
             {consultations?.data?.length ? (
@@ -155,7 +155,7 @@ export default function PatientDetailPage() {
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="font-medium text-gray-900">{c.chief_complaint}</p>
-                        <p className="text-sm text-gray-500">N° {c.consultation_number}</p>
+                        <p className="text-sm text-gray-500">No. {c.consultation_number}</p>
                       </div>
                       <div className="text-right">
                         <p className="text-sm text-gray-900">{formatDate(c.date)}</p>
@@ -166,7 +166,7 @@ export default function PatientDetailPage() {
                 ))}
               </div>
             ) : (
-              <EmptyState title="No hay consultas" description="Este paciente no tiene consultas registradas" />
+              <EmptyState title="No consultations" description="This patient has no recorded consultations" />
             )}
           </CardContent>
         </Card>
@@ -175,7 +175,7 @@ export default function PatientDetailPage() {
       {activeTab === 'prescriptions' && (
         <Card variant="elevated">
           <CardHeader>
-            <CardTitle>Recetas Médicas</CardTitle>
+            <CardTitle>Medical Prescriptions</CardTitle>
           </CardHeader>
           <CardContent>
             {prescriptions?.data?.length ? (
@@ -184,8 +184,8 @@ export default function PatientDetailPage() {
                   <div key={p.id} className="p-4 bg-gray-50 rounded-lg">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="font-medium text-gray-900">Receta {p.prescription_number}</p>
-                        <p className="text-sm text-gray-500">{p.items.length} medicamento(s)</p>
+                        <p className="font-medium text-gray-900">Prescription {p.prescription_number}</p>
+                        <p className="text-sm text-gray-500">{p.items.length} medication(s)</p>
                       </div>
                       <div className="text-right">
                         <p className="text-sm text-gray-900">{formatDate(p.issued_date)}</p>
@@ -196,7 +196,7 @@ export default function PatientDetailPage() {
                 ))}
               </div>
             ) : (
-              <EmptyState title="No hay recetas" description="Este paciente no tiene recetas registradas" />
+              <EmptyState title="No prescriptions" description="This patient has no recorded prescriptions" />
             )}
           </CardContent>
         </Card>
@@ -205,7 +205,7 @@ export default function PatientDetailPage() {
       {activeTab === 'lab' && (
         <Card variant="elevated">
           <CardHeader>
-            <CardTitle>Órdenes de Laboratorio</CardTitle>
+            <CardTitle>Laboratory Orders</CardTitle>
           </CardHeader>
           <CardContent>
             {labOrders?.data?.length ? (
@@ -214,8 +214,8 @@ export default function PatientDetailPage() {
                   <div key={order.id} className="p-4 bg-gray-50 rounded-lg">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="font-medium text-gray-900">Orden {order.order_number}</p>
-                        <p className="text-sm text-gray-500">{order.items.length} examen(es)</p>
+                        <p className="font-medium text-gray-900">Order {order.order_number}</p>
+                        <p className="text-sm text-gray-500">{order.items.length} test(s)</p>
                       </div>
                       <div className="text-right">
                         <p className="text-sm text-gray-900">{formatDate(order.created_at)}</p>
@@ -226,7 +226,7 @@ export default function PatientDetailPage() {
                 ))}
               </div>
             ) : (
-              <EmptyState title="No hay órdenes" description="Este paciente no tiene órdenes de laboratorio" />
+              <EmptyState title="No orders" description="This patient has no laboratory orders" />
             )}
           </CardContent>
         </Card>
@@ -235,7 +235,7 @@ export default function PatientDetailPage() {
       {activeTab === 'documents' && (
         <Card variant="elevated">
           <CardContent>
-            <EmptyState title="No hay documentos" description="Aún no se han subido documentos para este paciente" />
+            <EmptyState title="No documents" description="No documents have been uploaded for this patient yet" />
           </CardContent>
         </Card>
       )}
@@ -243,12 +243,12 @@ export default function PatientDetailPage() {
       {activeTab === 'insurance' && (
         <Card variant="elevated">
           <CardHeader>
-            <CardTitle>Información de Seguro</CardTitle>
+            <CardTitle>Insurance Information</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <InfoItem label="Proveedor" value={patient.insurance_provider || 'No registrado'} />
-              <InfoItem label="Número de Póliza" value={patient.insurance_number || 'No registrado'} />
+              <InfoItem label="Provider" value={patient.insurance_provider || 'Not recorded'} />
+              <InfoItem label="Policy Number" value={patient.insurance_number || 'Not recorded'} />
             </div>
           </CardContent>
         </Card>
@@ -258,15 +258,15 @@ export default function PatientDetailPage() {
         <Card variant="elevated">
           <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle>Alergias Conocidas</CardTitle>
-              <Button size="sm">Agregar Alergia</Button>
+              <CardTitle>Known Allergies</CardTitle>
+              <Button size="sm">Add Allergy</Button>
             </div>
           </CardHeader>
           <CardContent>
             {patient.allergies ? (
               <p className="text-gray-700 whitespace-pre-wrap">{patient.allergies}</p>
             ) : (
-              <EmptyState title="No hay alergias registradas" />
+              <EmptyState title="No allergies recorded" />
             )}
           </CardContent>
         </Card>
@@ -295,7 +295,7 @@ function HistoryCard({ title, content }: { title: string; content?: string }) {
       </CardHeader>
       <CardContent>
         <p className="text-sm text-gray-700 whitespace-pre-wrap">
-          {content || 'No registrado'}
+          {content || 'Not recorded'}
         </p>
       </CardContent>
     </Card>

@@ -44,11 +44,11 @@ export default function BedMapPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Mapa de Camas</h1>
-          <p className="text-sm text-gray-500">Visualización del estado de camas del hospital</p>
+          <h1 className="text-2xl font-bold text-gray-900">Bed Map</h1>
+          <p className="text-sm text-gray-500">View of hospital bed status</p>
         </div>
         <Button onClick={() => navigate('/hospitalization/list')}>
-          Ver Hospitalizados
+          View Hospitalized Patients
         </Button>
       </div>
 
@@ -63,25 +63,25 @@ export default function BedMapPage() {
         <Card variant="elevated" className="text-center">
           <CardContent className="py-4">
             <p className="text-2xl font-bold text-green-600">{stats.available}</p>
-            <p className="text-sm text-gray-500">Disponibles</p>
+            <p className="text-sm text-gray-500">Available</p>
           </CardContent>
         </Card>
         <Card variant="elevated" className="text-center">
           <CardContent className="py-4">
             <p className="text-2xl font-bold text-red-600">{stats.occupied}</p>
-            <p className="text-sm text-gray-500">Ocupadas</p>
+            <p className="text-sm text-gray-500">Occupied</p>
           </CardContent>
         </Card>
         <Card variant="elevated" className="text-center">
           <CardContent className="py-4">
             <p className="text-2xl font-bold text-yellow-600">{stats.reserved}</p>
-            <p className="text-sm text-gray-500">Reservadas</p>
+            <p className="text-sm text-gray-500">Reserved</p>
           </CardContent>
         </Card>
         <Card variant="elevated" className="text-center">
           <CardContent className="py-4">
             <p className="text-2xl font-bold text-gray-500">{stats.maintenance}</p>
-            <p className="text-sm text-gray-500">Mantenimiento</p>
+            <p className="text-sm text-gray-500">Maintenance</p>
           </CardContent>
         </Card>
       </div>
@@ -95,19 +95,19 @@ export default function BedMapPage() {
               onChange={(e) => setSelectedBuilding(e.target.value)}
               className="block w-full sm:w-48 rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             >
-              <option value="">Todos los edificios</option>
-              <option value="main">Edificio Principal</option>
-              <option value="annex">Anexo</option>
+              <option value="">All Buildings</option>
+              <option value="main">Main Building</option>
+              <option value="annex">Annex</option>
             </select>
             <select
               value={selectedFloor}
               onChange={(e) => setSelectedFloor(e.target.value)}
               className="block w-full sm:w-36 rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             >
-              <option value="">Todos los pisos</option>
-              <option value="1">Piso 1</option>
-              <option value="2">Piso 2</option>
-              <option value="3">Piso 3</option>
+              <option value="">All Floors</option>
+              <option value="1">Floor 1</option>
+              <option value="2">Floor 2</option>
+              <option value="3">Floor 3</option>
             </select>
           </div>
         </CardHeader>
@@ -118,7 +118,7 @@ export default function BedMapPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Bed className="h-5 w-5 text-primary-600" />
-            Planta - Piso 1
+            Floor Plan - Floor 1
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -141,19 +141,19 @@ export default function BedMapPage() {
           <div className="flex flex-wrap gap-4 mt-6 text-xs">
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 rounded bg-green-100 border-2 border-green-400"></div>
-              <span>Disponible</span>
+              <span>Available</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 rounded bg-red-100 border-2 border-red-400"></div>
-              <span>Ocupada</span>
+              <span>Occupied</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 rounded bg-yellow-100 border-2 border-yellow-400"></div>
-              <span>Reservada</span>
+              <span>Reserved</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 rounded bg-gray-200 border-2 border-gray-400"></div>
-              <span>Mantenimiento</span>
+              <span>Maintenance</span>
             </div>
           </div>
         </CardContent>
@@ -164,20 +164,20 @@ export default function BedMapPage() {
         <Card variant="elevated">
           <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle>Cama {selectedBed.number}</CardTitle>
+              <CardTitle>Bed {selectedBed.number}</CardTitle>
               <Button variant="ghost" size="sm" onClick={() => setSelectedBed(null)}>×</Button>
             </div>
           </CardHeader>
           <CardContent>
             <div className="flex items-center gap-4">
               <Badge variant={selectedBed.status === 'available' ? 'success' : selectedBed.status === 'occupied' ? 'danger' : selectedBed.status === 'reserved' ? 'warning' : 'default'}>
-                {selectedBed.status === 'available' ? 'Disponible' :
-                 selectedBed.status === 'occupied' ? 'Ocupada' :
-                 selectedBed.status === 'reserved' ? 'Reservada' : 'Mantenimiento'}
+                {selectedBed.status === 'available' ? 'Available' :
+                 selectedBed.status === 'occupied' ? 'Occupied' :
+                 selectedBed.status === 'reserved' ? 'Reserved' : 'Maintenance'}
               </Badge>
               {selectedBed.status === 'available' && (
                 <Button size="sm" onClick={() => navigate('/hospitalization/list')}>
-                  Hospitalizar Paciente
+                  Hospitalize Patient
                 </Button>
               )}
             </div>
@@ -189,19 +189,19 @@ export default function BedMapPage() {
       <div className="flex flex-wrap gap-4 text-xs text-gray-600">
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 rounded bg-green-200 border-2 border-green-500"></div>
-          <span>18 Disponibles</span>
+          <span>18 Available</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 rounded bg-red-200 border-2 border-red-500"></div>
-          <span>25 Ocupadas</span>
+          <span>25 Occupied</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 rounded bg-yellow-200 border-2 border-yellow-500"></div>
-          <span>4 Reservadas</span>
+          <span>4 Reserved</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 rounded bg-gray-300 border-2 border-gray-500"></div>
-          <span>3 Mantenimiento</span>
+          <span>3 in Maintenance</span>
         </div>
       </div>
     </div>

@@ -19,7 +19,7 @@ export default function MedicalRecordListPage() {
   const columns = [
     {
       key: 'record_number',
-      header: 'N° Registro',
+      header: 'Record No.',
       sortable: true,
       render: (item: MedicalRecord) => (
         <span className="font-mono text-primary-700">{item.record_number}</span>
@@ -27,7 +27,7 @@ export default function MedicalRecordListPage() {
     },
     {
       key: 'patient',
-      header: 'Paciente',
+      header: 'Patient',
       render: (item: MedicalRecord) => (
         <div>
           <p className="font-medium text-gray-900">
@@ -39,12 +39,12 @@ export default function MedicalRecordListPage() {
     },
     {
       key: 'status',
-      header: 'Estado',
+      header: 'Status',
       render: (item: MedicalRecord) => <StatusBadge status={item.status} />,
     },
     {
       key: 'created_at',
-      header: 'Fecha Creación',
+      header: 'Creation Date',
       sortable: true,
       render: (item: MedicalRecord) => formatDate(item.created_at),
     },
@@ -54,11 +54,11 @@ export default function MedicalRecordListPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Historiales Clínicos</h1>
-          <p className="text-sm text-gray-500">Gestión de historiales clínicos de pacientes</p>
+          <h1 className="text-2xl font-bold text-gray-900">Medical Records</h1>
+          <p className="text-sm text-gray-500">Manage patient medical records</p>
         </div>
         <Button leftIcon={<Plus className="h-4 w-4" />} onClick={() => navigate('/clinical/records/create')}>
-          Nuevo Historial
+          New Record
         </Button>
       </div>
 
@@ -67,7 +67,7 @@ export default function MedicalRecordListPage() {
           columns={columns}
           data={data?.data || []}
           isLoading={isLoading}
-          searchPlaceholder="Buscar por número o paciente..."
+          searchPlaceholder="Search by number or patient..."
           searchValue={search}
           onSearch={setSearch}
           onRowClick={(item) => navigate(`/clinical/records/${item.id}`)}
@@ -78,8 +78,8 @@ export default function MedicalRecordListPage() {
             total: data.meta.total,
             onPageChange: setPage,
           } : undefined}
-          emptyTitle="No hay historiales"
-          emptyDescription="No se encontraron historiales clínicos"
+          emptyTitle="No records"
+          emptyDescription="No medical records found"
         />
       </Card>
     </div>

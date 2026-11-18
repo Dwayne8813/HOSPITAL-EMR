@@ -24,7 +24,7 @@ export default function PrescriptionListPage() {
   const columns = [
     {
       key: 'prescription_number',
-      header: 'N° Receta',
+      header: 'Prescription No.',
       sortable: true,
       render: (item: Prescription) => (
         <span className="font-mono text-primary-700">{item.prescription_number}</span>
@@ -32,7 +32,7 @@ export default function PrescriptionListPage() {
     },
     {
       key: 'patient',
-      header: 'Paciente',
+      header: 'Patient',
       render: (item: Prescription) => (
         <div>
           <p className="font-medium text-gray-900">
@@ -43,27 +43,27 @@ export default function PrescriptionListPage() {
     },
     {
       key: 'doctor',
-      header: 'Médico',
+      header: 'Doctor',
       render: (item: Prescription) => (
         <span>Dr. {item.doctor?.first_name} {item.doctor?.last_name}</span>
       ),
     },
     {
       key: 'items',
-      header: 'Medicamentos',
+      header: 'Medications',
       render: (item: Prescription) => (
-        <span>{item.items.length} medicamento(s)</span>
+        <span>{item.items.length} medication(s)</span>
       ),
     },
     {
       key: 'issued_date',
-      header: 'Fecha Emisión',
+      header: 'Issue Date',
       sortable: true,
       render: (item: Prescription) => formatDate(item.issued_date),
     },
     {
       key: 'status',
-      header: 'Estado',
+      header: 'Status',
       render: (item: Prescription) => <StatusBadge status={item.status} />,
     },
     {
@@ -73,7 +73,7 @@ export default function PrescriptionListPage() {
         <button
           onClick={(e) => { e.stopPropagation(); window.open(`/prescriptions/${item.id}/print`, '_blank') }}
           className="text-gray-400 hover:text-primary-600 transition-colors"
-          title="Imprimir receta"
+          title="Print prescription"
         >
           <Printer className="h-4 w-4" />
         </button>
@@ -85,11 +85,11 @@ export default function PrescriptionListPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Recetas Médicas</h1>
-          <p className="text-sm text-gray-500">Gestión de prescripciones médicas</p>
+          <h1 className="text-2xl font-bold text-gray-900">Prescriptions</h1>
+          <p className="text-sm text-gray-500">Medical prescription management</p>
         </div>
         <Button leftIcon={<Plus className="h-4 w-4" />} onClick={() => navigate('/prescriptions/create')}>
-          Nueva Receta
+          New Prescription
         </Button>
       </div>
 
@@ -99,7 +99,7 @@ export default function PrescriptionListPage() {
             <div className="flex-1">
               <input
                 type="text"
-                placeholder="Buscar por número o paciente..."
+                placeholder="Search by number or patient..."
                 value={search}
                 onChange={(e) => { setSearch(e.target.value); setPage(1) }}
                 className="block w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
@@ -110,11 +110,11 @@ export default function PrescriptionListPage() {
               onChange={(e) => { setStatusFilter(e.target.value); setPage(1) }}
               className="block w-full sm:w-40 rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             >
-              <option value="">Todos los estados</option>
-              <option value="active">Activas</option>
-              <option value="dispensed">Despachadas</option>
-              <option value="cancelled">Canceladas</option>
-              <option value="expired">Vencidas</option>
+              <option value="">All statuses</option>
+              <option value="active">Active</option>
+              <option value="dispensed">Dispensed</option>
+              <option value="cancelled">Cancelled</option>
+              <option value="expired">Expired</option>
             </select>
           </div>
         </CardHeader>
@@ -130,8 +130,8 @@ export default function PrescriptionListPage() {
             total: data.meta.total,
             onPageChange: setPage,
           } : undefined}
-          emptyTitle="No hay recetas"
-          emptyDescription="No se encontraron recetas médicas"
+          emptyTitle="No prescriptions"
+          emptyDescription="No prescriptions found"
         />
       </Card>
     </div>

@@ -64,14 +64,14 @@ export default function ReportsPage() {
   if (isLoadingMap[reportType]) return <PageLoadingSpinner />
 
   const reportTypes = [
-    { id: 'general', label: 'Reporte General', icon: BarChart3, description: 'Resumen general de la institución' },
-    { id: 'revenue', label: 'Ingresos', icon: DollarSign, description: 'Detallado de ingresos por período' },
-    { id: 'appointments', label: 'Citas', icon: Calendar, description: 'Estadísticas de citas médicas' },
-    { id: 'patients', label: 'Pacientes', icon: Users, description: 'Registro de pacientes' },
-    { id: 'diagnoses', label: 'Diagnósticos', icon: PieChart, description: 'Diagnósticos más frecuentes' },
-    { id: 'lab', label: 'Laboratorio', icon: Activity, description: 'Órdenes y resultados de laboratorio' },
-    { id: 'pharmacy', label: 'Farmacia', icon: Pill, description: 'Inventario y dispensación' },
-    { id: 'hospitalization', label: 'Hospitalización', icon: Building, description: 'Internamientos y egresos' },
+    { id: 'general', label: 'General Report', icon: BarChart3, description: 'General institution summary' },
+    { id: 'revenue', label: 'Income', icon: DollarSign, description: 'Income details by period' },
+    { id: 'appointments', label: 'Appointments', icon: Calendar, description: 'Medical appointment statistics' },
+    { id: 'patients', label: 'Patients', icon: Users, description: 'Patient records' },
+    { id: 'diagnoses', label: 'Diagnoses', icon: PieChart, description: 'Most frequent diagnoses' },
+    { id: 'lab', label: 'Laboratory', icon: Activity, description: 'Lab orders and results' },
+    { id: 'pharmacy', label: 'Pharmacy', icon: Pill, description: 'Inventory and dispensing' },
+    { id: 'hospitalization', label: 'Hospitalization', icon: Building, description: 'Admissions and discharges' },
   ]
 
   const handleExport = (type: 'excel' | 'pdf') => {
@@ -99,8 +99,8 @@ export default function ReportsPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Reportes</h1>
-          <p className="text-sm text-gray-500">Generación de reportes y estadísticas</p>
+          <h1 className="text-2xl font-bold text-gray-900">Reports</h1>
+          <p className="text-sm text-gray-500">Report and statistics generation</p>
         </div>
       </div>
 
@@ -132,7 +132,7 @@ export default function ReportsPage() {
       <Card variant="elevated">
         <CardHeader>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <CardTitle>Filtros del Reporte</CardTitle>
+            <CardTitle>Report Filters</CardTitle>
             <div className="flex gap-2">
               <Button
                 variant="outline"
@@ -140,7 +140,7 @@ export default function ReportsPage() {
                 leftIcon={<Download className="h-4 w-4" />}
                 onClick={() => handleExport('excel')}
               >
-                Exportar Excel
+                Export Excel
               </Button>
               <Button
                 variant="outline"
@@ -148,7 +148,7 @@ export default function ReportsPage() {
                 leftIcon={<Download className="h-4 w-4" />}
                 onClick={() => handleExport('pdf')}
               >
-                Exportar PDF
+                Export PDF
               </Button>
             </div>
           </div>
@@ -156,7 +156,7 @@ export default function ReportsPage() {
         <CardContent>
           <div className="flex flex-col sm:flex-row gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Fecha Inicio</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">Start Date</label>
               <input
                 type="date"
                 value={dateFrom}
@@ -165,7 +165,7 @@ export default function ReportsPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Fecha Fin</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">End Date</label>
               <input
                 type="date"
                 value={dateTo}
@@ -185,9 +185,9 @@ export default function ReportsPage() {
               <div className="flex items-center gap-3">
                 <Users className="h-10 w-10 text-blue-500" />
                 <div>
-                  <p className="text-sm text-gray-500">Total Pacientes</p>
+                  <p className="text-sm text-gray-500">Total Patients</p>
                   <p className="text-2xl font-bold">{dashboardData.patients.total}</p>
-                  <p className="text-xs text-green-600">+{dashboardData.patients.new_this_month} este mes</p>
+                  <p className="text-xs text-green-600">+{dashboardData.patients.new_this_month} this month</p>
                 </div>
               </div>
             </CardContent>
@@ -197,9 +197,9 @@ export default function ReportsPage() {
               <div className="flex items-center gap-3">
                 <Calendar className="h-10 w-10 text-primary-500" />
                 <div>
-                  <p className="text-sm text-gray-500">Citas Hoy</p>
+                  <p className="text-sm text-gray-500">Appointments Today</p>
                   <p className="text-2xl font-bold">{dashboardData.appointments.today_total}</p>
-                  <p className="text-xs text-green-600">{dashboardData.appointments.today_completed} completadas</p>
+                  <p className="text-xs text-green-600">{dashboardData.appointments.today_completed} completed</p>
                 </div>
               </div>
             </CardContent>
@@ -209,7 +209,7 @@ export default function ReportsPage() {
               <div className="flex items-center gap-3">
                 <DollarSign className="h-10 w-10 text-green-500" />
                 <div>
-                  <p className="text-sm text-gray-500">Ingresos Mes</p>
+                  <p className="text-sm text-gray-500">Monthly Income</p>
                   <p className="text-2xl font-bold">{formatCurrency(dashboardData.revenue.this_month)}</p>
                 </div>
               </div>
@@ -220,7 +220,7 @@ export default function ReportsPage() {
               <div className="flex items-center gap-3">
                 <Activity className="h-10 w-10 text-red-500" />
                 <div>
-                  <p className="text-sm text-gray-500">Emergencias Espera</p>
+                  <p className="text-sm text-gray-500">Emergency Wait</p>
                   <p className="text-2xl font-bold">{dashboardData.emergencies.waiting}</p>
                 </div>
               </div>
@@ -235,21 +235,21 @@ export default function ReportsPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <TrendingUp className="h-5 w-5 text-primary-600" />
-                Resumen de Ingresos
+                Income Summary
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Total Recaudado</span>
+                  <span className="text-gray-600">Total Collected</span>
                   <span className="font-bold text-green-600">{formatCurrency(revenueData.total_collected)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Pendiente de Cobro</span>
+                  <span className="text-gray-600">Pending Collection</span>
                   <span className="font-bold text-yellow-600">{formatCurrency(revenueData.total_pending)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Ingresos Totales</span>
+                  <span className="text-gray-600">Total Income</span>
                   <span className="font-bold">{formatCurrency(revenueData.total_revenue)}</span>
                 </div>
               </div>
@@ -259,7 +259,7 @@ export default function ReportsPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <DollarSign className="h-5 w-5 text-primary-600" />
-                Por Método de Pago
+                By Payment Method
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -282,7 +282,7 @@ export default function ReportsPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Calendar className="h-5 w-5 text-primary-600" />
-                Resumen de Citas
+                Appointment Summary
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -292,15 +292,15 @@ export default function ReportsPage() {
                   <span className="font-bold">{appointmentData.total_appointments}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Completadas</span>
+                  <span className="text-gray-600">Completed</span>
                   <span className="font-bold text-green-600">{appointmentData.completed}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Canceladas</span>
+                  <span className="text-gray-600">Cancelled</span>
                   <span className="font-bold text-red-600">{appointmentData.cancelled}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">No Asistió</span>
+                  <span className="text-gray-600">No Show</span>
                   <span className="font-bold text-yellow-600">{appointmentData.no_show}</span>
                 </div>
               </div>
@@ -310,7 +310,7 @@ export default function ReportsPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Stethoscope className="h-5 w-5 text-primary-600" />
-                Por Especialidad
+                By Specialty
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -322,7 +322,7 @@ export default function ReportsPage() {
                   </div>
                 ))}
                 {(!appointmentData.by_specialty || appointmentData.by_specialty.length === 0) && (
-                  <p className="text-gray-400 text-sm">Sin datos disponibles</p>
+                  <p className="text-gray-400 text-sm">No data available</p>
                 )}
               </div>
             </CardContent>
@@ -336,17 +336,17 @@ export default function ReportsPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Users className="h-5 w-5 text-primary-600" />
-                Resumen de Pacientes
+                Patient Summary
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Total Pacientes</span>
+                  <span className="text-gray-600">Total Patients</span>
                   <span className="font-bold">{patientData.total_patients}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Nuevos en Período</span>
+                  <span className="text-gray-600">New in Period</span>
                   <span className="font-bold text-green-600">{patientData.new_patients_period}</span>
                 </div>
               </div>
@@ -356,14 +356,14 @@ export default function ReportsPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <PieChart className="h-5 w-5 text-primary-600" />
-                Por Género
+                By Gender
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
                 {patientData.by_gender?.map((item) => (
                   <div key={item.gender} className="flex justify-between">
-                    <span className="text-gray-600 capitalize">{item.gender === 'M' ? 'Masculino' : item.gender === 'F' ? 'Femenino' : 'Otro'}</span>
+                    <span className="text-gray-600 capitalize">{item.gender === 'M' ? 'Male' : item.gender === 'F' ? 'Female' : 'Other'}</span>
                     <span className="font-medium">{item.count}</span>
                   </div>
                 ))}
@@ -378,7 +378,7 @@ export default function ReportsPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <PieChart className="h-5 w-5 text-primary-600" />
-              Diagnósticos Más Frecuentes
+              Most Frequent Diagnoses
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -396,7 +396,7 @@ export default function ReportsPage() {
                 </div>
               ))}
               {(!diagnosisData.top_diagnoses || diagnosisData.top_diagnoses.length === 0) && (
-                <p className="text-gray-400 text-sm">Sin datos disponibles</p>
+                <p className="text-gray-400 text-sm">No data available</p>
               )}
             </div>
           </CardContent>
@@ -409,25 +409,25 @@ export default function ReportsPage() {
             <CardContent className="py-4 text-center">
               <Activity className="h-8 w-8 mx-auto mb-2 text-blue-500" />
               <p className="text-2xl font-bold">{labData.total_orders}</p>
-              <p className="text-sm text-gray-500">Órdenes Totales</p>
+              <p className="text-sm text-gray-500">Total Orders</p>
             </CardContent>
           </Card>
           <Card variant="elevated">
             <CardContent className="py-4 text-center">
               <p className="text-2xl font-bold text-green-600">{labData.completed}</p>
-              <p className="text-sm text-gray-500">Completadas</p>
+              <p className="text-sm text-gray-500">Completed</p>
             </CardContent>
           </Card>
           <Card variant="elevated">
             <CardContent className="py-4 text-center">
               <p className="text-2xl font-bold text-yellow-600">{labData.pending}</p>
-              <p className="text-sm text-gray-500">Pendientes</p>
+              <p className="text-sm text-gray-500">Pending</p>
             </CardContent>
           </Card>
           <Card variant="elevated">
             <CardContent className="py-4 text-center">
               <p className="text-2xl font-bold text-blue-600">{labData.in_progress}</p>
-              <p className="text-sm text-gray-500">En Proceso</p>
+              <p className="text-sm text-gray-500">In Progress</p>
             </CardContent>
           </Card>
         </div>
@@ -439,25 +439,25 @@ export default function ReportsPage() {
             <CardContent className="py-4 text-center">
               <Pill className="h-8 w-8 mx-auto mb-2 text-primary-500" />
               <p className="text-2xl font-bold">{pharmacyData.total_medications}</p>
-              <p className="text-sm text-gray-500">Medicamentos</p>
+              <p className="text-sm text-gray-500">Medications</p>
             </CardContent>
           </Card>
           <Card variant="elevated">
             <CardContent className="py-4 text-center">
               <p className="text-2xl font-bold text-yellow-600">{pharmacyData.low_stock}</p>
-              <p className="text-sm text-gray-500">Stock Bajo</p>
+              <p className="text-sm text-gray-500">Low Stock</p>
             </CardContent>
           </Card>
           <Card variant="elevated">
             <CardContent className="py-4 text-center">
               <p className="text-2xl font-bold text-red-600">{pharmacyData.expiring_soon}</p>
-              <p className="text-sm text-gray-500">Por Vencer</p>
+              <p className="text-sm text-gray-500">Expiring Soon</p>
             </CardContent>
           </Card>
           <Card variant="elevated">
             <CardContent className="py-4 text-center">
               <p className="text-2xl font-bold">{pharmacyData.total_dispensations}</p>
-              <p className="text-sm text-gray-500">Dispensaciones</p>
+              <p className="text-sm text-gray-500">Dispensations</p>
             </CardContent>
           </Card>
         </div>
@@ -475,19 +475,19 @@ export default function ReportsPage() {
           <Card variant="elevated">
             <CardContent className="py-4 text-center">
               <p className="text-2xl font-bold text-blue-600">{hospitalizationData.active}</p>
-              <p className="text-sm text-gray-500">Activos</p>
+              <p className="text-sm text-gray-500">Active</p>
             </CardContent>
           </Card>
           <Card variant="elevated">
             <CardContent className="py-4 text-center">
               <p className="text-2xl font-bold text-green-600">{hospitalizationData.discharged}</p>
-              <p className="text-sm text-gray-500">Egresados</p>
+              <p className="text-sm text-gray-500">Discharged</p>
             </CardContent>
           </Card>
           <Card variant="elevated">
             <CardContent className="py-4 text-center">
               <p className="text-2xl font-bold">{hospitalizationData.average_stay_days}</p>
-              <p className="text-sm text-gray-500">Días Promedio</p>
+              <p className="text-sm text-gray-500">Average Days</p>
             </CardContent>
           </Card>
         </div>

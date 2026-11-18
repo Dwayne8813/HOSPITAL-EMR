@@ -37,10 +37,10 @@ export default function InventoryCreatePage() {
         </Button>
         <div>
           <h1 className="text-2xl font-bold text-gray-900">
-            {id ? 'Editar Ítem' : 'Nuevo Ítem de Inventario'}
+            {id ? 'Edit Item' : 'New Inventory Item'}
           </h1>
           <p className="text-sm text-gray-500">
-            {id ? 'Actualizar datos del ítem' : 'Registrar nuevo ítem en inventario'}
+            {id ? 'Update item details' : 'Register new item in inventory'}
           </p>
         </div>
       </div>
@@ -49,38 +49,38 @@ export default function InventoryCreatePage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Package className="h-5 w-5 text-primary-600" />
-            Información del Ítem
+            Item Information
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <Input label="Nombre" required value={formData.name} onChange={(e) => updateField('name', e.target.value)} />
+            <Input label="Name" required value={formData.name} onChange={(e) => updateField('name', e.target.value)} />
             <Select
-              label="Categoría"
+              label="Category"
               required
               options={[
-                { value: 'medical', label: 'Material Médico' },
-                { value: 'surgical', label: 'Material Quirúrgico' },
-                { value: 'office', label: 'Material de Oficina' },
-                { value: 'cleaning', label: 'Limpieza' },
-                { value: 'other', label: 'Otros' },
+                { value: 'medical', label: 'Medical Supplies' },
+                { value: 'surgical', label: 'Surgical Supplies' },
+                { value: 'office', label: 'Office Supplies' },
+                { value: 'cleaning', label: 'Cleaning' },
+                { value: 'other', label: 'Other' },
               ]}
               value={formData.category}
               onChange={(e) => updateField('category', e.target.value)}
             />
-            <Input label="Unidad" required placeholder="ej: Unidades, Cajas" value={formData.unit} onChange={(e) => updateField('unit', e.target.value)} />
-            <Input label="Cantidad" type="number" min={0} value={formData.quantity} onChange={(e) => updateField('quantity', parseInt(e.target.value) || 0)} />
-            <Input label="Cantidad Mínima" type="number" min={0} value={formData.min_quantity} onChange={(e) => updateField('min_quantity', parseInt(e.target.value) || 0)} />
-            <Input label="Ubicación" value={formData.location} onChange={(e) => updateField('location', e.target.value)} />
-            <Input label="Costo Unitario" type="number" step="0.01" min={0} value={formData.cost} onChange={(e) => updateField('cost', parseFloat(e.target.value) || 0)} />
+            <Input label="Unit" required placeholder="e.g., Units, Boxes" value={formData.unit} onChange={(e) => updateField('unit', e.target.value)} />
+            <Input label="Quantity" type="number" min={0} value={formData.quantity} onChange={(e) => updateField('quantity', parseInt(e.target.value) || 0)} />
+            <Input label="Minimum Quantity" type="number" min={0} value={formData.min_quantity} onChange={(e) => updateField('min_quantity', parseInt(e.target.value) || 0)} />
+            <Input label="Location" value={formData.location} onChange={(e) => updateField('location', e.target.value)} />
+            <Input label="Unit Cost" type="number" step="0.01" min={0} value={formData.cost} onChange={(e) => updateField('cost', parseFloat(e.target.value) || 0)} />
           </div>
         </CardContent>
       </Card>
 
       <div className="flex justify-end gap-3">
-        <Button variant="outline" onClick={() => navigate(-1)}>Cancelar</Button>
+        <Button variant="outline" onClick={() => navigate(-1)}>Cancel</Button>
         <Button leftIcon={<Save className="h-4 w-4" />} onClick={handleSave}>
-          {id ? 'Guardar Cambios' : 'Crear Ítem'}
+          {id ? 'Save Changes' : 'Create Item'}
         </Button>
       </div>
     </div>

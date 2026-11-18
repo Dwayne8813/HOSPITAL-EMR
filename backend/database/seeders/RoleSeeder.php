@@ -13,9 +13,9 @@ class RoleSeeder extends Seeder
 
         $roles = [
             [
-                'name' => 'Super Administrador',
+                'name' => 'Super Administrator',
                 'slug' => 'super_admin',
-                'description' => 'Acceso total al sistema, gestión de instituciones y configuración global',
+                'description' => 'Full system access, institution management, and global settings',
                 'permissions_json' => json_encode([
                     'patients' => ['view', 'create', 'update', 'delete'],
                     'medical_records' => ['view', 'create', 'update', 'delete'],
@@ -39,9 +39,9 @@ class RoleSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Administrador de Institución',
+                'name' => 'Institution Administrator',
                 'slug' => 'institution_admin',
-                'description' => 'Gestión administrativa de la institución hospitalaria',
+                'description' => 'Administrative management of the hospital institution',
                 'permissions_json' => json_encode([
                     'patients' => ['view', 'create', 'update', 'delete'],
                     'medical_records' => ['view', 'create', 'update', 'delete'],
@@ -65,9 +65,9 @@ class RoleSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Director Médico',
+                'name' => 'Medical Director',
                 'slug' => 'medical_director',
-                'description' => 'Supervisión médica y toma de decisiones clínicas',
+                'description' => 'Medical supervision and clinical decision-making',
                 'permissions_json' => json_encode([
                     'patients' => ['view', 'create', 'update'],
                     'medical_records' => ['view', 'create', 'update'],
@@ -88,9 +88,9 @@ class RoleSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Médico',
+                'name' => 'Doctor',
                 'slug' => 'doctor',
-                'description' => 'Atención médica, diagnóstico y tratamiento de pacientes',
+                'description' => 'Patient care, diagnosis, and treatment',
                 'permissions_json' => json_encode([
                     'patients' => ['view', 'create', 'update'],
                     'medical_records' => ['view', 'create', 'update'],
@@ -109,9 +109,9 @@ class RoleSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Enfermera/o',
+                'name' => 'Nurse',
                 'slug' => 'nurse',
-                'description' => 'Cuidados de enfermería y atención al paciente',
+                'description' => 'Nursing care and patient attention',
                 'permissions_json' => json_encode([
                     'patients' => ['view', 'create', 'update'],
                     'medical_records' => ['view', 'create', 'update'],
@@ -128,9 +128,9 @@ class RoleSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Recepcionista',
+                'name' => 'Receptionist',
                 'slug' => 'receptionist',
-                'description' => 'Gestión de citas, recepción de pacientes y atención al público',
+                'description' => 'Appointment management, patient reception, and front-desk service',
                 'permissions_json' => json_encode([
                     'patients' => ['view', 'create', 'update'],
                     'appointments' => ['view', 'create', 'update', 'confirm', 'cancel'],
@@ -143,9 +143,9 @@ class RoleSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Farmacéutico/a',
+                'name' => 'Pharmacist',
                 'slug' => 'pharmacist',
-                'description' => 'Gestión de medicamentos y dispensación',
+                'description' => 'Medication management and dispensing',
                 'permissions_json' => json_encode([
                     'patients' => ['view'],
                     'prescriptions' => ['view', 'create', 'update', 'dispense'],
@@ -159,9 +159,9 @@ class RoleSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Laboratorio',
+                'name' => 'Laboratory',
                 'slug' => 'laboratory',
-                'description' => 'Gestión de análisis clínicos y resultados de laboratorio',
+                'description' => 'Clinical analysis and lab result management',
                 'permissions_json' => json_encode([
                     'patients' => ['view'],
                     'laboratory' => ['view', 'create', 'update', 'validate'],
@@ -174,9 +174,9 @@ class RoleSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Radiólogo/a',
+                'name' => 'Radiologist',
                 'slug' => 'radiologist',
-                'description' => 'Interpretación de estudios de imagen',
+                'description' => 'Interpretation of imaging studies',
                 'permissions_json' => json_encode([
                     'patients' => ['view'],
                     'laboratory' => ['view', 'create', 'update', 'validate'],
@@ -189,9 +189,9 @@ class RoleSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Contador/a',
+                'name' => 'Accountant',
                 'slug' => 'accountant',
-                'description' => 'Gestión contable y facturación',
+                'description' => 'Accounting and billing management',
                 'permissions_json' => json_encode([
                     'patients' => ['view'],
                     'billing' => ['view', 'create', 'update', 'payment'],
@@ -204,9 +204,9 @@ class RoleSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Paciente',
+                'name' => 'Patient',
                 'slug' => 'patient',
-                'description' => 'Acceso a información personal médica',
+                'description' => 'Access to personal medical information',
                 'permissions_json' => json_encode([
                     'patients' => ['view'],
                     'appointments' => ['view'],

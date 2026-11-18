@@ -25,16 +25,16 @@ export default function InventoryListPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Inventario</h1>
-          <p className="text-sm text-gray-500">Gestión de inventario general</p>
+          <h1 className="text-2xl font-bold text-gray-900">Inventory</h1>
+          <p className="text-sm text-gray-500">General inventory management</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={() => navigate('/inventory/movements')}>
             <ArrowUpDown className="h-4 w-4 mr-2" />
-            Movimientos
+            Movements
           </Button>
           <Button leftIcon={<Plus className="h-4 w-4" />} onClick={() => navigate('/inventory/create')}>
-            Nuevo Ítem
+            New Item
           </Button>
         </div>
       </div>
@@ -43,12 +43,12 @@ export default function InventoryListPage() {
         <CardContent>
           {items.length === 0 ? (
             <EmptyState
-              title="No hay ítems en inventario"
-              description="Registre ítems para comenzar a gestionar el inventario"
+              title="No items in inventory"
+              description="Register items to start managing inventory"
               icon={<Package className="h-8 w-8 text-gray-400" />}
               action={
                 <Button leftIcon={<Plus className="h-4 w-4" />} onClick={() => navigate('/inventory/create')}>
-                  Registrar Ítem
+                  Register Item
                 </Button>
               }
             />
@@ -66,7 +66,7 @@ export default function InventoryListPage() {
                         {item.quantity} {item.unit}
                       </p>
                       {item.quantity <= item.min_quantity && (
-                        <Badge variant="warning">Stock Bajo</Badge>
+                        <Badge variant="warning">Low Stock</Badge>
                       )}
                     </div>
                   </div>

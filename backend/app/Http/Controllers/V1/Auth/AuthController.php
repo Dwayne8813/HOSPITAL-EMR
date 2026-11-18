@@ -26,21 +26,21 @@ class AuthController extends Controller
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
                 'success' => false,
-                'message' => 'Credenciales incorrectas.',
+                'message' => 'Invalid credentials.',
             ], 401);
         }
 
         if (!$user->is_active) {
             return response()->json([
                 'success' => false,
-                'message' => 'Cuenta desactivada. Contacte al administrador.',
+                'message' => 'Account deactivated. Please contact your administrator.',
             ], 403);
         }
 
         if ($user->locked_until && now()->lt($user->locked_until)) {
             return response()->json([
                 'success' => false,
-                'message' => 'Cuenta bloqueada. Intente más tarde.',
+                'message' => 'Account locked. Please try again later.',
             ], 403);
         }
 
@@ -69,7 +69,7 @@ class AuthController extends Controller
                     'is_active' => $user->is_active,
                 ],
             ],
-            'message' => 'Inicio de sesión exitoso.',
+            'message' => 'Sign in successful.',
         ], 200);
     }
 
@@ -83,7 +83,7 @@ class AuthController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Sesión cerrada exitosamente.',
+            'message' => 'Signed out successfully.',
         ], 200);
     }
 
@@ -100,12 +100,12 @@ class AuthController extends Controller
                     'token_type' => 'bearer',
                     'expires_in' => config('jwt.ttl') * 60,
                 ],
-                'message' => 'Token renovado exitosamente.',
+                'message' => 'Token refreshed successfully.',
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error al renovar token.',
+                'message' => 'Error refreshing token.',
             ], 401);
         }
     }
@@ -135,7 +135,7 @@ class AuthController extends Controller
                 'access_token' => $token,
                 'user' => $user,
             ],
-            'message' => 'Registro exitoso.',
+            'message' => 'Registration successful.',
         ], 201);
     }
 
@@ -157,7 +157,7 @@ class AuthController extends Controller
                 'last_login' => $user->last_login,
                 'created_at' => $user->created_at,
             ],
-            'message' => 'Perfil obtenido.',
+            'message' => 'Profile retrieved.',
         ], 200);
     }
 
@@ -173,7 +173,7 @@ class AuthController extends Controller
         if (!Hash::check($request->old_password, $user->password)) {
             return response()->json([
                 'success' => false,
-                'message' => 'Contraseña actual incorrecta.',
+                'message' => 'Current password is incorrect.',
             ], 422);
         }
 
@@ -183,7 +183,7 @@ class AuthController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Contraseña actualizada exitosamente.',
+            'message' => 'Password updated successfully.',
         ], 200);
     }
 
@@ -203,7 +203,7 @@ class AuthController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Si el correo existe, recibirá un enlace de recuperación.',
+            'message' => 'If the email exists, you will receive a recovery link.',
         ], 200);
     }
 
@@ -222,7 +222,7 @@ class AuthController extends Controller
         if (!$reset || !Hash::check($request->token, $reset->token)) {
             return response()->json([
                 'success' => false,
-                'message' => 'Token inválido o expirado.',
+                'message' => 'Invalid or expired token.',
             ], 422);
         }
 
@@ -235,7 +235,7 @@ class AuthController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Contraseña restablecida exitosamente.',
+            'message' => 'Password reset successfully.',
         ], 200);
     }
 
@@ -244,7 +244,7 @@ class AuthController extends Controller
         return response()->json([
             'success' => true,
             'data' => null,
-            'message' => 'MFA no disponible en esta versión.',
+            'message' => 'MFA not available in this version.',
         ], 200);
     }
 
@@ -253,7 +253,7 @@ class AuthController extends Controller
         return response()->json([
             'success' => true,
             'data' => null,
-            'message' => 'MFA no disponible en esta versión.',
+            'message' => 'MFA not available in this version.',
         ], 200);
     }
 }

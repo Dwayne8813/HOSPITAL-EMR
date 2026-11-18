@@ -23,7 +23,7 @@ export default function InvoiceListPage() {
   const columns = [
     {
       key: 'invoice_number',
-      header: 'N° Factura',
+      header: 'Invoice No.',
       sortable: true,
       render: (item: Invoice) => (
         <span className="font-mono text-primary-700">{item.invoice_number}</span>
@@ -31,7 +31,7 @@ export default function InvoiceListPage() {
     },
     {
       key: 'patient',
-      header: 'Paciente',
+      header: 'Patient',
       render: (item: Invoice) => (
         <p className="font-medium text-gray-900">
           {item.patient?.first_name} {item.patient?.last_name}
@@ -40,7 +40,7 @@ export default function InvoiceListPage() {
     },
     {
       key: 'invoice_date',
-      header: 'Fecha Emisión',
+      header: 'Issue Date',
       sortable: true,
       render: (item: Invoice) => formatDate(item.invoice_date),
     },
@@ -53,7 +53,7 @@ export default function InvoiceListPage() {
     },
     {
       key: 'payment_status',
-      header: 'Estado',
+      header: 'Status',
       render: (item: Invoice) => <StatusBadge status={item.payment_status} />,
     },
   ]
@@ -62,16 +62,16 @@ export default function InvoiceListPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Facturas</h1>
-          <p className="text-sm text-gray-500">Gestión de facturación</p>
+          <h1 className="text-2xl font-bold text-gray-900">Invoices</h1>
+          <p className="text-sm text-gray-500">Invoice management</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={() => navigate('/billing/payments')}>
             <CreditCard className="h-4 w-4 mr-2" />
-            Pagos
+            Payments
           </Button>
           <Button leftIcon={<Plus className="h-4 w-4" />} onClick={() => navigate('/billing/invoices/create')}>
-            Nueva Factura
+            New Invoice
           </Button>
         </div>
       </div>
@@ -83,11 +83,11 @@ export default function InvoiceListPage() {
             onChange={(e) => { setStatusFilter(e.target.value); setPage(1) }}
             className="block w-full sm:w-40 rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
           >
-            <option value="">Todos los estados</option>
-            <option value="pending">Pendientes</option>
-            <option value="paid">Pagadas</option>
-            <option value="partial">Parcial</option>
-            <option value="cancelled">Canceladas</option>
+            <option value="">All statuses</option>
+            <option value="pending">Pending</option>
+            <option value="paid">Paid</option>
+            <option value="partial">Partial</option>
+            <option value="cancelled">Cancelled</option>
           </select>
         </CardHeader>
         <DataTable
@@ -102,8 +102,8 @@ export default function InvoiceListPage() {
             total: data.meta.total,
             onPageChange: setPage,
           } : undefined}
-          emptyTitle="No hay facturas"
-          emptyDescription="No se encontraron facturas"
+          emptyTitle="No invoices"
+          emptyDescription="No invoices found"
         />
       </Card>
     </div>

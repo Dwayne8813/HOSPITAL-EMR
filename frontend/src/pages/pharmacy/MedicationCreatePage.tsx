@@ -72,10 +72,10 @@ export default function MedicationCreatePage() {
         </Button>
         <div>
           <h1 className="text-2xl font-bold text-gray-900">
-            {id ? 'Editar Medicamento' : 'Nuevo Medicamento'}
+            {id ? 'Edit Medication' : 'New Medication'}
           </h1>
           <p className="text-sm text-gray-500">
-            {id ? 'Actualizar datos del medicamento' : 'Registrar nuevo medicamento'}
+            {id ? 'Update medication details' : 'Register new medication'}
           </p>
         </div>
       </div>
@@ -84,36 +84,36 @@ export default function MedicationCreatePage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Pill className="h-5 w-5 text-primary-600" />
-            Información del Medicamento
+            Medication Information
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <Input
-              label="Nombre"
+              label="Name"
               required
               value={formData.name}
               onChange={(e) => updateField('name', e.target.value)}
             />
             <Input
-              label="Nombre Genérico"
+              label="Generic Name"
               value={formData.generic_name}
               onChange={(e) => updateField('generic_name', e.target.value)}
             />
             <Input
-              label="Forma Farmacéutica"
-              placeholder="ej: Tabletas, Jarabe, Crema"
+              label="Pharmaceutical Form"
+              placeholder="e.g., Tablets, Syrup, Cream"
               value={formData.pharmaceutical_form}
               onChange={(e) => updateField('pharmaceutical_form', e.target.value)}
             />
             <Input
-              label="Concentración"
-              placeholder="ej: 500mg, 100ml"
+              label="Concentration"
+              placeholder="e.g., 500mg, 100ml"
               value={formData.concentration}
               onChange={(e) => updateField('concentration', e.target.value)}
             />
             <Input
-              label="Fabricante"
+              label="Manufacturer"
               value={formData.manufacturer}
               onChange={(e) => updateField('manufacturer', e.target.value)}
             />
@@ -123,27 +123,27 @@ export default function MedicationCreatePage() {
 
       <Card variant="elevated">
         <CardHeader>
-          <CardTitle>Inventario</CardTitle>
+          <CardTitle>Inventory</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Input
-              label="Cantidad en Stock"
+              label="Stock Quantity"
               type="number"
               min={0}
               value={formData.current_stock}
               onChange={(e) => updateField('current_stock', parseInt(e.target.value) || 0)}
             />
             <Input
-              label="Stock Mínimo"
+              label="Minimum Stock"
               type="number"
               min={0}
               value={formData.minimum_stock}
               onChange={(e) => updateField('minimum_stock', parseInt(e.target.value) || 0)}
-              helperText="Alerta cuando el stock baje de este valor"
+              helperText="Alert when stock falls below this value"
             />
             <Input
-              label="Precio Unitario"
+              label="Unit Price"
               type="number"
               step="0.01"
               min={0}
@@ -153,7 +153,7 @@ export default function MedicationCreatePage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
             <Input
-              label="Precio de Costo"
+              label="Cost Price"
               type="number"
               step="0.01"
               min={0}
@@ -168,7 +168,7 @@ export default function MedicationCreatePage() {
                   onChange={(e) => updateField('requires_prescription', e.target.checked)}
                   className="w-4 h-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
                 />
-                <span className="text-sm text-gray-700">Requiere receta médica</span>
+                <span className="text-sm text-gray-700">Requires a prescription</span>
               </label>
             </div>
           </div>
@@ -176,13 +176,13 @@ export default function MedicationCreatePage() {
       </Card>
 
       <div className="flex justify-end gap-3">
-        <Button variant="outline" onClick={() => navigate(-1)}>Cancelar</Button>
+        <Button variant="outline" onClick={() => navigate(-1)}>Cancel</Button>
         <Button
           leftIcon={<Save className="h-4 w-4" />}
           onClick={handleSave}
           isLoading={createMedication.isPending || updateMedication.isPending}
         >
-          {id ? 'Guardar Cambios' : 'Crear Medicamento'}
+          {id ? 'Save Changes' : 'Create Medication'}
         </Button>
       </div>
     </div>

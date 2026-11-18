@@ -14,7 +14,7 @@ export default function MedicalRecordDetailPage() {
   const { data: record, isLoading } = useMedicalRecord(id!)
 
   if (isLoading) return <PageLoadingSpinner />
-  if (!record) return <EmptyState title="Historial no encontrado" />
+  if (!record) return <EmptyState title="Record not found" />
 
   const consultation = record.consultation
 
@@ -26,10 +26,10 @@ export default function MedicalRecordDetailPage() {
         </Button>
         <div className="flex-1">
           <h1 className="text-2xl font-bold text-gray-900">
-            Historial {record.record_number}
+            Record {record.record_number}
           </h1>
           <p className="text-sm text-gray-500">
-            Paciente: {record.patient?.first_name} {record.patient?.last_name}
+            Patient: {record.patient?.first_name} {record.patient?.last_name}
           </p>
         </div>
         <StatusBadge status={record.status} />
@@ -40,22 +40,22 @@ export default function MedicalRecordDetailPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <User className="h-5 w-5 text-primary-600" />
-            Información del Paciente
+            Patient Information
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <p className="text-sm text-gray-500">Nombre</p>
+              <p className="text-sm text-gray-500">Name</p>
               <p className="font-medium">{record.patient?.first_name} {record.patient?.last_name}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-500">Documento</p>
+              <p className="text-sm text-gray-500">Document</p>
               <p className="font-medium">{record.patient?.document_type}: {record.patient?.document_number}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-500">Teléfono</p>
-              <p className="font-medium">{record.patient?.phone || 'No registrado'}</p>
+              <p className="text-sm text-gray-500">Phone</p>
+              <p className="font-medium">{record.patient?.phone || 'Not recorded'}</p>
             </div>
           </div>
         </CardContent>
@@ -65,10 +65,10 @@ export default function MedicalRecordDetailPage() {
       <Card variant="elevated">
         <CardHeader>
           <div className="flex items-center justify-between">
-            <CardTitle>Consulta</CardTitle>
+            <CardTitle>Consultation</CardTitle>
             {!consultation && (
               <Button size="sm" leftIcon={<Plus className="h-4 w-4" />} onClick={() => navigate(`/clinical/records/${id}/consultation`)}>
-                Nueva Consulta
+                New Consultation
               </Button>
             )}
           </div>
@@ -81,8 +81,8 @@ export default function MedicalRecordDetailPage() {
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-medium text-gray-900">{consultation.chief_complaint || 'Consulta médica'}</p>
-                  <p className="text-sm text-gray-500">N° {consultation.consultation_number}</p>
+                  <p className="font-medium text-gray-900">{consultation.chief_complaint || 'Medical consultation'}</p>
+                  <p className="text-sm text-gray-500">No. {consultation.consultation_number}</p>
                 </div>
                 <div className="text-right">
                   <p className="text-sm text-gray-900">{formatDate(consultation.date || consultation.created_at)}</p>
@@ -92,11 +92,11 @@ export default function MedicalRecordDetailPage() {
             </div>
           ) : (
             <EmptyState
-              title="No hay consultas"
-              description="Inicie una nueva consulta para este paciente"
+              title="No consultations"
+              description="Start a new consultation for this patient"
               action={
                 <Button leftIcon={<Plus className="h-4 w-4" />} onClick={() => navigate(`/clinical/records/${id}/consultation`)}>
-                  Nueva Consulta
+                  New Consultation
                 </Button>
               }
             />
@@ -108,20 +108,20 @@ export default function MedicalRecordDetailPage() {
       {record.soapNote && (
         <Card variant="elevated">
           <CardHeader>
-            <CardTitle>Nota SOAP</CardTitle>
+            <CardTitle>SOAP Note</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="p-3 bg-blue-50 rounded-lg">
-                <p className="text-xs font-medium text-blue-700 mb-1">Subjetivo</p>
+                <p className="text-xs font-medium text-blue-700 mb-1">Subjective</p>
                 <p className="text-sm text-gray-700">{record.soapNote.subjective}</p>
               </div>
               <div className="p-3 bg-green-50 rounded-lg">
-                <p className="text-xs font-medium text-green-700 mb-1">Objetivo</p>
+                <p className="text-xs font-medium text-green-700 mb-1">Objective</p>
                 <p className="text-sm text-gray-700">{record.soapNote.objective}</p>
               </div>
               <div className="p-3 bg-yellow-50 rounded-lg">
-                <p className="text-xs font-medium text-yellow-700 mb-1">Evaluación</p>
+                <p className="text-xs font-medium text-yellow-700 mb-1">Assessment</p>
                 <p className="text-sm text-gray-700">{record.soapNote.assessment}</p>
               </div>
               <div className="p-3 bg-purple-50 rounded-lg">
@@ -137,7 +137,7 @@ export default function MedicalRecordDetailPage() {
       {record.diagnoses && record.diagnoses.length > 0 && (
         <Card variant="elevated">
           <CardHeader>
-            <CardTitle>Diagnósticos</CardTitle>
+            <CardTitle>Diagnoses</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">

@@ -23,7 +23,7 @@ export default function LabResultPrintPage() {
   })
 
   if (isLoading) return <div className="flex justify-center py-12"><div className="w-8 h-8 border-4 border-primary-600 border-t-transparent rounded-full animate-spin" /></div>
-  if (!result) return <div className="text-center py-12 text-gray-500">Resultado no encontrado</div>
+  if (!result) return <div className="text-center py-12 text-gray-500">Result not found</div>
 
   const handlePrint = () => window.print()
 
@@ -34,9 +34,9 @@ export default function LabResultPrintPage() {
           <Button variant="ghost" size="sm" onClick={() => navigate(-1)}>
             <ArrowLeft className="h-4 w-4" />
           </Button>
-          <h1 className="text-xl font-bold">Vista Previa - Resultado de Laboratorio</h1>
+          <h1 className="text-xl font-bold">Print Preview - Lab Result</h1>
           <Button leftIcon={<Printer className="h-4 w-4" />} onClick={handlePrint}>
-            Imprimir
+            Print
           </Button>
         </div>
       </div>
@@ -54,54 +54,54 @@ export default function LabResultPrintPage() {
             )}
             <div>
               <h2 style={{ fontSize: '18px', fontWeight: 'bold', margin: 0, color: '#1380a0' }}>{institution?.name || 'Hospital'}</h2>
-              <p style={{ margin: '2px 0', fontSize: '11px', color: '#666' }}>NIT: {institution?.nit || '---'}</p>
+              <p style={{ margin: '2px 0', fontSize: '11px', color: '#666' }}>Tax ID: {institution?.nit || '---'}</p>
               <p style={{ margin: '2px 0', fontSize: '11px', color: '#666' }}>{institution?.address || ''}, {institution?.city || ''}</p>
               <p style={{ margin: '2px 0', fontSize: '11px', color: '#666' }}>Tel: {institution?.phone || ''}</p>
             </div>
           </div>
           <div style={{ textAlign: 'right' }}>
-            <h3 style={{ fontSize: '18px', fontWeight: 'bold', color: '#1380a0', margin: 0 }}>RESULTADO DE LABORATORIO</h3>
-            <p style={{ fontSize: '11px', color: '#666', margin: '5px 0' }}>N° {result.result_number || result.id}</p>
-            <p style={{ fontSize: '11px', color: '#666' }}>Fecha: {formatDate(result.result_date || result.created_at)}</p>
+            <h3 style={{ fontSize: '18px', fontWeight: 'bold', color: '#1380a0', margin: 0 }}>LABORATORY RESULT</h3>
+            <p style={{ fontSize: '11px', color: '#666', margin: '5px 0' }}>No. {result.result_number || result.id}</p>
+            <p style={{ fontSize: '11px', color: '#666' }}>Date: {formatDate(result.result_date || result.created_at)}</p>
           </div>
         </div>
 
         {/* Patient & Doctor */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '15px' }}>
           <div style={{ padding: '10px', background: '#f8f9fa', borderRadius: '5px' }}>
-            <p style={{ fontSize: '10px', color: '#666', margin: '0 0 3px 0', textTransform: 'uppercase' }}>Paciente</p>
+            <p style={{ fontSize: '10px', color: '#666', margin: '0 0 3px 0', textTransform: 'uppercase' }}>Patient</p>
             <p style={{ fontSize: '13px', fontWeight: 'bold', margin: '0 0 2px 0' }}>{result.lab_order?.patient?.first_name} {result.lab_order?.patient?.last_name}</p>
-            <p style={{ fontSize: '11px', color: '#666', margin: 0 }}>CI: {result.lab_order?.patient?.ci || result.lab_order?.patient?.document_number || '---'}</p>
-            <p style={{ fontSize: '11px', color: '#666', margin: '2px 0 0 0' }}>Historial: {result.lab_order?.patient?.medical_record_number || '---'}</p>
+            <p style={{ fontSize: '11px', color: '#666', margin: 0 }}>ID: {result.lab_order?.patient?.ci || result.lab_order?.patient?.document_number || '---'}</p>
+            <p style={{ fontSize: '11px', color: '#666', margin: '2px 0 0 0' }}>Record: {result.lab_order?.patient?.medical_record_number || '---'}</p>
           </div>
           <div style={{ padding: '10px', background: '#f8f9fa', borderRadius: '5px' }}>
-            <p style={{ fontSize: '10px', color: '#666', margin: '0 0 3px 0', textTransform: 'uppercase' }}>Médico Solicitante</p>
+            <p style={{ fontSize: '10px', color: '#666', margin: '0 0 3px 0', textTransform: 'uppercase' }}>Requesting Doctor</p>
             <p style={{ fontSize: '13px', fontWeight: 'bold', margin: '0 0 2px 0' }}>{result.lab_order?.doctor?.name || '---'}</p>
-            <p style={{ fontSize: '11px', color: '#666', margin: 0 }}>Especialidad: {result.lab_order?.doctor?.specialty?.name || '---'}</p>
+            <p style={{ fontSize: '11px', color: '#666', margin: 0 }}>Specialty: {result.lab_order?.doctor?.specialty?.name || '---'}</p>
           </div>
         </div>
 
         {/* Exam Info */}
         <div style={{ padding: '10px', border: '1px solid #e5e7eb', borderRadius: '5px', marginBottom: '15px' }}>
-          <p style={{ fontSize: '10px', color: '#666', margin: '0 0 5px 0', textTransform: 'uppercase' }}>Examen / Prueba</p>
+          <p style={{ fontSize: '10px', color: '#666', margin: '0 0 5px 0', textTransform: 'uppercase' }}>Exam / Test</p>
           <p style={{ fontSize: '13px', fontWeight: 'bold', margin: 0, color: '#1380a0' }}>{result.exam_name || result.test_name || '---'}</p>
           {result.clinical_context && (
-            <p style={{ fontSize: '11px', color: '#666', margin: '5px 0 0 0' }}>Contexto Clínico: {result.clinical_context}</p>
+            <p style={{ fontSize: '11px', color: '#666', margin: '5px 0 0 0' }}>Clinical Context: {result.clinical_context}</p>
           )}
         </div>
 
         {/* Results Table */}
         {(result.results || result.items) && (result.results || result.items).length > 0 && (
           <div style={{ marginBottom: '15px' }}>
-            <h4 style={{ fontSize: '13px', fontWeight: 'bold', color: '#1380a0', margin: '0 0 10px 0', borderBottom: '1px solid #e5e7eb', paddingBottom: '5px' }}>Resultados</h4>
+            <h4 style={{ fontSize: '13px', fontWeight: 'bold', color: '#1380a0', margin: '0 0 10px 0', borderBottom: '1px solid #e5e7eb', paddingBottom: '5px' }}>Results</h4>
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
                 <tr style={{ background: '#1380a0', color: 'white' }}>
-                  <th style={{ padding: '8px', textAlign: 'left', fontSize: '11px' }}>Parámetro</th>
-                  <th style={{ padding: '8px', textAlign: 'center', fontSize: '11px' }}>Resultado</th>
-                  <th style={{ padding: '8px', textAlign: 'center', fontSize: '11px' }}>Unidad</th>
-                  <th style={{ padding: '8px', textAlign: 'center', fontSize: '11px' }}>Valores Referencia</th>
-                  <th style={{ padding: '8px', textAlign: 'center', fontSize: '11px' }}>Estado</th>
+                  <th style={{ padding: '8px', textAlign: 'left', fontSize: '11px' }}>Parameter</th>
+                  <th style={{ padding: '8px', textAlign: 'center', fontSize: '11px' }}>Result</th>
+                  <th style={{ padding: '8px', textAlign: 'center', fontSize: '11px' }}>Unit</th>
+                  <th style={{ padding: '8px', textAlign: 'center', fontSize: '11px' }}>Reference Values</th>
+                  <th style={{ padding: '8px', textAlign: 'center', fontSize: '11px' }}>Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -116,7 +116,7 @@ export default function LabResultPrintPage() {
                       <td style={{ padding: '8px', fontSize: '11px', textAlign: 'center' }}>{item.unit || '---'}</td>
                       <td style={{ padding: '8px', fontSize: '11px', textAlign: 'center', color: '#666' }}>{item.reference_range || '---'}</td>
                       <td style={{ padding: '8px', fontSize: '10px', textAlign: 'center', fontWeight: 'bold', color: isAbnormal ? '#dc2626' : '#16a34a' }}>
-                        {item.status === 'high' ? '▲ ALTO' : item.status === 'low' ? '▼ BAJO' : item.status === 'abnormal' ? '⚠ ANORMAL' : '✓ Normal'}
+                        {item.status === 'high' ? '▲ HIGH' : item.status === 'low' ? '▼ LOW' : item.status === 'abnormal' ? '⚠ ABNORMAL' : '✓ Normal'}
                       </td>
                     </tr>
                   )
@@ -129,7 +129,7 @@ export default function LabResultPrintPage() {
         {/* Observations */}
         {result.observations && (
           <div style={{ padding: '10px', background: '#fffbeb', border: '1px solid #fde68a', borderRadius: '5px', marginBottom: '15px', fontSize: '11px' }}>
-            <strong>Observaciones:</strong> {result.observations}
+            <strong>Notes:</strong> {result.observations}
           </div>
         )}
 
@@ -137,20 +137,20 @@ export default function LabResultPrintPage() {
         <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '30px', paddingTop: '15px' }}>
           <div style={{ textAlign: 'center', width: '200px' }}>
             <div style={{ borderTop: '1px solid #000', marginBottom: '5px' }}></div>
-            <p style={{ fontSize: '11px', fontWeight: 'bold', margin: '2px 0' }}>Técnico de Laboratorio</p>
+            <p style={{ fontSize: '11px', fontWeight: 'bold', margin: '2px 0' }}>Laboratory Technician</p>
             <p style={{ fontSize: '10px', color: '#666', margin: '2px 0' }}>{result.technician_name || '---'}</p>
           </div>
           <div style={{ textAlign: 'center', width: '200px' }}>
             <div style={{ borderTop: '1px solid #000', marginBottom: '5px' }}></div>
-            <p style={{ fontSize: '11px', fontWeight: 'bold', margin: '2px 0' }}>Médico Responsable</p>
+            <p style={{ fontSize: '11px', fontWeight: 'bold', margin: '2px 0' }}>Responsible Doctor</p>
             <p style={{ fontSize: '10px', color: '#666', margin: '2px 0' }}>{result.lab_order?.doctor?.name || '---'}</p>
           </div>
         </div>
 
         {/* Footer */}
         <div style={{ borderTop: '1px solid #ccc', paddingTop: '10px', textAlign: 'center', fontSize: '9px', color: '#666', marginTop: '20px' }}>
-          <p style={{ margin: '2px 0' }}>{institution?.name || ''} | NIT: {institution?.nit || ''}</p>
-          <p style={{ margin: '2px 0' }}>Los resultados deben ser interpretados por el médico tratante</p>
+          <p style={{ margin: '2px 0' }}>{institution?.name || ''} | Tax ID: {institution?.nit || ''}</p>
+          <p style={{ margin: '2px 0' }}>Results must be interpreted by the treating doctor</p>
         </div>
       </div>
     </>

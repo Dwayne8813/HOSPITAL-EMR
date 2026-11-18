@@ -15,19 +15,19 @@ export default function PatientPortalPage() {
   const [activeTab, setActiveTab] = useState<PortalTab>('overview')
 
   const tabs: { key: PortalTab; label: string; icon: React.ReactNode }[] = [
-    { key: 'overview', label: 'Resumen', icon: <User className="h-4 w-4" /> },
-    { key: 'history', label: 'Historial', icon: <FileText className="h-4 w-4" /> },
-    { key: 'prescriptions', label: 'Recetas', icon: <Pill className="h-4 w-4" /> },
-    { key: 'lab', label: 'Laboratorio', icon: <TestTube className="h-4 w-4" /> },
-    { key: 'certificates', label: 'Certificados', icon: <FileText className="h-4 w-4" /> },
-    { key: 'appointments', label: 'Citas', icon: <Calendar className="h-4 w-4" /> },
+    { key: 'overview', label: 'Overview', icon: <User className="h-4 w-4" /> },
+    { key: 'history', label: 'History', icon: <FileText className="h-4 w-4" /> },
+    { key: 'prescriptions', label: 'Prescriptions', icon: <Pill className="h-4 w-4" /> },
+    { key: 'lab', label: 'Laboratory', icon: <TestTube className="h-4 w-4" /> },
+    { key: 'certificates', label: 'Certificates', icon: <FileText className="h-4 w-4" /> },
+    { key: 'appointments', label: 'Appointments', icon: <Calendar className="h-4 w-4" /> },
   ]
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Portal del Paciente</h1>
-        <p className="text-sm text-gray-500">Acceda a su información médica</p>
+        <h1 className="text-2xl font-bold text-gray-900">Patient Portal</h1>
+        <p className="text-sm text-gray-500">Access your medical information</p>
       </div>
 
       {/* Tabs */}
@@ -57,28 +57,28 @@ export default function PatientPortalPage() {
             <CardContent className="py-6 text-center">
               <FileText className="h-8 w-8 text-primary-600 mx-auto mb-3" />
               <p className="text-2xl font-bold text-gray-900">3</p>
-              <p className="text-sm text-gray-500">Consultas</p>
+              <p className="text-sm text-gray-500">Consultations</p>
             </CardContent>
           </Card>
           <Card variant="elevated">
             <CardContent className="py-6 text-center">
               <Pill className="h-8 w-8 text-green-600 mx-auto mb-3" />
               <p className="text-2xl font-bold text-gray-900">5</p>
-              <p className="text-sm text-gray-500">Recetas Activas</p>
+              <p className="text-sm text-gray-500">Active Prescriptions</p>
             </CardContent>
           </Card>
           <Card variant="elevated">
             <CardContent className="py-6 text-center">
               <TestTube className="h-8 w-8 text-blue-600 mx-auto mb-3" />
               <p className="text-2xl font-bold text-gray-900">2</p>
-              <p className="text-sm text-gray-500">Resultados Pendientes</p>
+              <p className="text-sm text-gray-500">Pending Results</p>
             </CardContent>
           </Card>
           <Card variant="elevated">
             <CardContent className="py-6 text-center">
               <Calendar className="h-8 w-8 text-yellow-600 mx-auto mb-3" />
               <p className="text-2xl font-bold text-gray-900">1</p>
-              <p className="text-sm text-gray-500">Próxima Cita</p>
+              <p className="text-sm text-gray-500">Next Appointment</p>
             </CardContent>
           </Card>
         </div>
@@ -88,12 +88,12 @@ export default function PatientPortalPage() {
       {activeTab === 'history' && (
         <Card variant="elevated">
           <CardHeader>
-            <CardTitle>Historial Médico</CardTitle>
+            <CardTitle>Medical History</CardTitle>
           </CardHeader>
           <CardContent>
             <EmptyState
-              title="Historial médico"
-              description="Sus consultas y evoluciones médicas aparecerán aquí"
+              title="Medical history"
+              description="Your consultations and medical progress notes will appear here"
               icon={<FileText className="h-8 w-8 text-gray-400" />}
             />
           </CardContent>
@@ -105,16 +105,16 @@ export default function PatientPortalPage() {
         <Card variant="elevated">
           <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle>Mis Recetas</CardTitle>
+              <CardTitle>My Prescriptions</CardTitle>
               <Button variant="outline" size="sm" leftIcon={<Download className="h-4 w-4" />}>
-                Descargar
+                Download
               </Button>
             </div>
           </CardHeader>
           <CardContent>
             <EmptyState
-              title="No hay recetas"
-              description="Sus recetas médicas aparecerán aquí"
+              title="No prescriptions"
+              description="Your prescriptions will appear here"
               icon={<Pill className="h-8 w-8 text-gray-400" />}
             />
           </CardContent>
@@ -126,16 +126,16 @@ export default function PatientPortalPage() {
         <Card variant="elevated">
           <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle>Resultados de Laboratorio</CardTitle>
+              <CardTitle>Lab Results</CardTitle>
               <Button variant="outline" size="sm" leftIcon={<Download className="h-4 w-4" />}>
-                Descargar
+                Download
               </Button>
             </div>
           </CardHeader>
           <CardContent>
             <EmptyState
-              title="No hay resultados"
-              description="Sus resultados de laboratorio aparecerán aquí"
+              title="No results"
+              description="Your lab results will appear here"
               icon={<TestTube className="h-8 w-8 text-gray-400" />}
             />
           </CardContent>
@@ -146,12 +146,12 @@ export default function PatientPortalPage() {
       {activeTab === 'certificates' && (
         <Card variant="elevated">
           <CardHeader>
-            <CardTitle>Certificados Médicos</CardTitle>
+            <CardTitle>Medical Certificates</CardTitle>
           </CardHeader>
           <CardContent>
             <EmptyState
-              title="No hay certificados"
-              description="Sus certificados médicos aparecerán aquí"
+              title="No certificates"
+              description="Your medical certificates will appear here"
               icon={<FileText className="h-8 w-8 text-gray-400" />}
             />
           </CardContent>
@@ -163,21 +163,21 @@ export default function PatientPortalPage() {
         <div className="space-y-4">
           <div className="flex justify-end">
             <Button leftIcon={<Plus className="h-4 w-4" />}>
-              Agendar Cita
+              Schedule Appointment
             </Button>
           </div>
           <Card variant="elevated">
             <CardHeader>
-              <CardTitle>Mis Citas</CardTitle>
+              <CardTitle>My Appointments</CardTitle>
             </CardHeader>
             <CardContent>
               <EmptyState
-                title="No hay citas programadas"
-                description="Agende una consulta médica"
+                title="No scheduled appointments"
+                description="Schedule a medical consultation"
                 icon={<Calendar className="h-8 w-8 text-gray-400" />}
                 action={
                   <Button leftIcon={<Plus className="h-4 w-4" />}>
-                    Agendar Cita
+                    Schedule Appointment
                   </Button>
                 }
               />

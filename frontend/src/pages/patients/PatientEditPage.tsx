@@ -60,85 +60,85 @@ export default function PatientEditPage() {
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Editar Paciente</h1>
-          <p className="text-sm text-gray-500">Actualizar datos del paciente</p>
+          <h1 className="text-2xl font-bold text-gray-900">Edit Patient</h1>
+          <p className="text-sm text-gray-500">Update patient details</p>
         </div>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <Card variant="elevated">
           <CardHeader>
-            <CardTitle>Datos Personales</CardTitle>
+            <CardTitle>Personal Details</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <Input label="Nombre" required {...register('first_name')} error={errors.first_name?.message} />
-              <Input label="Apellido Paterno" required {...register('last_name')} error={errors.last_name?.message} />
-              <Input label="Apellido Materno" {...register('second_last_name')} />
+              <Input label="First Name" required {...register('first_name')} error={errors.first_name?.message} />
+              <Input label="Last Name" required {...register('last_name')} error={errors.last_name?.message} />
+              <Input label="Second Last Name" {...register('second_last_name')} />
               <Select
-                label="Tipo de Documento"
+                label="Document Type"
                 required
                 options={[
-                  { value: 'CI', label: 'Cédula de Identidad' },
-                  { value: 'PASSPORT', label: 'Pasaporte' },
-                  { value: 'OTHER', label: 'Otro' },
+                  { value: 'CI', label: 'Identity Card' },
+                  { value: 'PASSPORT', label: 'Passport' },
+                  { value: 'OTHER', label: 'Other' },
                 ]}
                 {...register('document_type')}
                 error={errors.document_type?.message}
               />
-              <Input label="Número de Documento" required {...register('document_number')} error={errors.document_number?.message} />
+              <Input label="Document Number" required {...register('document_number')} error={errors.document_number?.message} />
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">Fecha de Nacimiento <span className="text-red-500 ml-1">*</span></label>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">Date of Birth <span className="text-red-500 ml-1">*</span></label>
                 <input type="date" {...register('birth_date')} className="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20" />
                 {errors.birth_date && <p className="mt-1.5 text-sm text-red-600">{errors.birth_date.message}</p>}
               </div>
-              <Select label="Sexo" required options={[{ value: 'M', label: 'Masculino' }, { value: 'F', label: 'Femenino' }, { value: 'O', label: 'Otro' }]} {...register('gender')} error={errors.gender?.message} />
-              <Select label="Tipo de Sangre" options={[{ value: 'A+', label: 'A+' }, { value: 'A-', label: 'A-' }, { value: 'B+', label: 'B+' }, { value: 'B-', label: 'B-' }, { value: 'AB+', label: 'AB+' }, { value: 'AB-', label: 'AB-' }, { value: 'O+', label: 'O+' }, { value: 'O-', label: 'O-' }]} {...register('blood_type')} />
+              <Select label="Sex" required options={[{ value: 'M', label: 'Male' }, { value: 'F', label: 'Female' }, { value: 'O', label: 'Other' }]} {...register('gender')} error={errors.gender?.message} />
+              <Select label="Blood Type" options={[{ value: 'A+', label: 'A+' }, { value: 'A-', label: 'A-' }, { value: 'B+', label: 'B+' }, { value: 'B-', label: 'B-' }, { value: 'AB+', label: 'AB+' }, { value: 'AB-', label: 'AB-' }, { value: 'O+', label: 'O+' }, { value: 'O-', label: 'O-' }]} {...register('blood_type')} />
             </div>
           </CardContent>
         </Card>
 
         <Card variant="elevated">
-          <CardHeader><CardTitle>Información de Contacto</CardTitle></CardHeader>
+          <CardHeader><CardTitle>Contact Information</CardTitle></CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <Input label="Teléfono" {...register('phone')} />
-              <Input label="Correo Electrónico" type="email" {...register('email')} error={errors.email?.message} />
-              <Input label="Dirección" {...register('address')} />
+              <Input label="Phone" {...register('phone')} />
+              <Input label="Email" type="email" {...register('email')} error={errors.email?.message} />
+              <Input label="Address" {...register('address')} />
             </div>
           </CardContent>
         </Card>
 
         <Card variant="elevated">
-          <CardHeader><CardTitle>Contacto de Emergencia</CardTitle></CardHeader>
+          <CardHeader><CardTitle>Emergency Contact</CardTitle></CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Input label="Nombre del Contacto" {...register('emergency_contact_name')} />
-              <Input label="Teléfono del Contacto" {...register('emergency_contact_phone')} />
+              <Input label="Contact Name" {...register('emergency_contact_name')} />
+              <Input label="Contact Phone" {...register('emergency_contact_phone')} />
             </div>
           </CardContent>
         </Card>
 
         <Card variant="elevated">
-          <CardHeader><CardTitle>Seguro Médico</CardTitle></CardHeader>
+          <CardHeader><CardTitle>Health Insurance</CardTitle></CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Input label="Proveedor de Seguro" {...register('insurance_provider')} />
-              <Input label="Número de Póliza" {...register('insurance_number')} />
+              <Input label="Insurance Provider" {...register('insurance_provider')} />
+              <Input label="Policy Number" {...register('insurance_number')} />
             </div>
           </CardContent>
         </Card>
 
         <Card variant="elevated">
-          <CardHeader><CardTitle>Historial Médico</CardTitle></CardHeader>
+          <CardHeader><CardTitle>Medical History</CardTitle></CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">Alergias</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">Allergies</label>
                 <textarea {...register('allergies')} rows={3} className="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 resize-y" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">Historial Médico</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">Medical History</label>
                 <textarea {...register('medical_history')} rows={4} className="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 resize-y" />
               </div>
             </div>
@@ -146,8 +146,8 @@ export default function PatientEditPage() {
         </Card>
 
         <div className="flex justify-end gap-3">
-          <Button type="button" variant="outline" onClick={() => navigate(-1)}>Cancelar</Button>
-          <Button type="submit" leftIcon={<Save className="h-4 w-4" />} isLoading={updatePatient.isPending}>Guardar Cambios</Button>
+          <Button type="button" variant="outline" onClick={() => navigate(-1)}>Cancel</Button>
+          <Button type="submit" leftIcon={<Save className="h-4 w-4" />} isLoading={updatePatient.isPending}>Save Changes</Button>
         </div>
       </form>
     </div>

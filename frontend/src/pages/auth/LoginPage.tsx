@@ -32,7 +32,7 @@ export default function LoginPage() {
       navigate('/dashboard')
     } catch (err: unknown) {
       const axiosError = err as { response?: { data?: { message?: string } } }
-      setError(axiosError.response?.data?.message || 'Error al iniciar sesión. Verifica tus credenciales.')
+      setError(axiosError.response?.data?.message || 'Error signing in. Please check your credentials.')
     }
   }
 
@@ -55,7 +55,7 @@ export default function LoginPage() {
           Hospital EMR
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
-          Sistema de Registros Médicos Electrónicos
+          Electronic Medical Records System
         </p>
       </div>
 
@@ -69,7 +69,7 @@ export default function LoginPage() {
             )}
 
             <Input
-              label="Correo electrónico"
+              label="Email"
               type="email"
               autoComplete="email"
               placeholder="tu@hospital.com"
@@ -80,7 +80,7 @@ export default function LoginPage() {
 
             <div className="relative">
               <Input
-                label="Contraseña"
+                label="Password"
                 type={showPassword ? 'text' : 'password'}
                 autoComplete="current-password"
                 placeholder="••••••••"
@@ -108,13 +108,13 @@ export default function LoginPage() {
                   className="w-4 h-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
                   {...register('remember_me')}
                 />
-                <span className="text-sm text-gray-600">Recordarme</span>
+                <span className="text-sm text-gray-600">Remember me</span>
               </label>
               <Link
                 to="/forgot-password"
                 className="text-sm font-medium text-primary-600 hover:text-primary-700"
               >
-                ¿Olvidaste tu contraseña?
+                Forgot your password?
               </Link>
             </div>
 
@@ -124,7 +124,7 @@ export default function LoginPage() {
               size="lg"
               isLoading={isSubmitting}
             >
-              Iniciar Sesión
+              Sign In
             </Button>
           </form>
         </div>

@@ -5,38 +5,38 @@ import { Link } from 'react-router-dom'
 export default function SettingsPage() {
   const settingsSections = [
     {
-      title: 'Institución',
-      description: 'Configuración general de la institución',
+      title: 'Institution',
+      description: 'General institution settings',
       icon: Building2,
       path: '/settings/institution',
     },
     {
-      title: 'Usuarios',
-      description: 'Gestión de usuarios del sistema',
+      title: 'Users',
+      description: 'System user management',
       icon: Shield,
       path: '/settings/users',
     },
     {
-      title: 'Roles y Permisos',
-      description: 'Configuración de roles y permisos',
+      title: 'Roles and Permissions',
+      description: 'Role and permission settings',
       icon: Shield,
       path: '/settings/roles',
     },
     {
-      title: 'Notificaciones',
-      description: 'Configuración de notificaciones',
+      title: 'Notifications',
+      description: 'Notification settings',
       icon: Bell,
       path: '/notifications',
     },
     {
-      title: 'Base de Datos',
-      description: 'Copias de seguridad y mantenimiento',
+      title: 'Database',
+      description: 'Backups and maintenance',
       icon: Database,
       path: '#',
     },
     {
-      title: 'Integraciones',
-      description: 'Conexiones con servicios externos',
+      title: 'Integrations',
+      description: 'Connections to external services',
       icon: Globe,
       path: '#',
     },
@@ -45,8 +45,8 @@ export default function SettingsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Configuración</h1>
-        <p className="text-sm text-gray-500">Administración general del sistema</p>
+        <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
+        <p className="text-sm text-gray-500">General system administration</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

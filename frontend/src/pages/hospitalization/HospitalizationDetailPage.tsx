@@ -15,7 +15,7 @@ export default function HospitalizationDetailPage() {
   const { data: hospitalization, isLoading } = useHospitalization(id!)
 
   if (isLoading) return <PageLoadingSpinner />
-  if (!hospitalization) return <EmptyState title="Hospitalización no encontrada" />
+  if (!hospitalization) return <EmptyState title="Hospitalization not found" />
 
   return (
     <div className="space-y-6">
@@ -25,10 +25,10 @@ export default function HospitalizationDetailPage() {
         </Button>
         <div className="flex-1">
           <h1 className="text-2xl font-bold text-gray-900">
-            Hospitalización - {hospitalization.patient?.first_name} {hospitalization.patient?.last_name}
+            Hospitalization - {hospitalization.patient?.first_name} {hospitalization.patient?.last_name}
           </h1>
           <p className="text-sm text-gray-500">
-            Ingresado el {formatDate(hospitalization.admission_date)}
+            Admitted on {formatDate(hospitalization.admission_date)}
           </p>
         </div>
         <StatusBadge status={hospitalization.status} />
@@ -40,21 +40,21 @@ export default function HospitalizationDetailPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <User className="h-5 w-5 text-primary-600" />
-              Paciente
+              Patient
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <div>
-              <p className="text-sm text-gray-500">Nombre</p>
+              <p className="text-sm text-gray-500">Name</p>
               <p className="font-medium">{hospitalization.patient?.first_name} {hospitalization.patient?.last_name}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-500">Documento</p>
+              <p className="text-sm text-gray-500">Document</p>
               <p className="font-medium">{hospitalization.patient?.document_number}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-500">Teléfono</p>
-              <p className="font-medium">{hospitalization.patient?.phone || 'No registrado'}</p>
+              <p className="text-sm text-gray-500">Phone</p>
+              <p className="font-medium">{hospitalization.patient?.phone || 'Not recorded'}</p>
             </div>
           </CardContent>
         </Card>
@@ -64,29 +64,29 @@ export default function HospitalizationDetailPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Bed className="h-5 w-5 text-primary-600" />
-              Detalles del Ingreso
+              Admission Details
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <div>
-              <p className="text-sm text-gray-500">Cama</p>
-              <p className="font-medium">{hospitalization.bed?.number || 'Sin asignar'}</p>
+              <p className="text-sm text-gray-500">Bed</p>
+              <p className="font-medium">{hospitalization.bed?.number || 'Unassigned'}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-500">Departamento</p>
-              <p className="font-medium">{hospitalization.department || 'No especificado'}</p>
+              <p className="text-sm text-gray-500">Department</p>
+              <p className="font-medium">{hospitalization.department || 'Not specified'}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-500">Médico</p>
+              <p className="text-sm text-gray-500">Doctor</p>
               <p className="font-medium">Dr. {hospitalization.doctor?.first_name} {hospitalization.doctor?.last_name}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-500">Fecha de Ingreso</p>
+              <p className="text-sm text-gray-500">Admission Date</p>
               <p className="font-medium">{formatDate(hospitalization.admission_date)}</p>
             </div>
             {hospitalization.discharge_date && (
               <div>
-                <p className="text-sm text-gray-500">Fecha de Alta</p>
+                <p className="text-sm text-gray-500">Discharge Date</p>
                 <p className="font-medium">{formatDate(hospitalization.discharge_date)}</p>
               </div>
             )}
@@ -98,21 +98,21 @@ export default function HospitalizationDetailPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <FileText className="h-5 w-5 text-primary-600" />
-              Información Clínica
+              Clinical Information
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <div>
-              <p className="text-sm text-gray-500">Motivo de Ingreso</p>
+              <p className="text-sm text-gray-500">Admission Reason</p>
               <p className="font-medium">{hospitalization.reason}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-500">Diagnóstico</p>
-              <p className="font-medium">{hospitalization.diagnosis || 'No registrado'}</p>
+              <p className="text-sm text-gray-500">Diagnosis</p>
+              <p className="font-medium">{hospitalization.diagnosis || 'Not recorded'}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-500">Observaciones</p>
-              <p className="font-medium">{hospitalization.notes || 'Ninguna'}</p>
+              <p className="text-sm text-gray-500">Notes</p>
+              <p className="font-medium">{hospitalization.notes || 'None'}</p>
             </div>
           </CardContent>
         </Card>
@@ -121,15 +121,15 @@ export default function HospitalizationDetailPage() {
       {/* Actions */}
       <Card variant="elevated">
         <CardHeader>
-          <CardTitle>Acciones</CardTitle>
+          <CardTitle>Actions</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap gap-3">
-            <Button variant="outline">Ver Evoluciones</Button>
-            <Button variant="outline">Nueva Evolución</Button>
-            <Button variant="outline">Agregar Orden</Button>
+            <Button variant="outline">View Progress Notes</Button>
+            <Button variant="outline">New Progress Note</Button>
+            <Button variant="outline">Add Order</Button>
             {hospitalization.status === 'active' && (
-              <Button variant="success">Dar de Alta</Button>
+              <Button variant="success">Discharge Patient</Button>
             )}
           </div>
         </CardContent>

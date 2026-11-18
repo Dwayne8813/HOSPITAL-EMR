@@ -35,7 +35,7 @@ class TriageProtocolSeeder extends Seeder
             ],
             [
                 'institution_id' => $institutionId,
-                'name' => 'Nivel II - Emergencia',
+                'name' => 'Nivel II - Emergency',
                 'criteria_json' => json_encode([
                     'signos_vitales' => 'Alterados, riesgo vital potencial',
                     'condicion' => 'Paciente con compromiso significativo',
@@ -57,7 +57,7 @@ class TriageProtocolSeeder extends Seeder
             ],
             [
                 'institution_id' => $institutionId,
-                'name' => 'Nivel III - Urgencia',
+                'name' => 'Nivel III - Urgent Care',
                 'criteria_json' => json_encode([
                     'signos_vitales' => 'Relativamente estables, sin riesgo inmediato',
                     'condicion' => 'Paciente con dolor moderado o molestia significativa',

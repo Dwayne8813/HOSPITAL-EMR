@@ -54,7 +54,7 @@ class SupplierSeeder extends Seeder
             ],
             [
                 'institution_id' => 1,
-                'name' => 'Laboratorios Unidos del Altiplano',
+                'name' => 'Laboratorys Unidos del Altiplano',
                 'contact_person' => 'Fernando Torres',
                 'email' => 'contacto@labunal.bo',
                 'phone' => '+591 2 2890123',

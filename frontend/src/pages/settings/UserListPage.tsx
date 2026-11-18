@@ -34,11 +34,11 @@ export default function UserListPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Usuarios</h1>
-          <p className="text-sm text-gray-500">Gestión de usuarios del sistema</p>
+          <h1 className="text-2xl font-bold text-gray-900">Users</h1>
+          <p className="text-sm text-gray-500">System user management</p>
         </div>
         <Button leftIcon={<Plus className="h-4 w-4" />} onClick={() => navigate('/settings/users/create')}>
-          Nuevo Usuario
+          New User
         </Button>
       </div>
 
@@ -50,12 +50,12 @@ export default function UserListPage() {
             </div>
           ) : users.length === 0 ? (
             <EmptyState
-              title="No hay usuarios"
-              description="Registre usuarios para acceder al sistema"
+              title="No users"
+              description="Register users to access the system"
               icon={<Users className="h-8 w-8 text-gray-400" />}
               action={
                 <Button leftIcon={<Plus className="h-4 w-4" />} onClick={() => navigate('/settings/users/create')}>
-                  Registrar Usuario
+                  Register User
                 </Button>
               }
             />
@@ -78,7 +78,7 @@ export default function UserListPage() {
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Badge variant="primary">{user.role?.name || 'Sin rol'}</Badge>
+                      <Badge variant="primary">{user.role?.name || 'No role'}</Badge>
                       <StatusBadge status={user.is_active ? 'active' : 'inactive'} />
                     </div>
                   </div>

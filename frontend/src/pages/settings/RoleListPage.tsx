@@ -20,10 +20,10 @@ export default function RoleListPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Roles</h1>
-          <p className="text-sm text-gray-500">Gestión de roles y permisos</p>
+          <p className="text-sm text-gray-500">Role and permission management</p>
         </div>
         <Button leftIcon={<Plus className="h-4 w-4" />}>
-          Nuevo Rol
+          New Role
         </Button>
       </div>
 
@@ -31,8 +31,8 @@ export default function RoleListPage() {
         <CardContent>
           {roles.length === 0 ? (
             <EmptyState
-              title="No hay roles"
-              description="Los roles del sistema aparecerán aquí"
+              title="No roles"
+              description="System roles will appear here"
               icon={<Shield className="h-8 w-8 text-gray-400" />}
             />
           ) : (
@@ -43,11 +43,11 @@ export default function RoleListPage() {
                     <div>
                       <div className="flex items-center gap-2">
                         <p className="font-medium text-gray-900">{role.name}</p>
-                        {role.is_system && <Badge variant="default">Sistema</Badge>}
+                        {role.is_system && <Badge variant="default">System</Badge>}
                       </div>
                       <p className="text-sm text-gray-500">{role.description}</p>
                     </div>
-                    <p className="text-sm text-gray-500">{role.permissions_count} permisos</p>
+                    <p className="text-sm text-gray-500">{role.permissions_count} permissions</p>
                   </div>
                 </div>
               ))}

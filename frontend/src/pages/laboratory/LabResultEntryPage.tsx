@@ -63,7 +63,7 @@ export default function LabResultEntryPage() {
   }
 
   if (isLoading) return <PageLoadingSpinner />
-  if (!order) return <EmptyState title="Orden no encontrada" />
+  if (!order) return <EmptyState title="Order not found" />
 
   return (
     <div className="space-y-6">
@@ -72,12 +72,12 @@ export default function LabResultEntryPage() {
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <div className="flex-1">
-          <h1 className="text-2xl font-bold text-gray-900">Ingreso de Resultados</h1>
-          <p className="text-sm text-gray-500">Orden {order.order_number}</p>
+          <h1 className="text-2xl font-bold text-gray-900">Result Entry</h1>
+          <p className="text-sm text-gray-500">Order {order.order_number}</p>
         </div>
         <StatusBadge status={order.status} />
         <Button leftIcon={<Save className="h-4 w-4" />} onClick={handleSaveAll} isLoading={addResult.isPending}>
-          Guardar Todos
+          Save All
         </Button>
       </div>
 
@@ -94,7 +94,7 @@ export default function LabResultEntryPage() {
               <p className="font-medium text-gray-900">
                 {order.patient?.first_name} {order.patient?.last_name}
               </p>
-              <p className="text-sm text-gray-500">CI: {order.patient?.document_number}</p>
+              <p className="text-sm text-gray-500">ID: {order.patient?.document_number}</p>
             </div>
           </div>
         </CardContent>
@@ -115,36 +115,36 @@ export default function LabResultEntryPage() {
           <CardContent>
             {item.status === 'completed' && item.result ? (
               <div className="p-4 bg-green-50 rounded-lg">
-                <p className="text-sm font-medium text-green-800">Resultado:</p>
+                <p className="text-sm font-medium text-green-800">Result:</p>
                 <p className="text-lg font-bold text-green-900">
                   {item.result.value} {item.result.unit}
                 </p>
                 <p className="text-sm text-green-700">
-                  Rango de referencia: {item.result.reference_range}
+                  Reference range: {item.result.reference_range}
                 </p>
                 {item.result.is_abnormal && (
-                  <p className="text-sm text-red-600 font-medium mt-1">Valor fuera de rango</p>
+                  <p className="text-sm text-red-600 font-medium mt-1">Value out of range</p>
                 )}
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <Input
-                  label="Resultado"
+                  label="Result"
                   value={results[item.id]?.result_value || ''}
                   onChange={(e) => updateResult(item.id, 'result_value', e.target.value)}
-                  placeholder="Ingrese el resultado"
+                  placeholder="Enter the result"
                 />
                 <Input
-                  label="Unidad"
+                  label="Unit"
                   value={results[item.id]?.unit || ''}
                   onChange={(e) => updateResult(item.id, 'unit', e.target.value)}
-                  placeholder="ej: mg/dL"
+                  placeholder="e.g., mg/dL"
                 />
                 <Input
-                  label="Rango de Referencia"
+                  label="Reference Range"
                   value={results[item.id]?.referenceRange || ''}
                   onChange={(e) => updateResult(item.id, 'referenceRange', e.target.value)}
-                  placeholder="ej: 70-100"
+                  placeholder="e.g., 70-100"
                 />
                 <div className="flex items-end">
                   <label className="flex items-center gap-2 cursor-pointer">
@@ -154,15 +154,15 @@ export default function LabResultEntryPage() {
                       onChange={(e) => updateResult(item.id, 'isAbnormal', e.target.checked)}
                       className="w-4 h-4 rounded border-gray-300 text-red-600 focus:ring-red-500"
                     />
-                    <span className="text-sm text-gray-700">Valor anormal</span>
+                    <span className="text-sm text-gray-700">Abnormal value</span>
                   </label>
                 </div>
                 <div className="md:col-span-2 lg:col-span-4">
                   <TextArea
-                    label="Notas"
+                    label="Notes"
                     value={results[item.id]?.notes || ''}
                     onChange={(e) => updateResult(item.id, 'notes', e.target.value)}
-                    placeholder="Observaciones adicionales..."
+                    placeholder="Additional notes..."
                     rows={2}
                   />
                 </div>

@@ -18,11 +18,11 @@ interface TriageEntry {
 }
 
 const triageColors: Record<number, { bg: string; text: string; label: string }> = {
-  1: { bg: 'bg-red-600', text: 'text-white', label: 'I - Resucitación' },
-  2: { bg: 'bg-red-500', text: 'text-white', label: 'II - Emergencia' },
-  3: { bg: 'bg-yellow-500', text: 'text-white', label: 'III - Urgencia' },
-  4: { bg: 'bg-green-500', text: 'text-white', label: 'IV - Menos Urgente' },
-  5: { bg: 'bg-blue-500', text: 'text-white', label: 'V - No Urgente' },
+  1: { bg: 'bg-red-600', text: 'text-white', label: 'I - Resuscitation' },
+  2: { bg: 'bg-red-500', text: 'text-white', label: 'II - Emergency' },
+  3: { bg: 'bg-yellow-500', text: 'text-white', label: 'III - Urgency' },
+  4: { bg: 'bg-green-500', text: 'text-white', label: 'IV - Less Urgent' },
+  5: { bg: 'bg-blue-500', text: 'text-white', label: 'V - Non-Urgent' },
 }
 
 export default function TriagePage() {
@@ -36,9 +36,9 @@ export default function TriagePage() {
   const { data: searchResults } = usePatientSearch(patientSearch)
 
   const [queue] = useState<TriageEntry[]>([
-    { id: '1', patient_name: 'María García', arrival_time: '14:30', chief_complaint: 'Dolor abdominal intenso', triage_level: 2, status: 'waiting' },
-    { id: '2', patient_name: 'Carlos López', arrival_time: '14:45', chief_complaint: 'Fiebre y tos', triage_level: 3, status: 'in_treatment' },
-    { id: '3', patient_name: 'Ana Martínez', arrival_time: '15:00', chief_complaint: 'Herida en brazo', triage_level: 4, status: 'waiting' },
+    { id: '1', patient_name: 'Maria Garcia', arrival_time: '14:30', chief_complaint: 'Severe abdominal pain', triage_level: 2, status: 'waiting' },
+    { id: '2', patient_name: 'Carlos Lopez', arrival_time: '14:45', chief_complaint: 'Fever and cough', triage_level: 3, status: 'in_treatment' },
+    { id: '3', patient_name: 'Ana Martinez', arrival_time: '15:00', chief_complaint: 'Arm wound', triage_level: 4, status: 'waiting' },
   ])
 
   const handleSave = () => {
@@ -49,8 +49,8 @@ export default function TriagePage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Triage - Emergencias</h1>
-          <p className="text-sm text-gray-500">Registro y clasificación de pacientes</p>
+          <h1 className="text-2xl font-bold text-gray-900">Triage - Emergency</h1>
+          <p className="text-sm text-gray-500">Patient registration and classification</p>
         </div>
       </div>
 
@@ -61,14 +61,14 @@ export default function TriagePage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <User className="h-5 w-5 text-primary-600" />
-                Registro de Paciente
+                Patient Registration
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="relative">
                 <Input
-                  label="Buscar Paciente"
-                  placeholder="Nombre o CI del paciente..."
+                  label="Search Patient"
+                  placeholder="Patient name or ID..."
                   value={patientSearch}
                   onChange={(e) => setPatientSearch(e.target.value)}
                 />
@@ -81,7 +81,7 @@ export default function TriagePage() {
                         className="w-full px-4 py-3 text-left hover:bg-gray-50 border-b last:border-0"
                       >
                         <p className="font-medium text-gray-900">{patient.first_name} {patient.last_name}</p>
-                        <p className="text-sm text-gray-500">CI: {patient.document_number}</p>
+                        <p className="text-sm text-gray-500">ID: {patient.document_number}</p>
                       </button>
                     ))}
                   </div>
@@ -91,7 +91,7 @@ export default function TriagePage() {
               {/* Triage Level */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Nivel de Triage *
+                  Triage Level *
                 </label>
                 <div className="grid grid-cols-5 gap-2">
                   {([1, 2, 3, 4, 5] as const).map((level) => (
@@ -112,24 +112,24 @@ export default function TriagePage() {
               </div>
 
               <TextArea
-                label="Motivo de Consulta"
+                label="Chief Complaint"
                 required
                 value={chiefComplaint}
                 onChange={(e) => setChiefComplaint(e.target.value)}
-                placeholder="Describa el motivo principal de consulta..."
+                placeholder="Describe the main reason for the visit..."
                 rows={3}
               />
 
               <TextArea
-                label="Notas Adicionales"
+                label="Additional Notes"
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
-                placeholder="Observaciones del triage..."
+                placeholder="Triage notes..."
                 rows={2}
               />
 
               <Button leftIcon={<Save className="h-4 w-4" />} onClick={handleSave} className="w-full">
-                Registrar en Triage
+                Register in Triage
               </Button>
             </CardContent>
           </Card>
@@ -141,14 +141,14 @@ export default function TriagePage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Clock className="h-5 w-5 text-primary-600" />
-                Cola de Espera
+                Waiting Queue
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
                 {queue.length === 0 ? (
                   <p className="text-sm text-gray-500 text-center py-4">
-                    No hay pacientes en espera
+                    No patients waiting
                   </p>
                 ) : (
                   queue.map((entry) => (
@@ -169,11 +169,11 @@ export default function TriagePage() {
                           entry.triage_level === 3 ? 'warning' :
                           entry.triage_level === 4 ? 'success' : 'info'
                         }>
-                          Nivel {entry.triage_level}
+                          Level {entry.triage_level}
                         </Badge>
                       </div>
                       <p className="text-sm text-gray-600">{entry.chief_complaint}</p>
-                      <p className="text-xs text-gray-500 mt-1">Llegada: {entry.arrival_time}</p>
+                      <p className="text-xs text-gray-500 mt-1">Arrival: {entry.arrival_time}</p>
                     </div>
                   ))
                 )}
@@ -186,20 +186,20 @@ export default function TriagePage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Activity className="h-5 w-5 text-primary-600" />
-                Resumen
+                Summary
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
               <div className="flex justify-between">
-                <span className="text-sm text-gray-500">En espera</span>
+                <span className="text-sm text-gray-500">Waiting</span>
                 <span className="font-medium">2</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-sm text-gray-500">En tratamiento</span>
+                <span className="text-sm text-gray-500">In Treatment</span>
                 <span className="font-medium">1</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-sm text-gray-500">Atendidos hoy</span>
+                <span className="text-sm text-gray-500">Seen Today</span>
                 <span className="font-medium">12</span>
               </div>
             </CardContent>

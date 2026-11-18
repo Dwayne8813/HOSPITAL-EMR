@@ -40,19 +40,19 @@ export default function SurgeryCreatePage() {
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Programar Cirugía</h1>
-          <p className="text-sm text-gray-500">Registrar nueva cirugía</p>
+          <h1 className="text-2xl font-bold text-gray-900">Schedule Surgery</h1>
+          <p className="text-sm text-gray-500">Register new surgery</p>
         </div>
       </div>
 
       <Card variant="elevated">
         <CardHeader>
-          <CardTitle>Paciente</CardTitle>
+          <CardTitle>Patient</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="relative">
             <Input
-              placeholder="Buscar paciente..."
+              placeholder="Search patient..."
               value={patientSearch}
               onChange={(e) => setPatientSearch(e.target.value)}
             />
@@ -65,7 +65,7 @@ export default function SurgeryCreatePage() {
                     className="w-full px-4 py-3 text-left hover:bg-gray-50 border-b last:border-0"
                   >
                     <p className="font-medium text-gray-900">{patient.first_name} {patient.last_name}</p>
-                    <p className="text-sm text-gray-500">CI: {patient.document_number}</p>
+                    <p className="text-sm text-gray-500">ID: {patient.document_number}</p>
                   </button>
                 ))}
               </div>
@@ -75,9 +75,9 @@ export default function SurgeryCreatePage() {
             <div className="mt-3 p-3 bg-primary-50 rounded-lg flex items-center justify-between">
               <div>
                 <p className="font-medium text-primary-900">{selectedPatient.first_name} {selectedPatient.last_name}</p>
-                <p className="text-sm text-primary-700">CI: {selectedPatient.document_number}</p>
+                <p className="text-sm text-primary-700">ID: {selectedPatient.document_number}</p>
               </div>
-              <Button variant="ghost" size="sm" onClick={() => setSelectedPatient(null)}>Cambiar</Button>
+              <Button variant="ghost" size="sm" onClick={() => setSelectedPatient(null)}>Change</Button>
             </div>
           )}
         </CardContent>
@@ -87,36 +87,36 @@ export default function SurgeryCreatePage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Scissors className="h-5 w-5 text-primary-600" />
-            Detalles de la Cirugía
+            Surgery Details
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Input label="Procedimiento" required value={formData.procedure} onChange={(e) => updateField('procedure', e.target.value)} />
-            <Input label="Cirujano Principal" required value={formData.surgeon} onChange={(e) => updateField('surgeon', e.target.value)} />
-            <Input label="Fecha" type="date" required value={formData.date} onChange={(e) => updateField('date', e.target.value)} />
-            <Input label="Hora de Inicio" type="time" required value={formData.time} onChange={(e) => updateField('time', e.target.value)} />
-            <Input label="Duración Estimada" placeholder="ej: 2 horas" value={formData.duration} onChange={(e) => updateField('duration', e.target.value)} />
+            <Input label="Procedure" required value={formData.procedure} onChange={(e) => updateField('procedure', e.target.value)} />
+            <Input label="Lead Surgeon" required value={formData.surgeon} onChange={(e) => updateField('surgeon', e.target.value)} />
+            <Input label="Date" type="date" required value={formData.date} onChange={(e) => updateField('date', e.target.value)} />
+            <Input label="Start Time" type="time" required value={formData.time} onChange={(e) => updateField('time', e.target.value)} />
+            <Input label="Estimated Duration" placeholder="e.g., 2 hours" value={formData.duration} onChange={(e) => updateField('duration', e.target.value)} />
             <Select
-              label="Quirófano"
+              label="Operating Room"
               required
               options={[
-                { value: 'OR1', label: 'Quirófano 1' },
-                { value: 'OR2', label: 'Quirófano 2' },
-                { value: 'OR3', label: 'Quirófano 3' },
+                { value: 'OR1', label: 'Operating Room 1' },
+                { value: 'OR2', label: 'Operating Room 2' },
+                { value: 'OR3', label: 'Operating Room 3' },
               ]}
               value={formData.operating_room}
               onChange={(e) => updateField('operating_room', e.target.value)}
             />
           </div>
-          <TextArea label="Notas" value={formData.notes} onChange={(e) => updateField('notes', e.target.value)} rows={3} />
+          <TextArea label="Notes" value={formData.notes} onChange={(e) => updateField('notes', e.target.value)} rows={3} />
         </CardContent>
       </Card>
 
       <div className="flex justify-end gap-3">
-        <Button variant="outline" onClick={() => navigate(-1)}>Cancelar</Button>
+        <Button variant="outline" onClick={() => navigate(-1)}>Cancel</Button>
         <Button leftIcon={<Save className="h-4 w-4" />} onClick={handleSave} disabled={!selectedPatient}>
-          Programar Cirugía
+          Schedule Surgery
         </Button>
       </div>
     </div>

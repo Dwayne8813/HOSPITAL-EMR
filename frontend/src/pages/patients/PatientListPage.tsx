@@ -28,7 +28,7 @@ export default function PatientListPage() {
   const columns = [
     {
       key: 'medical_record_number',
-      header: 'N° Historial',
+      header: 'Record No.',
       sortable: true,
       render: (item: Patient) => (
         <span className="font-mono text-primary-700">{item.medical_record_number}</span>
@@ -36,7 +36,7 @@ export default function PatientListPage() {
     },
     {
       key: 'name',
-      header: 'Nombre Completo',
+      header: 'Full Name',
       sortable: true,
       render: (item: Patient) => (
         <div className="flex items-center gap-3">
@@ -54,29 +54,29 @@ export default function PatientListPage() {
     },
     {
       key: 'birth_date',
-      header: 'Edad',
+      header: 'Age',
       sortable: true,
       render: (item: Patient) => (
-        <span>{calculateAge(item.birth_date)} años</span>
+        <span>{calculateAge(item.birth_date)} years</span>
       ),
     },
     {
       key: 'gender',
-      header: 'Sexo',
+      header: 'Sex',
       render: (item: Patient) => (
         <Badge variant={item.gender === 'M' ? 'info' : item.gender === 'F' ? 'secondary' : 'default'}>
-          {item.gender === 'M' ? 'Masculino' : item.gender === 'F' ? 'Femenino' : 'Otro'}
+          {item.gender === 'M' ? 'Male' : item.gender === 'F' ? 'Female' : 'Other'}
         </Badge>
       ),
     },
     {
       key: 'phone',
-      header: 'Teléfono',
+      header: 'Phone',
       render: (item: Patient) => item.phone || '-',
     },
     {
       key: 'is_active',
-      header: 'Estado',
+      header: 'Status',
       render: (item: Patient) => (
         <StatusBadge status={item.is_active ? 'active' : 'inactive'} />
       ),
@@ -87,11 +87,11 @@ export default function PatientListPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Pacientes</h1>
-          <p className="text-sm text-gray-500">Gestión de pacientes del hospital</p>
+          <h1 className="text-2xl font-bold text-gray-900">Patients</h1>
+          <p className="text-sm text-gray-500">Hospital patient management</p>
         </div>
         <Button leftIcon={<Plus className="h-4 w-4" />} onClick={() => navigate('/patients/create')}>
-          Nuevo Paciente
+          New Patient
         </Button>
       </div>
 
@@ -101,7 +101,7 @@ export default function PatientListPage() {
             <div className="flex-1">
               <input
                 type="text"
-                placeholder="Buscar por nombre, CI o N° historial..."
+                placeholder="Search by name, ID, or record number..."
                 value={search}
                 onChange={(e) => { setSearch(e.target.value); setPage(1) }}
                 className="block w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
@@ -109,9 +109,9 @@ export default function PatientListPage() {
             </div>
             <Select
               options={[
-                { value: '', label: 'Todos los estados' },
-                { value: 'active', label: 'Activos' },
-                { value: 'inactive', label: 'Inactivos' },
+                { value: '', label: 'All Statuses' },
+                { value: 'active', label: 'Active' },
+                { value: 'inactive', label: 'Inactive' },
               ]}
               value={statusFilter}
               onChange={(e) => { setStatusFilter(e.target.value); setPage(1) }}
@@ -119,10 +119,10 @@ export default function PatientListPage() {
             />
             <Select
               options={[
-                { value: '', label: 'Todos los sexos' },
-                { value: 'M', label: 'Masculino' },
-                { value: 'F', label: 'Femenino' },
-                { value: 'O', label: 'Otro' },
+                { value: '', label: 'All Genders' },
+                { value: 'M', label: 'Male' },
+                { value: 'F', label: 'Female' },
+                { value: 'O', label: 'Other' },
               ]}
               value={genderFilter}
               onChange={(e) => { setGenderFilter(e.target.value); setPage(1) }}
@@ -142,8 +142,8 @@ export default function PatientListPage() {
             total: data.meta.total,
             onPageChange: setPage,
           } : undefined}
-          emptyTitle="No hay pacientes"
-          emptyDescription="No se encontraron pacientes con los filtros aplicados"
+          emptyTitle="No patients"
+          emptyDescription="No patients found with the applied filters"
         />
       </Card>
     </div>

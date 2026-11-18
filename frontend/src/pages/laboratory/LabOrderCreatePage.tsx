@@ -26,18 +26,18 @@ export default function LabOrderCreatePage() {
   const { data: searchResults } = usePatientSearch(patientSearch)
 
   const availableTests = [
-    { test_name: 'Hemograma Completo', test_code: 'HC001' },
-    { test_name: 'Glucosa', test_code: 'GL001' },
-    { test_name: 'Colesterol Total', test_code: 'CT001' },
-    { test_name: 'Triglicéridos', test_code: 'TG001' },
-    { test_name: 'Urianálisis', test_code: 'UA001' },
-    { test_name: 'Examen General de Orina', test_code: 'EGO001' },
-    { test_name: 'Hepatograma', test_code: 'HP001' },
-    { test_name: 'Perfil Lipídico', test_code: 'PL001' },
-    { test_name: 'Hemoglobina Glicosilada', test_code: 'HG001' },
-    { test_name: 'Creatinina', test_code: 'CR001' },
+    { test_name: 'Complete Blood Count', test_code: 'HC001' },
+    { test_name: 'Glucose', test_code: 'GL001' },
+    { test_name: 'Total Cholesterol', test_code: 'CT001' },
+    { test_name: 'Triglycerides', test_code: 'TG001' },
+    { test_name: 'Urinalysis', test_code: 'UA001' },
+    { test_name: 'General Urinalysis', test_code: 'EGO001' },
+    { test_name: 'Liver Function Panel', test_code: 'HP001' },
+    { test_name: 'Lipid Profile', test_code: 'PL001' },
+    { test_name: 'Glycated Hemoglobin', test_code: 'HG001' },
+    { test_name: 'Creatinine', test_code: 'CR001' },
     { test_name: 'BUN', test_code: 'BUN001' },
-    { test_name: 'Ácido Úrico', test_code: 'AU001' },
+    { test_name: 'Uric Acid', test_code: 'AU001' },
   ]
 
   const addTest = (test: LabTest) => {
@@ -74,20 +74,20 @@ export default function LabOrderCreatePage() {
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Nueva Orden de Laboratorio</h1>
-          <p className="text-sm text-gray-500">Seleccione los exámenes a realizar</p>
+          <h1 className="text-2xl font-bold text-gray-900">New Lab Order</h1>
+          <p className="text-sm text-gray-500">Select the tests to perform</p>
         </div>
       </div>
 
       {/* Patient Selection */}
       <Card variant="elevated">
         <CardHeader>
-          <CardTitle>Paciente</CardTitle>
+          <CardTitle>Patient</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="relative">
             <Input
-              placeholder="Buscar paciente por nombre o CI..."
+              placeholder="Search patient by name or ID..."
               value={patientSearch}
               onChange={(e) => setPatientSearch(e.target.value)}
             />
@@ -100,7 +100,7 @@ export default function LabOrderCreatePage() {
                     className="w-full px-4 py-3 text-left hover:bg-gray-50 border-b last:border-0"
                   >
                     <p className="font-medium text-gray-900">{patient.first_name} {patient.last_name}</p>
-                    <p className="text-sm text-gray-500">CI: {patient.document_number}</p>
+                    <p className="text-sm text-gray-500">ID: {patient.document_number}</p>
                   </button>
                 ))}
               </div>
@@ -112,18 +112,18 @@ export default function LabOrderCreatePage() {
                 <p className="font-medium text-primary-900">
                   {selectedPatient.first_name} {selectedPatient.last_name}
                 </p>
-                <p className="text-sm text-primary-700">CI: {selectedPatient.document_number}</p>
+                <p className="text-sm text-primary-700">ID: {selectedPatient.document_number}</p>
               </div>
-              <Button variant="ghost" size="sm" onClick={() => { setSelectedPatient(null); setMedicalRecordId('') }}>Cambiar</Button>
+              <Button variant="ghost" size="sm" onClick={() => { setSelectedPatient(null); setMedicalRecordId('') }}>Change</Button>
             </div>
           )}
           {selectedPatient && (
             <Input
-              label="ID Historial Clínico"
+              label="Medical Record ID"
               type="number"
               value={medicalRecordId}
               onChange={(e) => setMedicalRecordId(e.target.value)}
-              placeholder="Ingrese el ID del historial clínico"
+              placeholder="Enter the medical record ID"
               required
             />
           )}
@@ -133,15 +133,15 @@ export default function LabOrderCreatePage() {
       {/* Priority and Clinical Info */}
       <Card variant="elevated">
         <CardHeader>
-          <CardTitle>Detalles de la Orden</CardTitle>
+          <CardTitle>Order Details</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">Prioridad *</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">Priority *</label>
             <div className="flex gap-3">
               {[
-                { value: 'routine', label: 'Rutina', color: 'bg-gray-100 border-gray-300' },
-                { value: 'urgent', label: 'Urgente', color: 'bg-yellow-50 border-yellow-300' },
+                { value: 'routine', label: 'Routine', color: 'bg-gray-100 border-gray-300' },
+                { value: 'urgent', label: 'Urgent', color: 'bg-yellow-50 border-yellow-300' },
                 { value: 'stat', label: 'STAT', color: 'bg-red-50 border-red-300' },
               ].map((p) => (
                 <button
@@ -159,10 +159,10 @@ export default function LabOrderCreatePage() {
             </div>
           </div>
           <TextArea
-            label="Información Clínica"
+            label="Clinical Information"
             value={clinicalInfo}
             onChange={(e) => setClinicalInfo(e.target.value)}
-            placeholder="Información clínica relevante para los exámenes..."
+            placeholder="Relevant clinical information for the tests..."
             rows={3}
           />
         </CardContent>
@@ -173,7 +173,7 @@ export default function LabOrderCreatePage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <TestTube className="h-5 w-5 text-primary-600" />
-            Exámenes Disponibles
+            Available Tests
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -196,7 +196,7 @@ export default function LabOrderCreatePage() {
 
           {selectedTests.length > 0 && (
             <div className="mt-4">
-              <h4 className="text-sm font-medium text-gray-700 mb-2">Exámenes Seleccionados</h4>
+              <h4 className="text-sm font-medium text-gray-700 mb-2">Selected Tests</h4>
               <div className="space-y-2">
                 {selectedTests.map((test) => (
                   <div key={test.test_code} className="flex items-center justify-between p-3 bg-primary-50 rounded-lg">
@@ -216,14 +216,14 @@ export default function LabOrderCreatePage() {
       </Card>
 
       <div className="flex justify-end gap-3">
-        <Button variant="outline" onClick={() => navigate(-1)}>Cancelar</Button>
+        <Button variant="outline" onClick={() => navigate(-1)}>Cancel</Button>
         <Button
           leftIcon={<Save className="h-4 w-4" />}
           onClick={handleSave}
           isLoading={createLabOrder.isPending}
           disabled={!selectedPatient || selectedTests.length === 0 || !medicalRecordId}
         >
-          Crear Orden
+          Create Order
         </Button>
       </div>
     </div>

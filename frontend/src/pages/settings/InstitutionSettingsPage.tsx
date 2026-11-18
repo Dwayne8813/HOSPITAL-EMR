@@ -59,7 +59,7 @@ export default function InstitutionSettingsPage() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['institution'] })
-      alert('Configuración guardada correctamente')
+      alert('Settings saved successfully')
     },
   })
 
@@ -79,11 +79,11 @@ export default function InstitutionSettingsPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Configuración del Hospital</h1>
-          <p className="text-sm text-gray-500">Datos generales de la institución</p>
+          <h1 className="text-2xl font-bold text-gray-900">Hospital Settings</h1>
+          <p className="text-sm text-gray-500">General institution details</p>
         </div>
         <Button leftIcon={<Save className="h-4 w-4" />} onClick={handleSave} isLoading={updateMutation.isPending}>
-          Guardar Cambios
+          Save Changes
         </Button>
       </div>
 
@@ -92,51 +92,51 @@ export default function InstitutionSettingsPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Building2 className="h-5 w-5 text-primary-600" />
-            Datos Generales
+            General Details
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Input
-              label="Nombre del Hospital *"
+              label="Hospital Name *"
               value={form.name || ''}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
-              placeholder="Ej: Hospital General de Bolivia"
+              placeholder="e.g., General Hospital of Bolivia"
             />
             <Input
-              label="NIT *"
+              label="Tax ID *"
               value={form.nit || ''}
               onChange={(e) => setForm({ ...form, nit: e.target.value })}
-              placeholder="Ej: 1234567890"
+              placeholder="e.g., 1234567890"
             />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Input
-              label="Dirección"
+              label="Address"
               value={form.address || ''}
               onChange={(e) => setForm({ ...form, address: e.target.value })}
-              placeholder="Ej: Av. Principal No. 1234"
+              placeholder="e.g., 1234 Main St"
             />
             <Input
-              label="Ciudad"
+              label="City"
               value={form.city || ''}
               onChange={(e) => setForm({ ...form, city: e.target.value })}
-              placeholder="Ej: La Paz"
+              placeholder="e.g., La Paz"
             />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Input
-              label="Teléfono"
+              label="Phone"
               value={form.phone || ''}
               onChange={(e) => setForm({ ...form, phone: e.target.value })}
-              placeholder="Ej: +591 2 123456"
+              placeholder="e.g., +591 2 123456"
             />
             <Input
-              label="Correo Electrónico"
+              label="Email"
               type="email"
               value={form.email || ''}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
-              placeholder="Ej: info@hospital.bo"
+              placeholder="e.g., info@hospital.bo"
             />
           </div>
         </CardContent>
@@ -147,7 +147,7 @@ export default function InstitutionSettingsPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Upload className="h-5 w-5 text-primary-600" />
-            Logotipo
+            Logo
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -158,18 +158,18 @@ export default function InstitutionSettingsPage() {
               ) : (
                 <div className="text-center">
                   <Building2 className="h-10 w-10 text-gray-300 mx-auto" />
-                  <p className="text-xs text-gray-400 mt-1">Sin logo</p>
+                  <p className="text-xs text-gray-400 mt-1">No logo</p>
                 </div>
               )}
             </div>
             <div className="flex-1">
               <Input
-                label="URL del Logo"
+                label="Logo URL"
                 value={form.logo || ''}
                 onChange={(e) => setForm({ ...form, logo: e.target.value })}
-                placeholder="https://ejemplo.com/logo.png"
+                placeholder="https://example.com/logo.png"
               />
-              <p className="text-xs text-gray-500 mt-1">Ingrese la URL de la imagen del logo del hospital</p>
+              <p className="text-xs text-gray-500 mt-1">Enter the URL of the hospital logo image</p>
             </div>
           </div>
         </CardContent>
@@ -178,22 +178,22 @@ export default function InstitutionSettingsPage() {
       {/* Misión y Visión */}
       <Card variant="elevated">
         <CardHeader>
-          <CardTitle>Misión y Visión</CardTitle>
+          <CardTitle>Mission and Vision</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <TextArea
-            label="Misión"
+            label="Mission"
             value={form.mission || ''}
             onChange={(e) => setForm({ ...form, mission: e.target.value })}
             rows={3}
-            placeholder="Misión del hospital..."
+            placeholder="Hospital mission..."
           />
           <TextArea
-            label="Visión"
+            label="Vision"
             value={form.vision || ''}
             onChange={(e) => setForm({ ...form, vision: e.target.value })}
             rows={3}
-            placeholder="Visión del hospital..."
+            placeholder="Hospital vision..."
           />
         </CardContent>
       </Card>
@@ -203,13 +203,13 @@ export default function InstitutionSettingsPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Palette className="h-5 w-5 text-primary-600" />
-            Colores del Sistema
+            System Colors
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Color Primario</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Primary Color</label>
               <div className="flex items-center gap-3">
                 <input
                   type="color"
@@ -225,7 +225,7 @@ export default function InstitutionSettingsPage() {
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Color Secundario</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Secondary Color</label>
               <div className="flex items-center gap-3">
                 <input
                   type="color"
@@ -242,13 +242,13 @@ export default function InstitutionSettingsPage() {
             </div>
           </div>
           <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-            <p className="text-sm text-gray-500">Vista previa:</p>
+            <p className="text-sm text-gray-500">Preview:</p>
             <div className="flex gap-3 mt-2">
               <div className="px-4 py-2 rounded-lg text-white text-sm font-medium" style={{ backgroundColor: form.primary_color || '#1380a0' }}>
-                Botón Primario
+                Primary Button
               </div>
               <div className="px-4 py-2 rounded-lg text-white text-sm font-medium" style={{ backgroundColor: form.secondary_color || '#3db89a' }}>
-                Botón Secundario
+                Secondary Button
               </div>
             </div>
           </div>
@@ -258,7 +258,7 @@ export default function InstitutionSettingsPage() {
       {/* Guardar */}
       <div className="flex justify-end">
         <Button leftIcon={<Save className="h-4 w-4" />} onClick={handleSave} isLoading={updateMutation.isPending} size="lg">
-          Guardar Configuración
+          Save Settings
         </Button>
       </div>
     </div>

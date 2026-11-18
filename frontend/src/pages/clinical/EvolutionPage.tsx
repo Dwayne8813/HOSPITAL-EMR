@@ -40,47 +40,47 @@ export default function EvolutionPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Evolución Clínica</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Clinical Progress Note</h1>
           <p className="text-sm text-gray-500">
-            Consulta: {consultation?.consultation_number}
+            Consultation: {consultation?.consultation_number}
           </p>
         </div>
         <Button leftIcon={<Plus className="h-4 w-4" />} onClick={() => setShowForm(!showForm)}>
-          Nueva Evolución
+          New Progress Note
         </Button>
       </div>
 
       {showForm && (
         <Card variant="elevated">
           <CardHeader>
-            <CardTitle>Nueva Nota de Evolución</CardTitle>
+            <CardTitle>New Progress Note</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">S - Subjetivo</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">S - Subjective</label>
               <textarea
                 value={soap.subjective}
                 onChange={(e) => setSoap({ ...soap, subjective: e.target.value })}
                 className="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 resize-y min-h-[80px]"
-                placeholder="Síntomas referidos por el paciente..."
+                placeholder="Symptoms reported by the patient..."
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">O - Objetivo</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">O - Objective</label>
               <textarea
                 value={soap.objective}
                 onChange={(e) => setSoap({ ...soap, objective: e.target.value })}
                 className="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 resize-y min-h-[80px]"
-                placeholder="Hallazgos del examen físico..."
+                placeholder="Physical exam findings..."
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">A - Evaluación</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">A - Assessment</label>
               <textarea
                 value={soap.assessment}
                 onChange={(e) => setSoap({ ...soap, assessment: e.target.value })}
                 className="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 resize-y min-h-[80px]"
-                placeholder="Evolución y diagnóstico..."
+                placeholder="Progress and diagnosis..."
               />
             </div>
             <div>
@@ -89,13 +89,13 @@ export default function EvolutionPage() {
                 value={soap.plan}
                 onChange={(e) => setSoap({ ...soap, plan: e.target.value })}
                 className="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 resize-y min-h-[80px]"
-                placeholder="Plan de tratamiento..."
+                placeholder="Treatment plan..."
               />
             </div>
             <div className="flex justify-end gap-3">
-              <Button variant="outline" onClick={() => setShowForm(false)}>Cancelar</Button>
+              <Button variant="outline" onClick={() => setShowForm(false)}>Cancel</Button>
               <Button leftIcon={<Save className="h-4 w-4" />} onClick={handleSave} isLoading={createSoapNote.isPending}>
-                Guardar Evolución
+                Save Progress Note
               </Button>
             </div>
           </CardContent>
@@ -114,15 +114,15 @@ export default function EvolutionPage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="p-3 bg-blue-50 rounded-lg">
-                <p className="text-xs font-medium text-blue-700 mb-1">Subjetivo</p>
+                <p className="text-xs font-medium text-blue-700 mb-1">Subjective</p>
                 <p className="text-sm text-gray-700">{soapNote.subjective}</p>
               </div>
               <div className="p-3 bg-green-50 rounded-lg">
-                <p className="text-xs font-medium text-green-700 mb-1">Objetivo</p>
+                <p className="text-xs font-medium text-green-700 mb-1">Objective</p>
                 <p className="text-sm text-gray-700">{soapNote.objective}</p>
               </div>
               <div className="p-3 bg-yellow-50 rounded-lg">
-                <p className="text-xs font-medium text-yellow-700 mb-1">Evaluación</p>
+                <p className="text-xs font-medium text-yellow-700 mb-1">Assessment</p>
                 <p className="text-sm text-gray-700">{soapNote.assessment}</p>
               </div>
               <div className="p-3 bg-purple-50 rounded-lg">
@@ -134,8 +134,8 @@ export default function EvolutionPage() {
         </Card>
       ) : (
         <EmptyState
-          title="No hay evoluciones"
-          description="Registre la primera nota de evolución para esta consulta"
+          title="No progress notes"
+          description="Record the first progress note for this consultation"
         />
       )}
     </div>

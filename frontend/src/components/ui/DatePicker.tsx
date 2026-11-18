@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { format } from 'date-fns'
-import { es } from 'date-fns/locale'
+import { enUS } from 'date-fns/locale'
 import { Calendar } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Popover, PopoverContent, PopoverTrigger } from '@radix-ui/react-popover'
@@ -20,7 +20,7 @@ interface DatePickerProps {
 export function DatePicker({
   value,
   onChange,
-  placeholder = 'Seleccionar fecha',
+  placeholder = 'Select date',
   label,
   error,
   disabled,
@@ -109,7 +109,7 @@ export function DatePicker({
           >
             <span className={selectedDate ? 'text-gray-900' : 'text-gray-400'}>
               {selectedDate
-                ? format(selectedDate, 'dd MMM yyyy', { locale: es })
+                ? format(selectedDate, 'dd MMM yyyy', { locale: enUS })
                 : placeholder}
             </span>
             <Calendar className="h-4 w-4 text-gray-400" />
@@ -126,7 +126,7 @@ export function DatePicker({
                 <ChevronLeft className="h-4 w-4" />
               </button>
               <span className="text-sm font-medium text-gray-900">
-                {format(currentMonth, 'MMMM yyyy', { locale: es })}
+                {format(currentMonth, 'MMMM yyyy', { locale: enUS })}
               </span>
               <button
                 type="button"
@@ -137,7 +137,7 @@ export function DatePicker({
               </button>
             </div>
             <div className="grid grid-cols-7 gap-1 mb-1">
-              {['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'].map((day) => (
+              {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map((day) => (
                 <div key={day} className="text-center text-xs font-medium text-gray-500 py-1">
                   {day}
                 </div>

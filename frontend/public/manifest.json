@@ -1,7 +1,8 @@
 {
-  "name": "Hospital EMR - Sistema de Registros Médicos",
+  "name": "Hospital EMR - Medical Records System",
   "short_name": "Hospital EMR",
-  "description": "Sistema de Registros Médicos Electrónicos para hospitales y clínicas",
+  "description": "Electronic medical records system for hospitals and clinics",
+  "lang": "en",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f0f7fa",

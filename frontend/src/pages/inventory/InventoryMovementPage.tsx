@@ -26,8 +26,8 @@ export default function InventoryMovementPage() {
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Movimientos de Inventario</h1>
-          <p className="text-sm text-gray-500">Historial de entradas y salidas</p>
+          <h1 className="text-2xl font-bold text-gray-900">Inventory Movements</h1>
+          <p className="text-sm text-gray-500">History of entries and exits</p>
         </div>
       </div>
 
@@ -35,8 +35,8 @@ export default function InventoryMovementPage() {
         <CardContent>
           {movements.length === 0 ? (
             <EmptyState
-              title="No hay movimientos"
-              description="No se registran movimientos de inventario"
+              title="No movements"
+              description="No inventory movements recorded"
               icon={<ArrowUpDown className="h-8 w-8 text-gray-400" />}
             />
           ) : (

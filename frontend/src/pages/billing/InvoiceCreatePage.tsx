@@ -89,19 +89,19 @@ export default function InvoiceCreatePage() {
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Nueva Factura</h1>
-          <p className="text-sm text-gray-500">Crear factura para servicios médicos</p>
+          <h1 className="text-2xl font-bold text-gray-900">New Invoice</h1>
+          <p className="text-sm text-gray-500">Create invoice for medical services</p>
         </div>
       </div>
 
       <Card variant="elevated">
         <CardHeader>
-          <CardTitle>Paciente</CardTitle>
+          <CardTitle>Patient</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="relative">
             <Input
-              placeholder="Buscar paciente..."
+              placeholder="Search patient..."
               value={patientSearch}
               onChange={(e) => setPatientSearch(e.target.value)}
             />
@@ -114,7 +114,7 @@ export default function InvoiceCreatePage() {
                     className="w-full px-4 py-3 text-left hover:bg-gray-50 border-b last:border-0"
                   >
                     <p className="font-medium text-gray-900">{patient.first_name} {patient.last_name}</p>
-                    <p className="text-sm text-gray-500">CI: {patient.document_number}</p>
+                    <p className="text-sm text-gray-500">ID: {patient.document_number}</p>
                   </button>
                 ))}
               </div>
@@ -124,9 +124,9 @@ export default function InvoiceCreatePage() {
             <div className="mt-3 p-3 bg-primary-50 rounded-lg flex items-center justify-between">
               <div>
                 <p className="font-medium text-primary-900">{selectedPatient.first_name} {selectedPatient.last_name}</p>
-                <p className="text-sm text-primary-700">CI: {selectedPatient.document_number}</p>
+                <p className="text-sm text-primary-700">ID: {selectedPatient.document_number}</p>
               </div>
-              <Button variant="ghost" size="sm" onClick={() => setSelectedPatient(null)}>Cambiar</Button>
+              <Button variant="ghost" size="sm" onClick={() => setSelectedPatient(null)}>Change</Button>
             </div>
           )}
         </CardContent>
@@ -137,33 +137,33 @@ export default function InvoiceCreatePage() {
           <div className="flex items-center justify-between">
             <CardTitle className="flex items-center gap-2">
               <FileText className="h-5 w-5 text-primary-600" />
-              Servicios
+              Services
             </CardTitle>
             <Button size="sm" leftIcon={<Plus className="h-4 w-4" />} onClick={addItem}>
-              Agregar Servicio
+              Add Service
             </Button>
           </div>
         </CardHeader>
         <CardContent className="space-y-4">
           {items.length === 0 ? (
             <p className="text-sm text-gray-500 text-center py-4">
-              No hay servicios agregados. Haga clic en "Agregar Servicio" para comenzar.
+              No services added. Click "Add Service" to get started.
             </p>
           ) : (
             items.map((item, index) => (
               <div key={index} className="p-4 border border-gray-200 rounded-lg">
                 <div className="flex items-center justify-between mb-3">
-                  <h4 className="font-medium text-gray-900">Servicio {index + 1}</h4>
+                  <h4 className="font-medium text-gray-900">Service {index + 1}</h4>
                   <button onClick={() => removeItem(index)} className="text-red-500 hover:text-red-700">
                     <Trash2 className="h-4 w-4" />
                   </button>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
                   <div className="md:col-span-2">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Buscar servicio</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Search service</label>
                     <div className="relative">
                       <Input
-                        placeholder="Buscar en catálogo..."
+                        placeholder="Search catalog..."
                         value={activeItemIndex === index ? serviceSearch : ''}
                         onChange={(e) => { setActiveItemIndex(index); setServiceSearch(e.target.value) }}
                         onFocus={() => setActiveItemIndex(index)}
@@ -185,19 +185,19 @@ export default function InvoiceCreatePage() {
                     </div>
                   </div>
                   <Input
-                    label="Descripción"
+                    label="Description"
                     value={item.description}
                     onChange={(e) => updateItem(index, 'description', e.target.value)}
                   />
                   <Input
-                    label="Cantidad"
+                    label="Quantity"
                     type="number"
                     min={1}
                     value={item.quantity}
                     onChange={(e) => updateItem(index, 'quantity', parseInt(e.target.value) || 1)}
                   />
                   <Input
-                    label="Precio Unitario"
+                    label="Unit Price"
                     type="number"
                     step="0.01"
                     min={0}
@@ -207,7 +207,7 @@ export default function InvoiceCreatePage() {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mt-3">
                   <Input
-                    label="Descuento"
+                    label="Discount"
                     type="number"
                     step="0.01"
                     min={0}
@@ -227,20 +227,20 @@ export default function InvoiceCreatePage() {
       {/* Totals */}
       <Card variant="elevated">
         <CardHeader>
-          <CardTitle>Resumen</CardTitle>
+          <CardTitle>Summary</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-3">
               <TextArea
-                label="Notas"
+                label="Notes"
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 rows={3}
-                placeholder="Notas adicionales..."
+                placeholder="Additional notes..."
               />
               <Input
-                label="Fecha de vencimiento"
+                label="Due Date"
                 type="date"
                 value={dueDate}
                 onChange={(e) => setDueDate(e.target.value)}
@@ -261,9 +261,9 @@ export default function InvoiceCreatePage() {
       </Card>
 
       <div className="flex justify-end gap-3">
-        <Button variant="outline" onClick={() => navigate(-1)}>Cancelar</Button>
+        <Button variant="outline" onClick={() => navigate(-1)}>Cancel</Button>
         <Button leftIcon={<Save className="h-4 w-4" />} onClick={handleSave} isLoading={createInvoice.isPending} disabled={!selectedPatient || items.length === 0}>
-          Crear Factura
+          Create Invoice
         </Button>
       </div>
     </div>

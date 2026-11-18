@@ -1,7 +1,7 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import { format, formatDistanceToNow, parseISO, differenceInYears } from 'date-fns'
-import { es } from 'date-fns/locale'
+import { enUS } from 'date-fns/locale'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -9,12 +9,12 @@ export function cn(...inputs: ClassValue[]) {
 
 export function formatDate(date: string | Date): string {
   const d = typeof date === 'string' ? parseISO(date) : date
-  return format(d, 'dd MMM yyyy', { locale: es })
+  return format(d, 'dd MMM yyyy', { locale: enUS })
 }
 
 export function formatDateTime(date: string | Date): string {
   const d = typeof date === 'string' ? parseISO(date) : date
-  return format(d, "dd MMM yyyy 'a las' HH:mm", { locale: es })
+  return format(d, "dd MMM yyyy 'at' HH:mm", { locale: enUS })
 }
 
 export function formatTime(date: string | Date): string {
@@ -24,12 +24,12 @@ export function formatTime(date: string | Date): string {
 
 export function formatRelativeTime(date: string | Date): string {
   const d = typeof date === 'string' ? parseISO(date) : date
-  return formatDistanceToNow(d, { addSuffix: true, locale: es })
+  return formatDistanceToNow(d, { addSuffix: true, locale: enUS })
 }
 
 export function formatCurrency(amount: number | null | undefined): string {
-  if (amount === null || amount === undefined || isNaN(amount)) return 'Bs 0,00'
-  return new Intl.NumberFormat('es-BO', {
+  if (amount === null || amount === undefined || isNaN(amount)) return 'BOB 0.00'
+  return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'BOB',
     minimumFractionDigits: 2,
@@ -37,7 +37,7 @@ export function formatCurrency(amount: number | null | undefined): string {
 }
 
 export function formatNumber(num: number): string {
-  return new Intl.NumberFormat('es-BO').format(num)
+  return new Intl.NumberFormat('en-US').format(num)
 }
 
 export function calculateAge(birthDate: string | Date): number {
@@ -51,10 +51,10 @@ export function calculateIMC(weight: number, heightCm: number): number {
 }
 
 export function getIMCCategory(imc: number): string {
-  if (imc < 18.5) return 'Bajo peso'
+  if (imc < 18.5) return 'Underweight'
   if (imc < 25) return 'Normal'
-  if (imc < 30) return 'Sobrepeso'
-  return 'Obesidad'
+  if (imc < 30) return 'Overweight'
+  return 'Obesity'
 }
 
 export function getIMCColor(imc: number): string {

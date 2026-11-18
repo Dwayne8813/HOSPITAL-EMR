@@ -27,7 +27,7 @@ export default function ForgotPasswordPage() {
       setIsSubmitted(true)
     } catch (err: unknown) {
       const axiosError = err as { response?: { data?: { message?: string } } }
-      setError(axiosError.response?.data?.message || 'Error al enviar el correo. Intenta nuevamente.')
+      setError(axiosError.response?.data?.message || 'Error sending email. Please try again.')
     }
   }
 
@@ -45,10 +45,10 @@ export default function ForgotPasswordPage() {
           </div>
         </div>
         <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
-          Recuperar Contraseña
+          Reset Password
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
-          Ingresa tu correo electrónico y te enviaremos las instrucciones
+          Enter your email and we will send you instructions
         </p>
       </div>
 
@@ -60,17 +60,17 @@ export default function ForgotPasswordPage() {
                 <CheckCircle className="h-6 w-6 text-green-600" />
               </div>
               <h3 className="text-lg font-medium text-gray-900 mb-2">
-                Correo Enviado
+                Email Sent
               </h3>
               <p className="text-sm text-gray-500 mb-6">
-                Si existe una cuenta con ese correo electrónico, recibirás las instrucciones para recuperar tu contraseña.
+                If an account exists with that email, you will receive instructions to reset your password.
               </p>
               <Link
                 to="/login"
                 className="inline-flex items-center gap-2 text-sm font-medium text-primary-600 hover:text-primary-700"
               >
                 <ArrowLeft className="h-4 w-4" />
-                Volver al inicio de sesión
+                Back to sign in
               </Link>
             </div>
           ) : (
@@ -82,7 +82,7 @@ export default function ForgotPasswordPage() {
               )}
 
               <Input
-                label="Correo electrónico"
+                label="Email"
                 type="email"
                 autoComplete="email"
                 placeholder="tu@hospital.com"
@@ -97,7 +97,7 @@ export default function ForgotPasswordPage() {
                 size="lg"
                 isLoading={isSubmitting}
               >
-                Enviar Instrucciones
+                Send Instructions
               </Button>
 
               <div className="text-center">
@@ -106,7 +106,7 @@ export default function ForgotPasswordPage() {
                   className="inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900"
                 >
                   <ArrowLeft className="h-4 w-4" />
-                  Volver al inicio de sesión
+                  Back to sign in
                 </Link>
               </div>
             </form>

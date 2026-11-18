@@ -25,7 +25,7 @@ export default function LabOrderListPage() {
   const columns = [
     {
       key: 'order_number',
-      header: 'N° Orden',
+      header: 'Order No.',
       sortable: true,
       render: (item: LabOrder) => (
         <span className="font-mono text-primary-700">{item.order_number}</span>
@@ -33,7 +33,7 @@ export default function LabOrderListPage() {
     },
     {
       key: 'patient',
-      header: 'Paciente',
+      header: 'Patient',
       render: (item: LabOrder) => (
         <div>
           <p className="font-medium text-gray-900">
@@ -45,31 +45,31 @@ export default function LabOrderListPage() {
     },
     {
       key: 'doctor',
-      header: 'Médico Solicitante',
+      header: 'Requesting Doctor',
       render: (item: LabOrder) => (
         <span>Dr. {item.doctor?.first_name} {item.doctor?.last_name}</span>
       ),
     },
     {
       key: 'items',
-      header: 'Exámenes',
+      header: 'Tests',
       render: (item: LabOrder) => (
-        <span>{item.items.length} examen(es)</span>
+        <span>{item.items.length} test(s)</span>
       ),
     },
     {
       key: 'priority',
-      header: 'Prioridad',
+      header: 'Priority',
       render: (item: LabOrder) => <StatusBadge status={item.priority} />,
     },
     {
       key: 'status',
-      header: 'Estado',
+      header: 'Status',
       render: (item: LabOrder) => <StatusBadge status={item.status} />,
     },
     {
       key: 'created_at',
-      header: 'Fecha',
+      header: 'Date',
       sortable: true,
       render: (item: LabOrder) => formatDate(item.created_at),
     },
@@ -79,16 +79,16 @@ export default function LabOrderListPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Órdenes de Laboratorio</h1>
-          <p className="text-sm text-gray-500">Gestión de órdenes de exámenes de laboratorio</p>
+          <h1 className="text-2xl font-bold text-gray-900">Lab Orders</h1>
+          <p className="text-sm text-gray-500">Lab test order management</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={() => navigate('/lab/results')}>
             <TestTube className="h-4 w-4 mr-2" />
-            Ver Resultados
+            View Results
           </Button>
           <Button leftIcon={<Plus className="h-4 w-4" />} onClick={() => navigate('/lab/orders/create')}>
-            Nueva Orden
+            New Order
           </Button>
         </div>
       </div>
@@ -101,20 +101,20 @@ export default function LabOrderListPage() {
               onChange={(e) => { setStatusFilter(e.target.value); setPage(1) }}
               className="block w-full sm:w-40 rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             >
-              <option value="">Todos los estados</option>
-              <option value="pending">Pendientes</option>
-              <option value="in_progress">En Proceso</option>
-              <option value="completed">Completadas</option>
-              <option value="cancelled">Canceladas</option>
+              <option value="">All statuses</option>
+              <option value="pending">Pending</option>
+              <option value="in_progress">In Progress</option>
+              <option value="completed">Completed</option>
+              <option value="cancelled">Cancelled</option>
             </select>
             <select
               value={priorityFilter}
               onChange={(e) => { setPriorityFilter(e.target.value); setPage(1) }}
               className="block w-full sm:w-40 rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             >
-              <option value="">Todas las prioridades</option>
-              <option value="routine">Rutina</option>
-              <option value="urgent">Urgente</option>
+              <option value="">All priorities</option>
+              <option value="routine">Routine</option>
+              <option value="urgent">Urgent</option>
               <option value="stat">STAT</option>
             </select>
           </div>
@@ -131,8 +131,8 @@ export default function LabOrderListPage() {
             total: data.meta.total,
             onPageChange: setPage,
           } : undefined}
-          emptyTitle="No hay órdenes"
-          emptyDescription="No se encontraron órdenes de laboratorio"
+          emptyTitle="No orders"
+          emptyDescription="No lab orders found"
         />
       </Card>
     </div>

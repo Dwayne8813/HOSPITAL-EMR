@@ -42,8 +42,8 @@ export function DataTable<T>({
   searchValue,
   onSearch,
   pagination,
-  emptyTitle = 'No hay datos',
-  emptyDescription = 'No se encontraron registros',
+  emptyTitle = 'No data',
+  emptyDescription = 'No records found',
   onRowClick,
   className,
 }: DataTableProps<T>) {
@@ -85,7 +85,7 @@ export function DataTable<T>({
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
             <input
               type="text"
-              placeholder={searchPlaceholder || 'Buscar...'}
+              placeholder={searchPlaceholder || 'Search...'}
               value={searchValue || ''}
               onChange={(e) => onSearch(e.target.value)}
               className="block w-full rounded-lg border border-gray-300 bg-white pl-10 pr-3 py-2 text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
@@ -157,9 +157,9 @@ export function DataTable<T>({
       {pagination && pagination.last_page > 1 && (
         <div className="flex items-center justify-between">
           <p className="text-sm text-gray-500">
-            Mostrando {(pagination.current_page - 1) * pagination.per_page + 1} a{' '}
-            {Math.min(pagination.current_page * pagination.per_page, pagination.total)} de{' '}
-            {pagination.total} resultados
+            Showing {(pagination.current_page - 1) * pagination.per_page + 1} to{' '}
+            {Math.min(pagination.current_page * pagination.per_page, pagination.total)} of{' '}
+            {pagination.total} results
           </p>
           <div className="flex items-center gap-2">
             <Button
@@ -171,7 +171,7 @@ export function DataTable<T>({
               <ChevronLeft className="h-4 w-4" />
             </Button>
             <span className="text-sm text-gray-700">
-              Página {pagination.current_page} de {pagination.last_page}
+              Page {pagination.current_page} of {pagination.last_page}
             </span>
             <Button
               variant="outline"

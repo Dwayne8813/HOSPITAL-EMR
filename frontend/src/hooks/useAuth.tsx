@@ -40,8 +40,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   useEffect(() => {
-    getCurrentUser()
-  }, [getCurrentUser])
+    // Always start on the login page: clear any saved session on startup.
+    localStorage.removeItem('access_token')
+    localStorage.removeItem('refresh_token')
+    localStorage.removeItem('user')
+    localStorage.removeItem('institution_id')
+    setIsLoading(false)
+  }, [])
 
   const login = async (email: string, password: string, institutionId?: string) => {
     const response = await api.post('/auth/login', {

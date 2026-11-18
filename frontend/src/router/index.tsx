@@ -95,6 +95,9 @@ import RoleListPage from '@/pages/settings/RoleListPage'
 // Notifications
 import NotificationListPage from '@/pages/notifications/NotificationListPage'
 
+// Profile
+import ProfilePage from '@/pages/profile/ProfilePage'
+
 // Audit
 import AuditLogPage from '@/pages/audit/AuditLogPage'
 
@@ -113,7 +116,7 @@ function ProtectedRoute({ children }: ProtectedRouteProps) {
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-primary-600 border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="mt-4 text-sm text-gray-500">Cargando...</p>
+          <p className="mt-4 text-sm text-gray-500">Loading...</p>
         </div>
       </div>
     )
@@ -127,21 +130,17 @@ function ProtectedRoute({ children }: ProtectedRouteProps) {
 }
 
 function PublicRoute({ children }: ProtectedRouteProps) {
-  const { isAuthenticated, isLoading } = useAuth()
+  const { isLoading } = useAuth()
 
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-primary-600 border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="mt-4 text-sm text-gray-500">Cargando...</p>
+          <p className="mt-4 text-sm text-gray-500">Loading...</p>
         </div>
       </div>
     )
-  }
-
-  if (isAuthenticated) {
-    return <Navigate to="/dashboard" replace />
   }
 
   return <>{children}</>
@@ -183,7 +182,7 @@ export const router = createBrowserRouter([
       </ProtectedRoute>
     ),
     children: [
-      { index: true, element: <Navigate to="/dashboard" replace /> },
+      { index: true, element: <Navigate to="/login" replace /> },
       
       // Dashboard
       { path: 'dashboard', element: <DashboardPage /> },
@@ -275,6 +274,9 @@ export const router = createBrowserRouter([
       // Audit
       { path: 'audit', element: <AuditLogPage /> },
 
+      // Profile
+      { path: 'profile', element: <ProfilePage /> },
+
       // Notifications
       { path: 'notifications', element: <NotificationListPage /> },
 
@@ -284,5 +286,5 @@ export const router = createBrowserRouter([
   },
 
   // Catch all
-  { path: '*', element: <Navigate to="/dashboard" replace /> },
+  { path: '*', element: <Navigate to="/login" replace /> },
 ])

@@ -34,8 +34,8 @@ export default function UserCreatePage() {
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Nuevo Usuario</h1>
-          <p className="text-sm text-gray-500">Registrar nuevo usuario del sistema</p>
+          <h1 className="text-2xl font-bold text-gray-900">New User</h1>
+          <p className="text-sm text-gray-500">Register a new system user</p>
         </div>
       </div>
 
@@ -43,40 +43,40 @@ export default function UserCreatePage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <UserPlus className="h-5 w-5 text-primary-600" />
-            Datos del Usuario
+            User Details
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Input label="Nombre" required value={formData.first_name} onChange={(e) => updateField('first_name', e.target.value)} />
-            <Input label="Apellido" required value={formData.last_name} onChange={(e) => updateField('last_name', e.target.value)} />
+            <Input label="First Name" required value={formData.first_name} onChange={(e) => updateField('first_name', e.target.value)} />
+            <Input label="Last Name" required value={formData.last_name} onChange={(e) => updateField('last_name', e.target.value)} />
             <Input label="Email" type="email" required value={formData.email} onChange={(e) => updateField('email', e.target.value)} />
-            <Input label="Teléfono" value={formData.phone} onChange={(e) => updateField('phone', e.target.value)} />
+            <Input label="Phone" value={formData.phone} onChange={(e) => updateField('phone', e.target.value)} />
             <Select
-              label="Rol"
+              label="Role"
               required
               options={[
-                { value: 'admin', label: 'Administrador' },
-                { value: 'doctor', label: 'Médico' },
-                { value: 'nurse', label: 'Enfermero' },
-                { value: 'receptionist', label: 'Recepcionista' },
-                { value: 'lab_tech', label: 'Técnico de Laboratorio' },
-                { value: 'pharmacist', label: 'Farmacéutico' },
+                { value: 'admin', label: 'Administrator' },
+                { value: 'doctor', label: 'Doctor' },
+                { value: 'nurse', label: 'Nurse' },
+                { value: 'receptionist', label: 'Receptionist' },
+                { value: 'lab_tech', label: 'Lab Technician' },
+                { value: 'pharmacist', label: 'Pharmacist' },
               ]}
               value={formData.role}
               onChange={(e) => updateField('role', e.target.value)}
             />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Input label="Contraseña" type="password" required value={formData.password} onChange={(e) => updateField('password', e.target.value)} />
-            <Input label="Confirmar Contraseña" type="password" required value={formData.password_confirmation} onChange={(e) => updateField('password_confirmation', e.target.value)} />
+            <Input label="Password" type="password" required value={formData.password} onChange={(e) => updateField('password', e.target.value)} />
+            <Input label="Confirm Password" type="password" required value={formData.password_confirmation} onChange={(e) => updateField('password_confirmation', e.target.value)} />
           </div>
         </CardContent>
       </Card>
 
       <div className="flex justify-end gap-3">
-        <Button variant="outline" onClick={() => navigate(-1)}>Cancelar</Button>
-        <Button leftIcon={<Save className="h-4 w-4" />} onClick={handleSave}>Crear Usuario</Button>
+        <Button variant="outline" onClick={() => navigate(-1)}>Cancel</Button>
+        <Button leftIcon={<Save className="h-4 w-4" />} onClick={handleSave}>Create User</Button>
       </div>
     </div>
   )

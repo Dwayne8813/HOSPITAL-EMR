@@ -27,11 +27,11 @@ export default function SurgerySchedulePage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Calendario de Cirugías</h1>
-          <p className="text-sm text-gray-500">Programación de cirugías</p>
+          <h1 className="text-2xl font-bold text-gray-900">Surgery Calendar</h1>
+          <p className="text-sm text-gray-500">Surgery scheduling</p>
         </div>
         <Button leftIcon={<Plus className="h-4 w-4" />} onClick={() => navigate('/surgery/create')}>
-          Programar Cirugía
+          Schedule Surgery
         </Button>
       </div>
 
@@ -45,7 +45,7 @@ export default function SurgerySchedulePage() {
               onChange={(e) => setSelectedDate(e.target.value)}
               className="block rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
-            <Button variant="outline" size="sm">Hoy</Button>
+            <Button variant="outline" size="sm">Today</Button>
           </div>
         </CardContent>
       </Card>
@@ -55,16 +55,16 @@ export default function SurgerySchedulePage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Calendar className="h-5 w-5 text-primary-600" />
-            Cirugías Programadas - {formatDate(selectedDate)}
+            Scheduled Surgeries - {formatDate(selectedDate)}
           </CardTitle>
         </CardHeader>
         <CardContent>
           {surgeries.length === 0 ? (
             <div className="text-center py-12">
               <Scissors className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-              <p className="text-gray-500">No hay cirugías programadas para esta fecha</p>
+              <p className="text-gray-500">No surgeries scheduled for this date</p>
               <Button className="mt-4" onClick={() => navigate('/surgery/create')}>
-                Programar Cirugía
+                Schedule Surgery
               </Button>
             </div>
           ) : (

@@ -26,16 +26,16 @@ export default function AppointmentListPage() {
   })
 
   const typeLabels: Record<string, string> = {
-    consultation: 'Consulta',
-    follow_up: 'Seguimiento',
-    emergency: 'Emergencia',
-    telemedicine: 'Telemedicina',
+    consultation: 'Consultation',
+    follow_up: 'Follow-up',
+    emergency: 'Emergency',
+    telemedicine: 'Telemedicine',
   }
 
   const columns = [
     {
       key: 'date',
-      header: 'Fecha',
+      header: 'Date',
       sortable: true,
       render: (item: Appointment) => (
         <div className="flex items-center gap-2">
@@ -46,7 +46,7 @@ export default function AppointmentListPage() {
     },
     {
       key: 'time',
-      header: 'Hora',
+      header: 'Time',
       render: (item: Appointment) => (
         <div className="flex items-center gap-2">
           <Clock className="h-4 w-4 text-gray-400" />
@@ -56,7 +56,7 @@ export default function AppointmentListPage() {
     },
     {
       key: 'patient',
-      header: 'Paciente',
+      header: 'Patient',
       render: (item: Appointment) => (
         <div>
           <p className="font-medium text-gray-900">
@@ -68,21 +68,21 @@ export default function AppointmentListPage() {
     },
     {
       key: 'doctor',
-      header: 'Médico',
+      header: 'Doctor',
       render: (item: Appointment) => (
         <span>Dr. {item.doctor?.first_name} {item.doctor?.last_name}</span>
       ),
     },
     {
       key: 'type',
-      header: 'Tipo',
+      header: 'Type',
       render: (item: Appointment) => (
         <Badge variant="primary">{typeLabels[item.type as keyof typeof typeLabels] || item.type || '-'}</Badge>
       ),
     },
     {
       key: 'status',
-      header: 'Estado',
+      header: 'Status',
       render: (item: Appointment) => <StatusBadge status={item.status} />,
     },
     {
@@ -105,16 +105,16 @@ export default function AppointmentListPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Citas Médicas</h1>
-          <p className="text-sm text-gray-500">Lista de todas las citas programadas</p>
+          <h1 className="text-2xl font-bold text-gray-900">Medical Appointments</h1>
+          <p className="text-sm text-gray-500">List of all scheduled appointments</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={() => navigate('/appointments/calendar')}>
             <Calendar className="h-4 w-4 mr-2" />
-            Calendario
+            Calendar
           </Button>
           <Button leftIcon={<Plus className="h-4 w-4" />} onClick={() => navigate('/appointments/create')}>
-            Nueva Cita
+            New Appointment
           </Button>
         </div>
       </div>
@@ -127,23 +127,23 @@ export default function AppointmentListPage() {
               onChange={(e) => { setStatusFilter(e.target.value); setPage(1) }}
               className="block w-full sm:w-40 rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             >
-              <option value="">Todos los estados</option>
-              <option value="scheduled">Programadas</option>
-              <option value="confirmed">Confirmadas</option>
-              <option value="in_progress">En Progreso</option>
-              <option value="completed">Completadas</option>
-              <option value="cancelled">Canceladas</option>
+              <option value="">All Statuses</option>
+              <option value="scheduled">Scheduled</option>
+              <option value="confirmed">Confirmed</option>
+              <option value="in_progress">In Progress</option>
+              <option value="completed">Completed</option>
+              <option value="cancelled">Cancelled</option>
             </select>
             <select
               value={typeFilter}
               onChange={(e) => { setTypeFilter(e.target.value); setPage(1) }}
               className="block w-full sm:w-40 rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             >
-              <option value="">Todos los tipos</option>
-              <option value="consultation">Consulta</option>
-              <option value="follow_up">Seguimiento</option>
-              <option value="emergency">Emergencia</option>
-              <option value="telemedicine">Telemedicina</option>
+              <option value="">All Types</option>
+              <option value="consultation">Consultation</option>
+              <option value="follow_up">Follow-up</option>
+              <option value="emergency">Emergency</option>
+              <option value="telemedicine">Telemedicine</option>
             </select>
           </div>
         </CardHeader>
@@ -159,20 +159,20 @@ export default function AppointmentListPage() {
             total: data.meta.total,
             onPageChange: setPage,
           } : undefined}
-          emptyTitle="No hay citas"
-          emptyDescription="No se encontraron citas con los filtros aplicados"
+          emptyTitle="No appointments"
+          emptyDescription="No appointments found with the applied filters"
         />
       </Card>
 
       <ConfirmDialog
         open={!!cancelId}
         onOpenChange={() => setCancelId(null)}
-        title="Cancelar Cita"
-        description="¿Está seguro que desea cancelar esta cita?"
-        confirmText="Cancelar Cita"
+        title="Cancel Appointment"
+        description="Are you sure you want to cancel this appointment?"
+        confirmText="Cancel Appointment"
         onConfirm={() => {
           if (cancelId) {
-            cancelAppointment.mutate({ id: cancelId, reason: 'Cancelado por el usuario' }, {
+            cancelAppointment.mutate({ id: cancelId, reason: 'Cancelled by user' }, {
               onSettled: () => setCancelId(null),
             })
           }

@@ -40,8 +40,8 @@ export default function PatientCreatePage() {
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Registrar Paciente</h1>
-          <p className="text-sm text-gray-500">Complete los datos del nuevo paciente</p>
+          <h1 className="text-2xl font-bold text-gray-900">Register Patient</h1>
+          <p className="text-sm text-gray-500">Enter the details for the new patient</p>
         </div>
       </div>
 
@@ -51,47 +51,47 @@ export default function PatientCreatePage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <UserPlus className="h-5 w-5 text-primary-600" />
-              Datos Personales
+              Personal Details
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <Input
-                label="Nombre"
+                label="First Name"
                 required
                 {...register('first_name')}
                 error={errors.first_name?.message}
               />
               <Input
-                label="Apellido Paterno"
+                label="Last Name"
                 required
                 {...register('last_name')}
                 error={errors.last_name?.message}
               />
               <Input
-                label="Apellido Materno"
+                label="Second Last Name"
                 {...register('second_last_name')}
               />
               <Select
-                label="Tipo de Documento"
+                label="Document Type"
                 required
                 options={[
-                  { value: 'CI', label: 'Cédula de Identidad' },
-                  { value: 'PASSPORT', label: 'Pasaporte' },
-                  { value: 'OTHER', label: 'Otro' },
+                  { value: 'CI', label: 'Identity Card' },
+                  { value: 'PASSPORT', label: 'Passport' },
+                  { value: 'OTHER', label: 'Other' },
                 ]}
                 {...register('document_type')}
                 error={errors.document_type?.message}
               />
               <Input
-                label="Número de Documento"
+                label="Document Number"
                 required
                 {...register('document_number')}
                 error={errors.document_number?.message}
               />
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                  Fecha de Nacimiento <span className="text-red-500 ml-1">*</span>
+                  Date of Birth <span className="text-red-500 ml-1">*</span>
                 </label>
                 <input
                   type="date"
@@ -103,18 +103,18 @@ export default function PatientCreatePage() {
                 )}
               </div>
               <Select
-                label="Sexo"
+                label="Sex"
                 required
                 options={[
-                  { value: 'M', label: 'Masculino' },
-                  { value: 'F', label: 'Femenino' },
-                  { value: 'O', label: 'Otro' },
+                  { value: 'M', label: 'Male' },
+                  { value: 'F', label: 'Female' },
+                  { value: 'O', label: 'Other' },
                 ]}
                 {...register('gender')}
                 error={errors.gender?.message}
               />
               <Select
-                label="Tipo de Sangre"
+                label="Blood Type"
                 options={[
                   { value: 'A+', label: 'A+' },
                   { value: 'A-', label: 'A-' },
@@ -134,22 +134,22 @@ export default function PatientCreatePage() {
         {/* Contact Information */}
         <Card variant="elevated">
           <CardHeader>
-            <CardTitle>Información de Contacto</CardTitle>
+            <CardTitle>Contact Information</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <Input
-                label="Teléfono"
+                label="Phone"
                 {...register('phone')}
               />
               <Input
-                label="Correo Electrónico"
+                label="Email"
                 type="email"
                 {...register('email')}
                 error={errors.email?.message}
               />
               <Input
-                label="Dirección"
+                label="Address"
                 {...register('address')}
               />
             </div>
@@ -159,16 +159,16 @@ export default function PatientCreatePage() {
         {/* Emergency Contact */}
         <Card variant="elevated">
           <CardHeader>
-            <CardTitle>Contacto de Emergencia</CardTitle>
+            <CardTitle>Emergency Contact</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Input
-                label="Nombre del Contacto"
+                label="Contact Name"
                 {...register('emergency_contact_name')}
               />
               <Input
-                label="Teléfono del Contacto"
+                label="Contact Phone"
                 {...register('emergency_contact_phone')}
               />
             </div>
@@ -178,16 +178,16 @@ export default function PatientCreatePage() {
         {/* Insurance */}
         <Card variant="elevated">
           <CardHeader>
-            <CardTitle>Seguro Médico</CardTitle>
+            <CardTitle>Health Insurance</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Input
-                label="Proveedor de Seguro"
+                label="Insurance Provider"
                 {...register('insurance_provider')}
               />
               <Input
-                label="Número de Póliza"
+                label="Policy Number"
                 {...register('insurance_number')}
               />
             </div>
@@ -197,26 +197,26 @@ export default function PatientCreatePage() {
         {/* Medical History */}
         <Card variant="elevated">
           <CardHeader>
-            <CardTitle>Historial Médico</CardTitle>
+            <CardTitle>Medical History</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">Alergias</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">Allergies</label>
                 <textarea
                   {...register('allergies')}
                   rows={3}
                   className="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 resize-y"
-                  placeholder="Describa alergias conocidas..."
+                  placeholder="Describe known allergies..."
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">Historial Médico</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">Medical History</label>
                 <textarea
                   {...register('medical_history')}
                   rows={4}
                   className="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 resize-y"
-                  placeholder="Enfermedades previas, cirugías, medicamentos..."
+                  placeholder="Previous illnesses, surgeries, medications..."
                 />
               </div>
             </div>
@@ -226,14 +226,14 @@ export default function PatientCreatePage() {
         {/* Actions */}
         <div className="flex justify-end gap-3">
           <Button type="button" variant="outline" onClick={() => navigate(-1)}>
-            Cancelar
+            Cancel
           </Button>
           <Button
             type="submit"
             leftIcon={<Save className="h-4 w-4" />}
             isLoading={createPatient.isPending}
           >
-            Registrar Paciente
+            Register Patient
           </Button>
         </div>
       </form>

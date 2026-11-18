@@ -18,8 +18,8 @@ class InstitutionSeeder extends Seeder
             'phone' => '+591 2 123456',
             'email' => 'info@hgbhospital.bo',
             'nit' => '1234567890',
-            'mission' => 'Brindar atención médica de calidad, integral y humanizada a la población boliviana, con estándares de excelencia y compromiso social.',
-            'vision' => 'Ser referente nacional en atención médica, reconocida por su excelencia, innovación tecnológica y compromiso con la salud de los bolivianos.',
+            'mission' => 'To provide high-quality, comprehensive, and compassionate medical care to the Bolivian population, with standards of excellence and social commitment.',
+            'vision' => 'To be a national leader in medical care, recognized for excellence, technological innovation, and commitment to the health of Bolivians.',
             'config_json' => json_encode([
                 'currency' => 'BOB',
                 'tax_rate' => 13,

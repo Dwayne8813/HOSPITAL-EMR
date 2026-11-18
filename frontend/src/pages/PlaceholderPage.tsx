@@ -17,7 +17,7 @@ export default function PlaceholderPage({ title, description }: PlaceholderPageP
             </div>
             <h2 className="text-xl font-bold text-gray-900 mb-2">{title}</h2>
             <p className="text-sm text-gray-500 max-w-md mx-auto">
-              {description || 'Esta página está en desarrollo. Próximamente estará disponible.'}
+              {description || 'This page is under development. It will be available soon.'}
             </p>
           </div>
         </CardContent>

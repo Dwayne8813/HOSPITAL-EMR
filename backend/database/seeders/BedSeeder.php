@@ -15,7 +15,7 @@ class BedSeeder extends Seeder
         $beds = [];
         $bedCount = 0;
 
-        // Habitaciones individuales - 1 cama cada una
+        // Single rooms - 1 bed each
         $individualRooms = ['2-01', '2-02'];
         foreach ($individualRooms as $roomNumber) {
             $bedCount++;
@@ -31,7 +31,7 @@ class BedSeeder extends Seeder
             ];
         }
 
-        // Habitaciones compartidas - 2 camas cada una
+        // Shared rooms - 2 beds each
         $sharedRooms = ['2-03', '2-04'];
         foreach ($sharedRooms as $roomNumber) {
             for ($i = 1; $i <= 2; $i++) {
@@ -49,7 +49,7 @@ class BedSeeder extends Seeder
             }
         }
 
-        // Habitaciones tipo ward - 4 camas cada una
+        // Ward-style rooms - 4 beds each
         $wardRooms = ['2-05', '2-06'];
         foreach ($wardRooms as $roomNumber) {
             for ($i = 1; $i <= 4; $i++) {
@@ -67,7 +67,7 @@ class BedSeeder extends Seeder
             }
         }
 
-        // UCI - 6 camas ICU
+        // ICU - 6 ICU beds
         for ($i = 1; $i <= 6; $i++) {
             $bedCount++;
             $beds[] = [
@@ -82,7 +82,7 @@ class BedSeeder extends Seeder
             ];
         }
 
-        // Sala de Recuperación - 4 camas
+        // Recovery Room - 4 beds
         for ($i = 1; $i <= 4; $i++) {
             $bedCount++;
             $beds[] = [
@@ -97,7 +97,7 @@ class BedSeeder extends Seeder
             ];
         }
 
-        // Sala de Observación Emergencias - 8 camas
+        // Emergency Observation Room - 8 beds
         for ($i = 1; $i <= 8; $i++) {
             $bedCount++;
             $beds[] = [
@@ -112,7 +112,7 @@ class BedSeeder extends Seeder
             ];
         }
 
-        // Sala de Observación Extendida - 6 camas
+        // Extended Observation Room - 6 beds
         for ($i = 1; $i <= 6; $i++) {
             $bedCount++;
             $beds[] = [

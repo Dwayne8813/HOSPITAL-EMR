@@ -23,7 +23,7 @@ export default function HospitalizationListPage() {
   const columns = [
     {
       key: 'patient',
-      header: 'Paciente',
+      header: 'Patient',
       render: (item: Hospitalization) => (
         <div>
           <p className="font-medium text-gray-900">
@@ -35,42 +35,42 @@ export default function HospitalizationListPage() {
     },
     {
       key: 'admission_date',
-      header: 'Fecha Ingreso',
+      header: 'Admission Date',
       sortable: true,
       render: (item: Hospitalization) => formatDate(item.admission_date),
     },
     {
       key: 'bed',
-      header: 'Cama',
+      header: 'Bed',
       render: (item: Hospitalization) => (
         <div className="flex items-center gap-2">
           <Bed className="h-4 w-4 text-gray-400" />
-          <span>{item.bed?.number || 'Sin asignar'}</span>
+          <span>{item.bed?.number || 'Unassigned'}</span>
         </div>
       ),
     },
     {
       key: 'department',
-      header: 'Departamento',
+      header: 'Department',
       render: (item: Hospitalization) => item.department || '-',
     },
     {
       key: 'doctor',
-      header: 'Médico',
+      header: 'Doctor',
       render: (item: Hospitalization) => (
         <span>Dr. {item.doctor?.first_name} {item.doctor?.last_name}</span>
       ),
     },
     {
       key: 'reason',
-      header: 'Motivo',
+      header: 'Reason',
       render: (item: Hospitalization) => (
         <span className="truncate max-w-[200px] block">{item.reason}</span>
       ),
     },
     {
       key: 'status',
-      header: 'Estado',
+      header: 'Status',
       render: (item: Hospitalization) => <StatusBadge status={item.status} />,
     },
   ]
@@ -79,16 +79,16 @@ export default function HospitalizationListPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Hospitalizaciones</h1>
-          <p className="text-sm text-gray-500">Pacientes hospitalizados actualmente</p>
+          <h1 className="text-2xl font-bold text-gray-900">Hospitalizations</h1>
+          <p className="text-sm text-gray-500">Currently hospitalized patients</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={() => navigate('/hospitalization/bed-map')}>
             <Bed className="h-4 w-4 mr-2" />
-            Mapa de Camas
+            Bed Map
           </Button>
           <Button leftIcon={<Plus className="h-4 w-4" />} onClick={() => navigate('/hospitalization/create')}>
-            Nueva Hospitalización
+            New Hospitalization
           </Button>
         </div>
       </div>
@@ -100,10 +100,10 @@ export default function HospitalizationListPage() {
             onChange={(e) => { setStatusFilter(e.target.value); setPage(1) }}
             className="block w-full sm:w-40 rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
           >
-            <option value="">Todos los estados</option>
-            <option value="active">Activas</option>
-            <option value="discharged">Dados de Alta</option>
-            <option value="transferred">Transferidos</option>
+            <option value="">All Statuses</option>
+            <option value="active">Active</option>
+            <option value="discharged">Discharged</option>
+            <option value="transferred">Transferred</option>
           </select>
         </CardHeader>
         <DataTable
@@ -118,8 +118,8 @@ export default function HospitalizationListPage() {
             total: data.meta.total,
             onPageChange: setPage,
           } : undefined}
-          emptyTitle="No hay hospitalizaciones"
-          emptyDescription="No se encontraron hospitalizaciones activas"
+          emptyTitle="No hospitalizations"
+          emptyDescription="No active hospitalizations found"
         />
       </Card>
     </div>

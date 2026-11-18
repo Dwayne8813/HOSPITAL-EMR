@@ -23,7 +23,7 @@ export default function InvoiceDetailPage() {
   const [paymentReference, setPaymentReference] = useState('')
 
   if (isLoading) return <PageLoadingSpinner />
-  if (!invoice) return <EmptyState title="Factura no encontrada" />
+  if (!invoice) return <EmptyState title="Invoice not found" />
 
   const totalPaid = invoice.payments?.reduce((sum, p) => sum + p.amount, 0) || 0
   const balance = invoice.total_amount - totalPaid
@@ -52,7 +52,7 @@ export default function InvoiceDetailPage() {
         </Button>
         <div className="flex-1">
           <h1 className="text-2xl font-bold text-gray-900">
-            Factura {invoice.invoice_number}
+            Invoice {invoice.invoice_number}
           </h1>
           <p className="text-sm text-gray-500">
             {invoice.patient?.first_name} {invoice.patient?.last_name} • {formatDate(invoice.invoice_date)}
@@ -65,7 +65,7 @@ export default function InvoiceDetailPage() {
           onClick={() => window.open(`/billing/invoices/${invoice.id}/print`, '_blank')}
         >
           <FileText className="h-4 w-4 mr-1" />
-          Imprimir
+          Print
         </Button>
       </div>
 
@@ -76,7 +76,7 @@ export default function InvoiceDetailPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <FileText className="h-5 w-5 text-primary-600" />
-                Detalle de Servicios
+                Service Details
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -84,10 +84,10 @@ export default function InvoiceDetailPage() {
                 <table className="min-w-full">
                   <thead>
                     <tr className="border-b">
-                      <th className="text-left py-3 text-sm font-medium text-gray-500">Descripción</th>
-                      <th className="text-right py-3 text-sm font-medium text-gray-500">Cant.</th>
-                      <th className="text-right py-3 text-sm font-medium text-gray-500">Precio</th>
-                      <th className="text-right py-3 text-sm font-medium text-gray-500">Desc.</th>
+                      <th className="text-left py-3 text-sm font-medium text-gray-500">Description</th>
+                      <th className="text-right py-3 text-sm font-medium text-gray-500">Qty</th>
+                      <th className="text-right py-3 text-sm font-medium text-gray-500">Price</th>
+                      <th className="text-right py-3 text-sm font-medium text-gray-500">Disc.</th>
                       <th className="text-right py-3 text-sm font-medium text-gray-500">Subtotal</th>
                     </tr>
                   </thead>
@@ -110,7 +110,7 @@ export default function InvoiceDetailPage() {
           {/* Payments */}
           <Card variant="elevated">
             <CardHeader>
-              <CardTitle>Pagos Registrados</CardTitle>
+              <CardTitle>Recorded Payments</CardTitle>
             </CardHeader>
             <CardContent>
               {invoice.payments && invoice.payments.length > 0 ? (
@@ -128,7 +128,7 @@ export default function InvoiceDetailPage() {
                   ))}
                 </div>
               ) : (
-                <p className="text-sm text-gray-500 text-center py-4">No hay pagos registrados</p>
+                <p className="text-sm text-gray-500 text-center py-4">No payments recorded</p>
               )}
             </CardContent>
           </Card>
@@ -138,7 +138,7 @@ export default function InvoiceDetailPage() {
         <div className="space-y-6">
           <Card variant="elevated">
             <CardHeader>
-              <CardTitle>Resumen</CardTitle>
+              <CardTitle>Summary</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               <div className="flex justify-between">
@@ -146,11 +146,11 @@ export default function InvoiceDetailPage() {
                 <span>{formatCurrency(invoice.subtotal)}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-500">Impuestos</span>
+                <span className="text-gray-500">Tax</span>
                 <span>{formatCurrency(invoice.tax_amount)}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-500">Descuento</span>
+                <span className="text-gray-500">Discount</span>
                 <span>-{formatCurrency(invoice.discount)}</span>
               </div>
               <div className="border-t pt-3 flex justify-between">
@@ -158,11 +158,11 @@ export default function InvoiceDetailPage() {
                 <span className="font-bold text-lg">{formatCurrency(invoice.total_amount)}</span>
               </div>
               <div className="border-t pt-3 flex justify-between">
-                <span className="text-gray-500">Pagado</span>
+                <span className="text-gray-500">Paid</span>
                 <span className="text-green-600">{formatCurrency(totalPaid)}</span>
               </div>
               <div className="flex justify-between">
-                <span className="font-bold">Saldo</span>
+                <span className="font-bold">Balance</span>
                 <span className={`font-bold ${balance > 0 ? 'text-red-600' : 'text-green-600'}`}>
                   {formatCurrency(balance)}
                 </span>
@@ -174,7 +174,7 @@ export default function InvoiceDetailPage() {
             <Card variant="elevated">
               <CardContent>
                 <Button className="w-full" leftIcon={<CreditCard className="h-4 w-4" />} onClick={() => setShowPaymentForm(true)}>
-                  Registrar Pago
+                  Record Payment
                 </Button>
               </CardContent>
             </Card>
@@ -186,11 +186,11 @@ export default function InvoiceDetailPage() {
       {showPaymentForm && (
         <Card variant="elevated">
           <CardHeader>
-            <CardTitle>Registrar Pago</CardTitle>
+            <CardTitle>Record Payment</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <Input
-              label="Monto"
+              label="Amount"
               type="number"
               step="0.01"
               min={0.01}
@@ -199,27 +199,27 @@ export default function InvoiceDetailPage() {
               onChange={(e) => setPaymentAmount(parseFloat(e.target.value) || 0)}
             />
             <Select
-              label="Método de Pago"
+              label="Payment Method"
               options={[
-                { value: 'cash', label: 'Efectivo' },
-                { value: 'card', label: 'Tarjeta' },
-                { value: 'transfer', label: 'Transferencia' },
-                { value: 'insurance', label: 'Seguro' },
-                { value: 'mixed', label: 'Mixto' },
+                { value: 'cash', label: 'Cash' },
+                { value: 'card', label: 'Card' },
+                { value: 'transfer', label: 'Transfer' },
+                { value: 'insurance', label: 'Insurance' },
+                { value: 'mixed', label: 'Mixed' },
               ]}
               value={paymentMethod}
               onChange={(e) => setPaymentMethod(e.target.value)}
             />
             <Input
-              label="Referencia"
+              label="Reference"
               value={paymentReference}
               onChange={(e) => setPaymentReference(e.target.value)}
-              placeholder="Número de referencia o comprobante"
+              placeholder="Reference or receipt number"
             />
             <div className="flex justify-end gap-3">
-              <Button variant="outline" onClick={() => setShowPaymentForm(false)}>Cancelar</Button>
+              <Button variant="outline" onClick={() => setShowPaymentForm(false)}>Cancel</Button>
               <Button leftIcon={<Save className="h-4 w-4" />} onClick={handleRecordPayment} isLoading={recordPayment.isPending} disabled={paymentAmount <= 0}>
-                Guardar Pago
+                Save Payment
               </Button>
             </div>
           </CardContent>

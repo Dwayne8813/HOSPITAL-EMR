@@ -44,51 +44,51 @@ interface NavItem {
 
 const navigation: { label: string; items: NavItem[] }[] = [
   {
-    label: 'Principal',
+    label: 'Main',
     items: [
       { label: 'Dashboard', path: '/dashboard', icon: <LayoutDashboard className="h-5 w-5" /> },
     ],
   },
   {
-    label: 'Pacientes',
+    label: 'Patients',
     items: [
-      { label: 'Pacientes', path: '/patients', icon: <Users className="h-5 w-5" /> },
-      { label: 'Hospitalización', path: '/hospitalization', icon: <BedDouble className="h-5 w-5" /> },
+      { label: 'Patients', path: '/patients', icon: <Users className="h-5 w-5" /> },
+      { label: 'Hospitalization', path: '/hospitalization', icon: <BedDouble className="h-5 w-5" /> },
     ],
   },
   {
-    label: 'Clínica',
+    label: 'Clinic',
     items: [
-      { label: 'Historiales', path: '/clinical/records', icon: <FileText className="h-5 w-5" /> },
-      { label: 'Citas', path: '/appointments', icon: <Calendar className="h-5 w-5" /> },
-      { label: 'Recetas', path: '/prescriptions', icon: <Pill className="h-5 w-5" /> },
-      { label: 'Laboratorio', path: '/lab/orders', icon: <FlaskConical className="h-5 w-5" /> },
-      { label: 'Emergencia', path: '/emergency', icon: <AlertTriangle className="h-5 w-5" /> },
-      { label: 'Cirugías', path: '/surgery', icon: <Scissors className="h-5 w-5" /> },
+      { label: 'Records', path: '/clinical/records', icon: <FileText className="h-5 w-5" /> },
+      { label: 'Appointments', path: '/appointments', icon: <Calendar className="h-5 w-5" /> },
+      { label: 'Prescriptions', path: '/prescriptions', icon: <Pill className="h-5 w-5" /> },
+      { label: 'Laboratory', path: '/lab/orders', icon: <FlaskConical className="h-5 w-5" /> },
+      { label: 'Emergency', path: '/emergency', icon: <AlertTriangle className="h-5 w-5" /> },
+      { label: 'Surgery', path: '/surgery', icon: <Scissors className="h-5 w-5" /> },
     ],
   },
   {
-    label: 'Farmacia',
+    label: 'Pharmacy',
     items: [
-      { label: 'Medicamentos', path: '/pharmacy/medications', icon: <Heart className="h-5 w-5" /> },
-      { label: 'Inventario', path: '/inventory', icon: <Package className="h-5 w-5" /> },
+      { label: 'Medications', path: '/pharmacy/medications', icon: <Heart className="h-5 w-5" /> },
+      { label: 'Inventory', path: '/inventory', icon: <Package className="h-5 w-5" /> },
     ],
   },
   {
-    label: 'Finanzas',
+    label: 'Finance',
     items: [
-      { label: 'Facturación', path: '/billing/invoices', icon: <CreditCard className="h-5 w-5" /> },
-      { label: 'Pagos', path: '/billing/payments', icon: <CreditCard className="h-5 w-5" /> },
-      { label: 'Caja', path: '/billing/cash-register', icon: <CreditCard className="h-5 w-5" /> },
+      { label: 'Billing', path: '/billing/invoices', icon: <CreditCard className="h-5 w-5" /> },
+      { label: 'Payments', path: '/billing/payments', icon: <CreditCard className="h-5 w-5" /> },
+      { label: 'Cash Register', path: '/billing/cash-register', icon: <CreditCard className="h-5 w-5" /> },
     ],
   },
   {
-    label: 'Sistema',
+    label: 'System',
     items: [
-      { label: 'Reportes', path: '/reports', icon: <BarChart3 className="h-5 w-5" /> },
-      { label: 'Configuración', path: '/settings', icon: <Settings className="h-5 w-5" /> },
-      { label: 'Auditoría', path: '/audit', icon: <Shield className="h-5 w-5" /> },
-      { label: 'Notificaciones', path: '/notifications', icon: <Bell className="h-5 w-5" /> },
+      { label: 'Reports', path: '/reports', icon: <BarChart3 className="h-5 w-5" /> },
+      { label: 'Settings', path: '/settings', icon: <Settings className="h-5 w-5" /> },
+      { label: 'Audit', path: '/audit', icon: <Shield className="h-5 w-5" /> },
+      { label: 'Notifications', path: '/notifications', icon: <Bell className="h-5 w-5" /> },
     ],
   },
 ]
@@ -126,7 +126,7 @@ export default function Sidebar({ collapsed = false, onToggle }: SidebarProps) {
         {!collapsed && (
           <div className="overflow-hidden">
             <h1 className="text-lg font-bold text-white truncate">Hospital EMR</h1>
-            <p className="text-xs text-primary-200 truncate">Sistema Médico</p>
+            <p className="text-xs text-primary-200 truncate">Medical System</p>
           </div>
         )}
       </div>
@@ -191,7 +191,7 @@ export default function Sidebar({ collapsed = false, onToggle }: SidebarProps) {
           ) : (
             <>
               <ChevronLeft className="h-5 w-5 mr-2" />
-              <span className="text-sm">Colapsar</span>
+              <span className="text-sm">Collapse</span>
             </>
           )}
         </button>

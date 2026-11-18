@@ -27,22 +27,22 @@ export default function AppointmentDetailPage() {
   const completeAppointment = useCompleteAppointment()
 
   if (isLoading) return <PageLoadingSpinner />
-  if (!appointment) return <EmptyState title="Cita no encontrada" />
+  if (!appointment) return <EmptyState title="Appointment not found" />
 
   const typeLabels: Record<string, string> = {
-    consultation: 'Consulta',
-    follow_up: 'Seguimiento',
-    emergency: 'Emergencia',
-    telemedicine: 'Telemedicina',
+    consultation: 'Consultation',
+    follow_up: 'Follow-up',
+    emergency: 'Emergency',
+    telemedicine: 'Telemedicine',
   }
 
   const statusLabels: Record<string, string> = {
-    scheduled: 'Programada',
-    confirmed: 'Confirmada',
-    in_progress: 'En Progreso',
-    completed: 'Completada',
-    cancelled: 'Cancelada',
-    no_show: 'No Asistió',
+    scheduled: 'Scheduled',
+    confirmed: 'Confirmed',
+    in_progress: 'In Progress',
+    completed: 'Completed',
+    cancelled: 'Cancelled',
+    no_show: 'No Show',
   }
 
   const canConfirm = appointment.status === 'scheduled'
@@ -52,33 +52,33 @@ export default function AppointmentDetailPage() {
   const handleConfirm = async () => {
     try {
       await confirmAppointment.mutateAsync(appointment.id)
-      toast.success('Cita confirmada correctamente')
+      toast.success('Appointment confirmed successfully')
     } catch {
-      toast.error('Error al confirmar la cita')
+      toast.error('Failed to confirm appointment')
     }
   }
 
   const handleComplete = async () => {
     try {
       await completeAppointment.mutateAsync(appointment.id)
-      toast.success('Cita marcada como completada')
+      toast.success('Appointment marked as completed')
     } catch {
-      toast.error('Error al completar la cita')
+      toast.error('Failed to complete appointment')
     }
   }
 
   const handleCancel = async () => {
     if (!cancelReason.trim()) {
-      toast.error('Debe ingresar un motivo de cancelación')
+      toast.error('Please enter a cancellation reason')
       return
     }
     try {
       await cancelAppointment.mutateAsync({ id: appointment.id, reason: cancelReason })
-      toast.success('Cita cancelada correctamente')
+      toast.success('Appointment cancelled successfully')
       setCancelDialogOpen(false)
       setCancelReason('')
     } catch {
-      toast.error('Error al cancelar la cita')
+      toast.error('Failed to cancel appointment')
     }
   }
 
@@ -91,7 +91,7 @@ export default function AppointmentDetailPage() {
             <ArrowLeft className="h-4 w-4" />
           </Button>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Detalle de Cita</h1>
+            <h1 className="text-2xl font-bold text-gray-900">Appointment Details</h1>
             <p className="text-sm text-gray-500">
               {appointment.patient?.first_name} {appointment.patient?.last_name} — {formatDate(appointment.appointment_date)}
             </p>
@@ -105,7 +105,7 @@ export default function AppointmentDetailPage() {
               onClick={handleConfirm}
               isLoading={confirmAppointment.isPending}
             >
-              Confirmar
+              Confirm
             </Button>
           )}
           {canComplete && (
@@ -115,7 +115,7 @@ export default function AppointmentDetailPage() {
               onClick={handleComplete}
               isLoading={completeAppointment.isPending}
             >
-              Completar
+              Complete
             </Button>
           )}
           {canCancel && (
@@ -124,11 +124,11 @@ export default function AppointmentDetailPage() {
               leftIcon={<Ban className="h-4 w-4" />}
               onClick={() => setCancelDialogOpen(true)}
             >
-              Cancelar Cita
+              Cancel Appointment
             </Button>
           )}
           <Button leftIcon={<Edit className="h-4 w-4" />} onClick={() => navigate(`/appointments/${id}/edit`)}>
-            Editar
+            Edit
           </Button>
         </div>
       </div>
@@ -146,40 +146,40 @@ export default function AppointmentDetailPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Calendar className="h-5 w-5 text-primary-600" />
-            Información de la Cita
+            Appointment Information
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <InfoItem
-              label="Fecha"
+              label="Date"
               value={formatDate(appointment.appointment_date)}
               icon={<Calendar className="h-4 w-4 text-gray-400" />}
             />
             <InfoItem
-              label="Horario"
+              label="Time"
               value={`${appointment.start_time} - ${appointment.end_time}`}
               icon={<Clock className="h-4 w-4 text-gray-400" />}
             />
             <InfoItem
-              label="Estado"
+              label="Status"
               value={statusLabels[appointment.status] || appointment.status}
             />
             {appointment.confirmed_at && (
               <InfoItem
-                label="Confirmado el"
+                label="Confirmed On"
                 value={formatDate(appointment.confirmed_at)}
               />
             )}
             {appointment.cancelled_at && (
               <InfoItem
-                label="Cancelado el"
+                label="Cancelled On"
                 value={formatDate(appointment.cancelled_at)}
               />
             )}
             {appointment.cancellation_reason && (
               <InfoItem
-                label="Motivo de cancelación"
+                label="Cancellation reason"
                 value={appointment.cancellation_reason}
               />
             )}
@@ -193,7 +193,7 @@ export default function AppointmentDetailPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <User className="h-5 w-5 text-primary-600" />
-              Paciente
+              Patient
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -213,7 +213,7 @@ export default function AppointmentDetailPage() {
                 )}
               </div>
             ) : (
-              <p className="text-sm text-gray-500">Paciente ID: {appointment.patient_id}</p>
+              <p className="text-sm text-gray-500">Patient ID: {appointment.patient_id}</p>
             )}
           </CardContent>
         </Card>
@@ -222,7 +222,7 @@ export default function AppointmentDetailPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <User className="h-5 w-5 text-primary-600" />
-              Médico
+              Doctor
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -236,7 +236,7 @@ export default function AppointmentDetailPage() {
                 )}
               </div>
             ) : (
-              <p className="text-sm text-gray-500">Médico ID: {appointment.doctor_id}</p>
+              <p className="text-sm text-gray-500">Doctor ID: {appointment.doctor_id}</p>
             )}
           </CardContent>
         </Card>
@@ -247,18 +247,18 @@ export default function AppointmentDetailPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <FileText className="h-5 w-5 text-primary-600" />
-            Detalles Clínicos
+            Clinical Details
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             <div>
-              <p className="text-sm text-gray-500 mb-1">Motivo de la consulta</p>
-              <p className="text-gray-900">{appointment.reason || 'No especificado'}</p>
+              <p className="text-sm text-gray-500 mb-1">Reason for visit</p>
+              <p className="text-gray-900">{appointment.reason || 'Not specified'}</p>
             </div>
             {appointment.notes && (
               <div>
-                <p className="text-sm text-gray-500 mb-1">Notas</p>
+                <p className="text-sm text-gray-500 mb-1">Notes</p>
                 <p className="text-gray-900 whitespace-pre-wrap">{appointment.notes}</p>
               </div>
             )}
@@ -270,27 +270,27 @@ export default function AppointmentDetailPage() {
       <Modal open={cancelDialogOpen} onOpenChange={setCancelDialogOpen}>
         <ModalContent size="sm">
           <ModalHeader>
-            <ModalTitle>Cancelar Cita</ModalTitle>
-            <ModalDescription>Ingrese el motivo de la cancelación</ModalDescription>
+            <ModalTitle>Cancel Appointment</ModalTitle>
+            <ModalDescription>Enter the reason for cancellation</ModalDescription>
           </ModalHeader>
           <div className="px-6">
             <label className="block text-sm font-medium text-gray-700 mb-1.5">
-              Motivo <span className="text-red-500">*</span>
+              Reason <span className="text-red-500">*</span>
             </label>
             <textarea
               value={cancelReason}
               onChange={(e) => setCancelReason(e.target.value)}
               rows={3}
               className="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 resize-y"
-              placeholder="Describa el motivo de la cancelación..."
+              placeholder="Describe the reason for cancellation..."
             />
           </div>
           <ModalFooter>
             <Button variant="ghost" onClick={() => setCancelDialogOpen(false)} disabled={cancelAppointment.isPending}>
-              Cerrar
+              Close
             </Button>
             <Button variant="danger" onClick={handleCancel} isLoading={cancelAppointment.isPending}>
-              Cancelar Cita
+              Cancel Appointment
             </Button>
           </ModalFooter>
         </ModalContent>

@@ -70,11 +70,11 @@ api.interceptors.response.use(
     }
     
     if (error.response?.status === 403) {
-      console.error('Acceso denegado. No tienes permisos para realizar esta acción.')
+      console.error('Access denied. You do not have permission to perform this action.')
     }
     
     if (error.response?.status === 500) {
-      console.error('Error del servidor. Por favor, intenta nuevamente.')
+      console.error('Server error. Please try again.')
     }
     
     return Promise.reject(error)

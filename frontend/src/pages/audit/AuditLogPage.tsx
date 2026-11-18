@@ -33,8 +33,8 @@ export default function AuditLogPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Registro de Auditoría</h1>
-        <p className="text-sm text-gray-500">Historial de acciones del sistema</p>
+        <h1 className="text-2xl font-bold text-gray-900">Audit Log</h1>
+        <p className="text-sm text-gray-500">System action history</p>
       </div>
 
       <Card variant="elevated">
@@ -45,30 +45,30 @@ export default function AuditLogPage() {
               onChange={(e) => setActionFilter(e.target.value)}
               className="block w-full sm:w-40 rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             >
-              <option value="">Todas las acciones</option>
-              <option value="create">Crear</option>
-              <option value="update">Actualizar</option>
-              <option value="delete">Eliminar</option>
-              <option value="login">Inicio de sesión</option>
+              <option value="">All actions</option>
+              <option value="create">Create</option>
+              <option value="update">Update</option>
+              <option value="delete">Delete</option>
+              <option value="login">Login</option>
             </select>
             <select
               value={resourceFilter}
               onChange={(e) => setResourceFilter(e.target.value)}
               className="block w-full sm:w-48 rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             >
-              <option value="">Todos los recursos</option>
-              <option value="patient">Pacientes</option>
-              <option value="consultation">Consultas</option>
-              <option value="invoice">Facturas</option>
-              <option value="user">Usuarios</option>
+              <option value="">All resources</option>
+              <option value="patient">Patients</option>
+              <option value="consultation">Consultations</option>
+              <option value="invoice">Invoices</option>
+              <option value="user">Users</option>
             </select>
           </div>
         </CardHeader>
         <CardContent>
           {logs.length === 0 ? (
             <EmptyState
-              title="No hay registros"
-              description="El historial de auditoría aparecerá aquí"
+              title="No records"
+              description="The audit history will appear here"
               icon={<History className="h-8 w-8 text-gray-400" />}
             />
           ) : (

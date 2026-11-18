@@ -346,14 +346,27 @@ POST /api/v1/auth/login
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### Local development (recommended)
+
+The repository ships with a pre-seeded SQLite database, so MySQL is not required to run the system locally.
+
+```bash
+npm install   # one time, installs the dev launcher
+npm start     # starts the API (:8000) and the web app (:3000)
+```
+
+Open **http://localhost:3000** and sign in with `admin@hospital.bo` / `password`.
+`npm start` runs both servers in one terminal; press `Ctrl+C` to stop them. To run them
+separately instead, use `npm run api` and `npm run web` in two terminals.
+
+### Prerequisites (for the MySQL setup below)
 - PHP 8.2+
 - Composer
 - Node.js 18+
 - MySQL 8.0 (XAMPP recommended)
 - Git
 
-### Installation
+### Installation (MySQL)
 
 ```bash
 # 1. Clone
@@ -363,6 +376,8 @@ cd hospital-emr-system
 # 2. Database
 mysql -u root -e "CREATE DATABASE hospital_system"
 mysql -u root hospital_system < database.sql
+# Create the cache/queue tables required by JWT auth and queued jobs
+cd backend && php artisan migrate --force && cd ..
 
 # 3. Backend
 cd backend

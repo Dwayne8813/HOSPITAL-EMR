@@ -22,21 +22,21 @@ export default function PaymentListPage() {
   const columns = [
     {
       key: 'amount',
-      header: 'Monto',
+      header: 'Amount',
       render: (item: Payment) => (
         <span className="font-medium text-green-700">{formatCurrency(item.amount)}</span>
       ),
     },
     {
       key: 'invoice',
-      header: 'Factura',
+      header: 'Invoice',
       render: (item: Payment) => (
         <span className="font-mono text-primary-700">{item.invoice?.invoice_number || '-'}</span>
       ),
     },
     {
       key: 'patient',
-      header: 'Paciente',
+      header: 'Patient',
       render: (item: Payment) => (
         <p className="text-sm text-gray-900">
           {item.invoice?.patient?.first_name} {item.invoice?.patient?.last_name}
@@ -45,21 +45,21 @@ export default function PaymentListPage() {
     },
     {
       key: 'payment_method',
-      header: 'Método',
+      header: 'Method',
       render: (item: Payment) => (
         <span className="capitalize">{item.payment_method}</span>
       ),
     },
     {
       key: 'reference_number',
-      header: 'Referencia',
+      header: 'Reference',
       render: (item: Payment) => (
         <span className="text-sm text-gray-500">{item.reference_number || '-'}</span>
       ),
     },
     {
       key: 'received_at',
-      header: 'Fecha',
+      header: 'Date',
       render: (item: Payment) => formatDate(item.received_at),
     },
   ]
@@ -71,8 +71,8 @@ export default function PaymentListPage() {
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <div className="flex-1">
-          <h1 className="text-2xl font-bold text-gray-900">Historial de Pagos</h1>
-          <p className="text-sm text-gray-500">Registro de todos los pagos recibidos</p>
+          <h1 className="text-2xl font-bold text-gray-900">Payment History</h1>
+          <p className="text-sm text-gray-500">Record of all payments received</p>
         </div>
       </div>
 
@@ -83,12 +83,12 @@ export default function PaymentListPage() {
             onChange={(e) => { setMethodFilter(e.target.value); setPage(1) }}
             className="block w-full sm:w-40 rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
           >
-            <option value="">Todos los métodos</option>
-            <option value="cash">Efectivo</option>
-            <option value="card">Tarjeta</option>
-            <option value="transfer">Transferencia</option>
-            <option value="insurance">Seguro</option>
-            <option value="mixed">Mixto</option>
+            <option value="">All methods</option>
+            <option value="cash">Cash</option>
+            <option value="card">Card</option>
+            <option value="transfer">Transfer</option>
+            <option value="insurance">Insurance</option>
+            <option value="mixed">Mixed</option>
           </select>
         </CardHeader>
         <DataTable
@@ -102,8 +102,8 @@ export default function PaymentListPage() {
             total: data.meta.total,
             onPageChange: setPage,
           } : undefined}
-          emptyTitle="No hay pagos registrados"
-          emptyDescription="Los pagos realizados aparecerán aquí"
+          emptyTitle="No payments recorded"
+          emptyDescription="Payments made will appear here"
         />
       </Card>
     </div>

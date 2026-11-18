@@ -75,18 +75,18 @@ export default function PurchaseOrderCreatePage() {
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Nueva Orden de Compra</h1>
-          <p className="text-sm text-gray-500">Crear orden de compra a proveedor</p>
+          <h1 className="text-2xl font-bold text-gray-900">New Purchase Order</h1>
+          <p className="text-sm text-gray-500">Create a purchase order to a supplier</p>
         </div>
       </div>
 
       <Card variant="elevated">
         <CardHeader>
-          <CardTitle>Proveedor</CardTitle>
+          <CardTitle>Supplier</CardTitle>
         </CardHeader>
         <CardContent>
           <Select
-            label="Seleccionar Proveedor"
+            label="Select Supplier"
             required
             options={supplierOptions}
             value={supplierId}
@@ -100,43 +100,43 @@ export default function PurchaseOrderCreatePage() {
           <div className="flex items-center justify-between">
             <CardTitle className="flex items-center gap-2">
               <ShoppingCart className="h-5 w-5 text-primary-600" />
-              Medicamentos
+              Medications
             </CardTitle>
             <Button size="sm" leftIcon={<Plus className="h-4 w-4" />} onClick={addItem}>
-              Agregar
+              Add
             </Button>
           </div>
         </CardHeader>
         <CardContent className="space-y-4">
           {items.length === 0 ? (
             <p className="text-sm text-gray-500 text-center py-4">
-              No hay medicamentos agregados
+              No medications added
             </p>
           ) : (
             items.map((item, index) => (
               <div key={index} className="p-4 border border-gray-200 rounded-lg">
                 <div className="flex items-center justify-between mb-3">
-                  <h4 className="font-medium text-gray-900">Ítem {index + 1}</h4>
+                  <h4 className="font-medium text-gray-900">Item {index + 1}</h4>
                   <button onClick={() => removeItem(index)} className="text-red-500 hover:text-red-700">
                     <Trash2 className="h-4 w-4" />
                   </button>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                   <Select
-                    label="Medicamento"
+                    label="Medication"
                     options={medicationOptions}
                     value={item.medication_id}
                     onChange={(e) => updateItem(index, 'medication_id', e.target.value)}
                   />
                   <Input
-                    label="Cantidad"
+                    label="Quantity"
                     type="number"
                     min={1}
                     value={item.quantity}
                     onChange={(e) => updateItem(index, 'quantity', parseInt(e.target.value) || 1)}
                   />
                   <Input
-                    label="Precio Unitario"
+                    label="Unit Price"
                     type="number"
                     step="0.01"
                     min={0}
@@ -159,27 +159,27 @@ export default function PurchaseOrderCreatePage() {
 
       <Card variant="elevated">
         <CardHeader>
-          <CardTitle>Notas</CardTitle>
+          <CardTitle>Notes</CardTitle>
         </CardHeader>
         <CardContent>
           <textarea
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             className="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 resize-y min-h-[80px]"
-            placeholder="Notas adicionales para la orden de compra..."
+            placeholder="Additional notes for the purchase order..."
           />
         </CardContent>
       </Card>
 
       <div className="flex justify-end gap-3">
-        <Button variant="outline" onClick={() => navigate(-1)}>Cancelar</Button>
+        <Button variant="outline" onClick={() => navigate(-1)}>Cancel</Button>
         <Button
           leftIcon={<Save className="h-4 w-4" />}
           onClick={handleSave}
           isLoading={createPurchaseOrder.isPending}
           disabled={!supplierId || items.length === 0}
         >
-          Crear Orden
+          Create Order
         </Button>
       </div>
     </div>

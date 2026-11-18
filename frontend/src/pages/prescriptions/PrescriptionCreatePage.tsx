@@ -84,8 +84,8 @@ export default function PrescriptionCreatePage() {
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Nueva Receta Médica</h1>
-          <p className="text-sm text-gray-500">Ingrese los medicamentos a prescribir</p>
+          <h1 className="text-2xl font-bold text-gray-900">New Prescription</h1>
+          <p className="text-sm text-gray-500">Enter the medications to prescribe</p>
         </div>
       </div>
 
@@ -94,14 +94,14 @@ export default function PrescriptionCreatePage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <FileText className="h-5 w-5 text-primary-600" />
-            Selección de Paciente
+            Patient Selection
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="relative">
             <Input
-              label="Buscar Paciente"
-              placeholder="Escriba nombre o CI del paciente..."
+              label="Search Patient"
+              placeholder="Enter patient name or ID..."
               value={patientSearch}
               onChange={(e) => setPatientSearch(e.target.value)}
             />
@@ -114,7 +114,7 @@ export default function PrescriptionCreatePage() {
                     className="w-full px-4 py-3 text-left hover:bg-gray-50 border-b last:border-0"
                   >
                     <p className="font-medium text-gray-900">{patient.first_name} {patient.last_name}</p>
-                    <p className="text-sm text-gray-500">CI: {patient.document_number}</p>
+                    <p className="text-sm text-gray-500">ID: {patient.document_number}</p>
                   </button>
                 ))}
               </div>
@@ -126,10 +126,10 @@ export default function PrescriptionCreatePage() {
                 <p className="font-medium text-primary-900">
                   {selectedPatient.first_name} {selectedPatient.last_name}
                 </p>
-                <p className="text-sm text-primary-700">CI: {selectedPatient.document_number}</p>
+                <p className="text-sm text-primary-700">ID: {selectedPatient.document_number}</p>
               </div>
               <Button variant="ghost" size="sm" onClick={() => setSelectedPatient(null)}>
-                Cambiar
+                Change
               </Button>
             </div>
           )}
@@ -142,69 +142,69 @@ export default function PrescriptionCreatePage() {
           <div className="flex items-center justify-between">
             <CardTitle className="flex items-center gap-2">
               <Pill className="h-5 w-5 text-primary-600" />
-              Medicamentos
+              Medications
             </CardTitle>
             <Button size="sm" leftIcon={<Plus className="h-4 w-4" />} onClick={addItem}>
-              Agregar
+              Add
             </Button>
           </div>
         </CardHeader>
         <CardContent className="space-y-4">
           {items.length === 0 ? (
             <p className="text-sm text-gray-500 text-center py-4">
-              No hay medicamentos agregados. Haga clic en "Agregar" para comenzar.
+              No medications added. Click "Add" to get started.
             </p>
           ) : (
             items.map((item, index) => (
               <div key={index} className="p-4 border border-gray-200 rounded-lg space-y-3">
                 <div className="flex items-center justify-between">
-                  <h4 className="font-medium text-gray-900">Medicamento {index + 1}</h4>
+                  <h4 className="font-medium text-gray-900">Medication {index + 1}</h4>
                   <button onClick={() => removeItem(index)} className="text-red-500 hover:text-red-700">
                     <Trash2 className="h-4 w-4" />
                   </button>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1.5">Medicamento *</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1.5">Medication *</label>
                     <select
                       value={item.medication_id}
                       onChange={(e) => updateItem(index, 'medication_id', e.target.value)}
                       className="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
                     >
-                      <option value="">Seleccionar medicamento</option>
+                      <option value="">Select medication</option>
                       {medications?.data?.map((med) => (
                         <option key={med.id} value={med.id}>{med.name} - {med.presentation}</option>
                       ))}
                     </select>
                   </div>
                   <Input
-                    label="Dosis"
-                    placeholder="ej: 500mg"
+                    label="Dosage"
+                    placeholder="e.g., 500mg"
                     value={item.dosage}
                     onChange={(e) => updateItem(index, 'dosage', e.target.value)}
                   />
                   <Input
-                    label="Frecuencia"
-                    placeholder="ej: Cada 8 horas"
+                    label="Frequency"
+                    placeholder="e.g., Every 8 hours"
                     value={item.frequency}
                     onChange={(e) => updateItem(index, 'frequency', e.target.value)}
                   />
                   <Input
-                    label="Duración"
-                    placeholder="ej: 7 días"
+                    label="Duration"
+                    placeholder="e.g., 7 days"
                     value={item.duration}
                     onChange={(e) => updateItem(index, 'duration', e.target.value)}
                   />
                   <Input
-                    label="Cantidad"
+                    label="Quantity"
                     type="number"
                     min={1}
                     value={item.quantity}
                     onChange={(e) => updateItem(index, 'quantity', parseInt(e.target.value) || 1)}
                   />
                   <Input
-                    label="Instrucciones"
-                    placeholder="ej: Tomar con alimentos"
+                    label="Instructions"
+                    placeholder="e.g., Take with food"
                     value={item.instructions}
                     onChange={(e) => updateItem(index, 'instructions', e.target.value)}
                   />
@@ -218,13 +218,13 @@ export default function PrescriptionCreatePage() {
       {/* Notes */}
       <Card variant="elevated">
         <CardHeader>
-          <CardTitle>Observaciones</CardTitle>
+          <CardTitle>Notes</CardTitle>
         </CardHeader>
         <CardContent>
           <TextArea
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
-            placeholder="Notas adicionales para la receta..."
+            placeholder="Additional notes for the prescription..."
             rows={3}
           />
         </CardContent>
@@ -232,14 +232,14 @@ export default function PrescriptionCreatePage() {
 
       {/* Actions */}
       <div className="flex justify-end gap-3">
-        <Button variant="outline" onClick={() => navigate(-1)}>Cancelar</Button>
+        <Button variant="outline" onClick={() => navigate(-1)}>Cancel</Button>
         <Button
           leftIcon={<Save className="h-4 w-4" />}
           onClick={handleSave}
           isLoading={createPrescription.isPending}
           disabled={!selectedPatient || items.length === 0}
         >
-          Guardar Receta
+          Save Prescription
         </Button>
       </div>
     </div>

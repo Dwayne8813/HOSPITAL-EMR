@@ -34,7 +34,7 @@ export default function ResetPasswordPage() {
       setIsSubmitted(true)
     } catch (err: unknown) {
       const axiosError = err as { response?: { data?: { message?: string } } }
-      setError(axiosError.response?.data?.message || 'Error al restablecer la contraseña. Intenta nuevamente.')
+      setError(axiosError.response?.data?.message || 'Error resetting password. Please try again.')
     }
   }
 
@@ -44,17 +44,17 @@ export default function ResetPasswordPage() {
         <div className="relative sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow-xl sm:rounded-xl sm:px-10 border border-gray-100 text-center">
             <h3 className="text-lg font-medium text-gray-900 mb-2">
-              Token no válido
+              Invalid token
             </h3>
             <p className="text-sm text-gray-500 mb-6">
-              El enlace de recuperación de contraseña no es válido o ha expirado.
+              The password reset link is invalid or has expired.
             </p>
             <Link
               to="/forgot-password"
               className="inline-flex items-center gap-2 text-sm font-medium text-primary-600 hover:text-primary-700"
             >
               <ArrowLeft className="h-4 w-4" />
-              Solicitar nuevo enlace
+              Request a new link
             </Link>
           </div>
         </div>
@@ -76,10 +76,10 @@ export default function ResetPasswordPage() {
           </div>
         </div>
         <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
-          Restablecer Contraseña
+          Reset Password
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
-          Ingresa tu nueva contraseña
+          Enter your new password
         </p>
       </div>
 
@@ -91,17 +91,17 @@ export default function ResetPasswordPage() {
                 <CheckCircle className="h-6 w-6 text-green-600" />
               </div>
               <h3 className="text-lg font-medium text-gray-900 mb-2">
-                Contraseña Restablecida
+                Password Reset
               </h3>
               <p className="text-sm text-gray-500 mb-6">
-                Tu contraseña ha sido actualizada exitosamente. Ya puedes iniciar sesión con tu nueva contraseña.
+                Your password has been updated successfully. You can now sign in with your new password.
               </p>
               <Link
                 to="/login"
                 className="inline-flex items-center gap-2 text-sm font-medium text-primary-600 hover:text-primary-700"
               >
                 <ArrowLeft className="h-4 w-4" />
-                Ir al inicio de sesión
+                Go to sign in
               </Link>
             </div>
           ) : (
@@ -116,7 +116,7 @@ export default function ResetPasswordPage() {
 
               <div className="relative">
                 <Input
-                  label="Nueva contraseña"
+                  label="New Password"
                   type={showPassword ? 'text' : 'password'}
                   placeholder="••••••••"
                   leftIcon={<Lock className="h-4 w-4" />}
@@ -138,7 +138,7 @@ export default function ResetPasswordPage() {
 
               <div className="relative">
                 <Input
-                  label="Confirmar contraseña"
+                  label="Confirm Password"
                   type={showConfirmPassword ? 'text' : 'password'}
                   placeholder="••••••••"
                   leftIcon={<Lock className="h-4 w-4" />}
@@ -164,7 +164,7 @@ export default function ResetPasswordPage() {
                 size="lg"
                 isLoading={isSubmitting}
               >
-                Restablecer Contraseña
+                Reset Password
               </Button>
 
               <div className="text-center">
@@ -173,7 +173,7 @@ export default function ResetPasswordPage() {
                   className="inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900"
                 >
                   <ArrowLeft className="h-4 w-4" />
-                  Volver al inicio de sesión
+                  Back to sign in
                 </Link>
               </div>
             </form>

@@ -29,11 +29,11 @@ export default function ImagingOrderListPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Órdenes de Imagenología</h1>
-          <p className="text-sm text-gray-500">Gestión de estudios de imagen</p>
+          <h1 className="text-2xl font-bold text-gray-900">Imaging Orders</h1>
+          <p className="text-sm text-gray-500">Manage imaging studies</p>
         </div>
         <Button leftIcon={<Plus className="h-4 w-4" />} onClick={() => navigate('/radiology/orders/create')}>
-          Nueva Orden
+          New Order
         </Button>
       </div>
 
@@ -44,17 +44,17 @@ export default function ImagingOrderListPage() {
             onChange={(e) => setStatusFilter(e.target.value)}
             className="block w-full sm:w-40 rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
           >
-            <option value="">Todos los estados</option>
-            <option value="pending">Pendientes</option>
-            <option value="in_progress">En Proceso</option>
-            <option value="completed">Completados</option>
+            <option value="">All Statuses</option>
+            <option value="pending">Pending</option>
+            <option value="in_progress">In Progress</option>
+            <option value="completed">Completed</option>
           </select>
         </CardHeader>
         <CardContent>
           {mockOrders.length === 0 ? (
             <EmptyState
-              title="No hay órdenes de imagenología"
-              description="No se encontraron órdenes de estudios de imagen"
+              title="No imaging orders"
+              description="No imaging study orders found"
               icon={<ScanLine className="h-8 w-8 text-gray-400" />}
             />
           ) : (

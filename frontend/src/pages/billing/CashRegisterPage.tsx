@@ -34,17 +34,17 @@ export default function CashRegisterPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Caja</h1>
-          <p className="text-sm text-gray-500">Control de caja diaria</p>
+          <h1 className="text-2xl font-bold text-gray-900">Cash Register</h1>
+          <p className="text-sm text-gray-500">Daily cash register control</p>
         </div>
         <div className="flex gap-2">
           {isOpen ? (
             <Button variant="danger" leftIcon={<Lock className="h-4 w-4" />} onClick={handleClose}>
-              Cerrar Caja
+              Close Register
             </Button>
           ) : (
             <Button leftIcon={<Unlock className="h-4 w-4" />} onClick={handleOpen}>
-              Abrir Caja
+              Open Register
             </Button>
           )}
         </div>
@@ -59,14 +59,14 @@ export default function CashRegisterPage() {
                 <DollarSign className={`h-8 w-8 ${isOpen ? 'text-green-600' : 'text-gray-400'}`} />
               </div>
               <div>
-                <p className="text-sm text-gray-500">Estado de Caja</p>
+                <p className="text-sm text-gray-500">Register Status</p>
                 <p className={`text-lg font-bold ${isOpen ? 'text-green-600' : 'text-gray-500'}`}>
-                  {isOpen ? 'Abierta' : 'Cerrada'}
+                  {isOpen ? 'Open' : 'Closed'}
                 </p>
               </div>
             </div>
             {isOpen && (
-              <Badge variant="success" size="md">En Operación</Badge>
+              <Badge variant="success" size="md">In Operation</Badge>
             )}
           </div>
         </CardContent>
@@ -75,12 +75,12 @@ export default function CashRegisterPage() {
       {!isOpen && (
         <Card variant="elevated">
           <CardHeader>
-            <CardTitle>Abrir Caja</CardTitle>
+            <CardTitle>Open Register</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-end gap-4">
               <div className="flex-1">
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">Monto Inicial</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">Opening Amount</label>
                 <input
                   type="number"
                   step="0.01"
@@ -92,7 +92,7 @@ export default function CashRegisterPage() {
                 />
               </div>
               <Button onClick={handleOpen} disabled={openAmount <= 0}>
-                Abrir Caja
+                Open Register
               </Button>
             </div>
           </CardContent>
@@ -105,7 +105,7 @@ export default function CashRegisterPage() {
           <CardContent className="py-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-500">Ingresos</p>
+                <p className="text-sm text-gray-500">Income</p>
                 <p className="text-xl font-bold text-green-600">{formatCurrency(totalEntries)}</p>
               </div>
               <div className="p-3 bg-green-100 rounded-full">
@@ -118,7 +118,7 @@ export default function CashRegisterPage() {
           <CardContent className="py-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-500">Egresos</p>
+                <p className="text-sm text-gray-500">Expenses</p>
                 <p className="text-xl font-bold text-red-600">{formatCurrency(totalExits)}</p>
               </div>
               <div className="p-3 bg-red-100 rounded-full">
@@ -131,7 +131,7 @@ export default function CashRegisterPage() {
           <CardContent className="py-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-500">Saldo</p>
+                <p className="text-sm text-gray-500">Balance</p>
                 <p className="text-xl font-bold text-primary-600">{formatCurrency(totalEntries - totalExits)}</p>
               </div>
               <div className="p-3 bg-primary-100 rounded-full">
@@ -145,12 +145,12 @@ export default function CashRegisterPage() {
       {/* Movements */}
       <Card variant="elevated">
         <CardHeader>
-          <CardTitle>Movimientos de Hoy</CardTitle>
+          <CardTitle>Today's Movements</CardTitle>
         </CardHeader>
         <CardContent>
           {movements.length === 0 ? (
             <p className="text-sm text-gray-500 text-center py-8">
-              No hay movimientos registrados hoy
+              No movements recorded today
             </p>
           ) : (
             <div className="space-y-3">

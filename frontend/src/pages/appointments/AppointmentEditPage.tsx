@@ -14,9 +14,9 @@ import { ArrowLeft, Save, Calendar } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 const appointmentEditSchema = z.object({
-  doctor_id: z.string().min(1, 'El médico es requerido'),
-  appointment_date: z.string().min(1, 'La fecha es requerida'),
-  start_time: z.string().min(1, 'La hora de inicio es requerida'),
+  doctor_id: z.string().min(1, 'Doctor is required'),
+  appointment_date: z.string().min(1, 'Date is required'),
+  start_time: z.string().min(1, 'Start time is required'),
   duration_minutes: z.string().optional(),
   type: z.string().optional(),
   reason: z.string().optional(),
@@ -50,7 +50,7 @@ export default function AppointmentEditPage() {
   }, [appointment, reset])
 
   if (isLoading) return <PageLoadingSpinner />
-  if (!appointment) return <EmptyState title="Cita no encontrada" />
+  if (!appointment) return <EmptyState title="Appointment not found" />
 
   const onSubmit = async (data: AppointmentEditFormData) => {
     try {
@@ -68,10 +68,10 @@ export default function AppointmentEditPage() {
           notes: data.notes || undefined,
         },
       })
-      toast.success('Cita actualizada correctamente')
+      toast.success('Appointment updated successfully')
       navigate(`/appointments/${id}`)
     } catch (error: any) {
-      const message = error?.response?.data?.message || 'Error al actualizar la cita'
+      const message = error?.response?.data?.message || 'Failed to update appointment'
       toast.error(message)
     }
   }
@@ -83,7 +83,7 @@ export default function AppointmentEditPage() {
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Editar Cita</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Edit Appointment</h1>
           <p className="text-sm text-gray-500">
             {appointment.patient?.first_name} {appointment.patient?.last_name} — {appointment.appointment_date}
           </p>
@@ -96,24 +96,24 @@ export default function AppointmentEditPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Calendar className="h-5 w-5 text-primary-600" />
-              Datos de la Cita
+              Appointment Details
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Input
-                label="ID del Médico"
+                label="Doctor ID"
                 required
                 {...register('doctor_id')}
                 error={errors.doctor_id?.message}
               />
               <Select
-                label="Tipo de Cita"
+                label="Appointment Type"
                 options={[
-                  { value: 'consultation', label: 'Consulta' },
-                  { value: 'follow_up', label: 'Seguimiento' },
-                  { value: 'emergency', label: 'Emergencia' },
-                  { value: 'telemedicine', label: 'Telemedicina' },
+                  { value: 'consultation', label: 'Consultation' },
+                  { value: 'follow_up', label: 'Follow-up' },
+                  { value: 'emergency', label: 'Emergency' },
+                  { value: 'telemedicine', label: 'Telemedicine' },
                 ]}
                 {...register('type')}
               />
@@ -124,13 +124,13 @@ export default function AppointmentEditPage() {
         {/* Schedule */}
         <Card variant="elevated">
           <CardHeader>
-            <CardTitle>Horario</CardTitle>
+            <CardTitle>Schedule</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                  Fecha <span className="text-red-500 ml-1">*</span>
+                  Date <span className="text-red-500 ml-1">*</span>
                 </label>
                 <input
                   type="date"
@@ -142,21 +142,21 @@ export default function AppointmentEditPage() {
                 )}
               </div>
               <Input
-                label="Hora de Inicio"
+                label="Start Time"
                 required
                 type="time"
                 {...register('start_time')}
                 error={errors.start_time?.message}
               />
               <Select
-                label="Duración"
+                label="Duration"
                 options={[
-                  { value: '15', label: '15 minutos' },
-                  { value: '30', label: '30 minutos' },
-                  { value: '45', label: '45 minutos' },
-                  { value: '60', label: '1 hora' },
-                  { value: '90', label: '1.5 horas' },
-                  { value: '120', label: '2 horas' },
+                  { value: '15', label: '15 minutes' },
+                  { value: '30', label: '30 minutes' },
+                  { value: '45', label: '45 minutes' },
+                  { value: '60', label: '1 hour' },
+                  { value: '90', label: '1.5 hours' },
+                  { value: '120', label: '2 hours' },
                 ]}
                 {...register('duration_minutes')}
               />
@@ -167,26 +167,26 @@ export default function AppointmentEditPage() {
         {/* Details */}
         <Card variant="elevated">
           <CardHeader>
-            <CardTitle>Detalles</CardTitle>
+            <CardTitle>Details</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">Motivo</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">Reason</label>
                 <textarea
                   {...register('reason')}
                   rows={2}
                   className="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 resize-y"
-                  placeholder="Motivo de la consulta..."
+                  placeholder="Reason for the visit..."
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">Notas</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">Notes</label>
                 <textarea
                   {...register('notes')}
                   rows={2}
                   className="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 resize-y"
-                  placeholder="Notas adicionales..."
+                  placeholder="Additional notes..."
                 />
               </div>
             </div>
@@ -196,14 +196,14 @@ export default function AppointmentEditPage() {
         {/* Actions */}
         <div className="flex justify-end gap-3">
           <Button type="button" variant="outline" onClick={() => navigate(-1)}>
-            Cancelar
+            Cancel
           </Button>
           <Button
             type="submit"
             leftIcon={<Save className="h-4 w-4" />}
             isLoading={updateAppointment.isPending}
           >
-            Guardar Cambios
+            Save Changes
           </Button>
         </div>
       </form>

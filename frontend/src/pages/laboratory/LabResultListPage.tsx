@@ -21,14 +21,14 @@ export default function LabResultListPage() {
   const columns = [
     {
       key: 'order_number',
-      header: 'N° Orden',
+      header: 'Order No.',
       render: (item: LabOrder) => (
         <span className="font-mono text-primary-700">{item.order_number}</span>
       ),
     },
     {
       key: 'patient',
-      header: 'Paciente',
+      header: 'Patient',
       render: (item: LabOrder) => (
         <div>
           <p className="font-medium text-gray-900">
@@ -40,7 +40,7 @@ export default function LabResultListPage() {
     },
     {
       key: 'items',
-      header: 'Exámenes',
+      header: 'Tests',
       render: (item: LabOrder) => (
         <div className="flex flex-wrap gap-1">
           {item.items.map((i) => (
@@ -51,12 +51,12 @@ export default function LabResultListPage() {
     },
     {
       key: 'created_at',
-      header: 'Fecha',
+      header: 'Date',
       render: (item: LabOrder) => formatDate(item.created_at),
     },
     {
       key: 'status',
-      header: 'Estado',
+      header: 'Status',
       render: (item: LabOrder) => <StatusBadge status={item.status} />,
     },
     {
@@ -66,7 +66,7 @@ export default function LabResultListPage() {
         <button
           onClick={(e) => { e.stopPropagation(); window.open(`/lab/results/${item.id}/print`, '_blank') }}
           className="text-gray-400 hover:text-primary-600 transition-colors"
-          title="Imprimir resultado"
+          title="Print result"
         >
           <Printer className="h-4 w-4" />
         </button>
@@ -77,8 +77,8 @@ export default function LabResultListPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Resultados de Laboratorio</h1>
-        <p className="text-sm text-gray-500">Resultados de exámenes completados</p>
+        <h1 className="text-2xl font-bold text-gray-900">Lab Results</h1>
+        <p className="text-sm text-gray-500">Results of completed tests</p>
       </div>
 
       <Card variant="elevated">
@@ -94,8 +94,8 @@ export default function LabResultListPage() {
             total: data.meta.total,
             onPageChange: setPage,
           } : undefined}
-          emptyTitle="No hay resultados"
-          emptyDescription="No hay resultados de laboratorio disponibles"
+          emptyTitle="No results"
+          emptyDescription="No lab results available"
         />
       </Card>
     </div>

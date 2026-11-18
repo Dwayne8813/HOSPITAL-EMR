@@ -15,26 +15,26 @@ export default function SupplierListPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Proveedores</h1>
-          <p className="text-sm text-gray-500">Gestión de proveedores de medicamentos</p>
+          <h1 className="text-2xl font-bold text-gray-900">Suppliers</h1>
+          <p className="text-sm text-gray-500">Manage medication suppliers</p>
         </div>
         <Button leftIcon={<Plus className="h-4 w-4" />} onClick={() => navigate('/pharmacy/suppliers/create')}>
-          Nuevo Proveedor
+          New Supplier
         </Button>
       </div>
 
       <Card variant="elevated">
         <CardContent>
           {isLoading ? (
-            <div className="text-center py-8 text-gray-500">Cargando proveedores...</div>
+            <div className="text-center py-8 text-gray-500">Loading suppliers...</div>
           ) : !suppliers || suppliers.length === 0 ? (
             <EmptyState
-              title="No hay proveedores"
-              description="Registre proveedores para gestionar sus medicamentos"
+              title="No suppliers"
+              description="Register suppliers to manage your medications"
               icon={<Building2 className="h-8 w-8 text-gray-400" />}
               action={
                 <Button leftIcon={<Plus className="h-4 w-4" />} onClick={() => navigate('/pharmacy/suppliers/create')}>
-                  Registrar Proveedor
+                  Register Supplier
                 </Button>
               }
             />

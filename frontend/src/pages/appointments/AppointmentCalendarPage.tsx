@@ -62,11 +62,11 @@ export default function AppointmentCalendarPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Calendario de Citas</h1>
-          <p className="text-sm text-gray-500">Gestión y visualización de citas médicas</p>
+          <h1 className="text-2xl font-bold text-gray-900">Appointment Calendar</h1>
+          <p className="text-sm text-gray-500">Manage and view medical appointments</p>
         </div>
         <Button leftIcon={<Plus className="h-4 w-4" />} onClick={() => navigate('/appointments/create')}>
-          Nueva Cita
+          New Appointment
         </Button>
       </div>
 
@@ -80,14 +80,14 @@ export default function AppointmentCalendarPage() {
               </Button>
               <span className="font-medium text-gray-900 min-w-[200px] text-center">
                 {viewMode === 'day' && formatDate(currentDate)}
-                {viewMode === 'week' && `Semana del ${formatDate(weekDays[0])}`}
+                {viewMode === 'week' && `Week of ${formatDate(weekDays[0])}`}
                 {viewMode === 'month' && currentDate.toLocaleDateString('es', { month: 'long', year: 'numeric' })}
               </span>
               <Button variant="ghost" size="sm" onClick={() => navigateDate('next')}>
                 <ChevronRight className="h-4 w-4" />
               </Button>
               <Button variant="outline" size="sm" onClick={() => setCurrentDate(new Date())}>
-                Hoy
+                Today
               </Button>
             </div>
             <div className="flex items-center gap-2">
@@ -102,7 +102,7 @@ export default function AppointmentCalendarPage() {
                         : 'text-gray-500 hover:text-gray-700'
                     }`}
                   >
-                    {mode === 'day' ? 'Día' : mode === 'week' ? 'Semana' : 'Mes'}
+                    {mode === 'day' ? 'Day' : mode === 'week' ? 'Week' : 'Month'}
                   </button>
                 ))}
               </div>
@@ -145,7 +145,7 @@ export default function AppointmentCalendarPage() {
           {viewMode === 'week' && (
             <div className="overflow-x-auto">
               <div className="grid grid-cols-8 gap-px bg-gray-200 min-w-[800px]">
-                <div className="bg-gray-50 p-2 text-center text-xs font-medium text-gray-500">Hora</div>
+                <div className="bg-gray-50 p-2 text-center text-xs font-medium text-gray-500">Time</div>
                 {weekDays.map((day) => (
                   <div key={day.toISOString()} className="bg-gray-50 p-2 text-center">
                     <p className="text-xs font-medium text-gray-500">
@@ -188,7 +188,7 @@ export default function AppointmentCalendarPage() {
 
           {viewMode === 'month' && (
             <div className="grid grid-cols-7 gap-px bg-gray-200">
-              {['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'].map((day) => (
+              {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day) => (
                 <div key={day} className="bg-gray-50 p-2 text-center text-xs font-medium text-gray-500">
                   {day}
                 </div>
@@ -216,7 +216,7 @@ export default function AppointmentCalendarPage() {
                       </div>
                     ))}
                     {dayAppts.length > 3 && (
-                      <p className="text-xs text-gray-500">+{dayAppts.length - 3} más</p>
+                      <p className="text-xs text-gray-500">+{dayAppts.length - 3} more</p>
                     )}
                   </div>
                 )
@@ -230,19 +230,19 @@ export default function AppointmentCalendarPage() {
       <div className="flex flex-wrap gap-4 text-xs">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded bg-blue-200 border border-blue-300"></div>
-          <span className="text-gray-600">Programado</span>
+          <span className="text-gray-600">Scheduled</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded bg-green-200 border border-green-300"></div>
-          <span className="text-gray-600">Confirmado</span>
+          <span className="text-gray-600">Confirmed</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded bg-yellow-200 border border-yellow-300"></div>
-          <span className="text-gray-600">En Progreso</span>
+          <span className="text-gray-600">In Progress</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded bg-red-200 border border-red-300"></div>
-          <span className="text-gray-600">Cancelado</span>
+          <span className="text-gray-600">Cancelled</span>
         </div>
       </div>
     </div>

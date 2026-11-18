@@ -12,14 +12,14 @@ class PaymentMethodSeeder extends Seeder
         $institutionId = DB::table('institutions')->first()->id;
 
         $paymentMethods = [
-            ['institution_id' => $institutionId, 'name' => 'Efectivo', 'is_active' => true, 'created_at' => now()],
-            ['institution_id' => $institutionId, 'name' => 'Tarjeta de Crédito', 'is_active' => true, 'created_at' => now()],
-            ['institution_id' => $institutionId, 'name' => 'Tarjeta de Débito', 'is_active' => true, 'created_at' => now()],
-            ['institution_id' => $institutionId, 'name' => 'Transferencia Bancaria', 'is_active' => true, 'created_at' => now()],
-            ['institution_id' => $institutionId, 'name' => 'Seguro Médico', 'is_active' => true, 'created_at' => now()],
-            ['institution_id' => $institutionId, 'name' => 'QR / Pago Móvil', 'is_active' => true, 'created_at' => now()],
-            ['institution_id' => $institutionId, 'name' => 'Cheque', 'is_active' => true, 'created_at' => now()],
-            ['institution_id' => $institutionId, 'name' => 'Crédito Hospitalario', 'is_active' => true, 'created_at' => now()],
+            ['institution_id' => $institutionId, 'name' => 'Cash', 'is_active' => true, 'created_at' => now()],
+            ['institution_id' => $institutionId, 'name' => 'Credit Card', 'is_active' => true, 'created_at' => now()],
+            ['institution_id' => $institutionId, 'name' => 'Debit Card', 'is_active' => true, 'created_at' => now()],
+            ['institution_id' => $institutionId, 'name' => 'Bank Transfer', 'is_active' => true, 'created_at' => now()],
+            ['institution_id' => $institutionId, 'name' => 'Medical Insurance', 'is_active' => true, 'created_at' => now()],
+            ['institution_id' => $institutionId, 'name' => 'QR / Mobile Payment', 'is_active' => true, 'created_at' => now()],
+            ['institution_id' => $institutionId, 'name' => 'Check', 'is_active' => true, 'created_at' => now()],
+            ['institution_id' => $institutionId, 'name' => 'Hospital Credit', 'is_active' => true, 'created_at' => now()],
         ];
 
         DB::table('payment_methods')->insert($paymentMethods);

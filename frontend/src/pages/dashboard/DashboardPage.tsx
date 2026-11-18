@@ -24,37 +24,37 @@ export default function DashboardPage() {
 
   const summaryCards = [
     {
-      title: 'Pacientes Totales',
+      title: 'Total Patients',
       value: stats?.summary?.total_patients || 0,
       change: stats?.recent_patients?.length || 0,
-      changeLabel: 'recientes',
+      changeLabel: 'recent',
       icon: Users,
       color: 'bg-primary-600',
       trend: 'up',
     },
     {
-      title: 'Citas de Hoy',
+      title: "Today's Appointments",
       value: stats?.summary?.today_appointments || 0,
       change: stats?.summary?.active_hospitalizations || 0,
-      changeLabel: 'hospitalizados',
+      changeLabel: 'hospitalized',
       icon: Calendar,
       color: 'bg-secondary-600',
       trend: 'up',
     },
     {
-      title: 'Ingresos del Mes',
+      title: 'Monthly Revenue',
       value: formatCurrency(stats?.summary?.monthly_revenue || 0),
       change: formatCurrency(stats?.summary?.pending_payments || 0),
-      changeLabel: 'pendientes',
+      changeLabel: 'pending',
       icon: DollarSign,
       color: 'bg-green-600',
       trend: 'up',
     },
     {
-      title: 'Hospitalizados',
+      title: 'Hospitalized',
       value: stats?.summary?.active_hospitalizations || 0,
       change: stats?.summary?.pending_lab_orders || 0,
-      changeLabel: 'órdenes lab pendientes',
+      changeLabel: 'pending lab orders',
       icon: BedDouble,
       color: 'bg-yellow-600',
       trend: 'neutral',
@@ -68,7 +68,7 @@ export default function DashboardPage() {
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
           <p className="text-sm text-gray-500">
-            Resumen general del sistema hospitalario
+            General hospital system overview
           </p>
         </div>
         <div className="flex gap-2">
@@ -77,14 +77,14 @@ export default function DashboardPage() {
             className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors"
           >
             <Plus className="h-4 w-4" />
-            Nuevo Paciente
+            New Patient
           </Link>
           <Link
             to="/appointments"
             className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors"
           >
             <Calendar className="h-4 w-4" />
-            Nueva Cita
+            New Appointment
           </Link>
         </div>
       </div>
@@ -121,12 +121,12 @@ export default function DashboardPage() {
         <Card variant="elevated" className="lg:col-span-2">
           <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle>Citas Recientes</CardTitle>
+              <CardTitle>Recent Appointments</CardTitle>
               <Link
                 to="/appointments"
                 className="text-sm text-primary-600 hover:text-primary-700 font-medium"
               >
-                Ver todas
+                View all
               </Link>
             </div>
           </CardHeader>
@@ -162,7 +162,7 @@ export default function DashboardPage() {
                 ))}
               </div>
             ) : (
-              <p className="text-sm text-gray-500 text-center py-4">No hay citas recientes</p>
+              <p className="text-sm text-gray-500 text-center py-4">No recent appointments</p>
             )}
           </CardContent>
         </Card>
@@ -172,7 +172,7 @@ export default function DashboardPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <AlertTriangle className="h-5 w-5 text-yellow-500" />
-                Emergencias Hoy
+                Emergencies Today
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -180,7 +180,7 @@ export default function DashboardPage() {
                 <p className="text-4xl font-bold text-gray-900">
                   {stats?.summary?.emergency_waiting || 0}
                 </p>
-                <p className="text-sm text-gray-500 mt-1">en espera</p>
+                <p className="text-sm text-gray-500 mt-1">waiting</p>
               </div>
             </CardContent>
           </Card>
@@ -189,7 +189,7 @@ export default function DashboardPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Activity className="h-5 w-5 text-blue-500" />
-                Laboratorio
+                Laboratory
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -197,7 +197,7 @@ export default function DashboardPage() {
                 <p className="text-4xl font-bold text-gray-900">
                   {stats?.summary?.pending_lab_orders || 0}
                 </p>
-                <p className="text-sm text-gray-500 mt-1">órdenes pendientes</p>
+                <p className="text-sm text-gray-500 mt-1">pending orders</p>
               </div>
             </CardContent>
           </Card>
@@ -207,15 +207,15 @@ export default function DashboardPage() {
       {/* Quick Actions */}
       <Card variant="elevated">
         <CardHeader>
-          <CardTitle>Acciones Rápidas</CardTitle>
+          <CardTitle>Quick Actions</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
-              { label: 'Nuevo Paciente', path: '/patients/create', color: 'bg-primary-50 text-primary-700 hover:bg-primary-100' },
-              { label: 'Agendar Cita', path: '/appointments', color: 'bg-secondary-50 text-secondary-700 hover:bg-secondary-100' },
-              { label: 'Ver Laboratorio', path: '/lab/orders', color: 'bg-yellow-50 text-yellow-700 hover:bg-yellow-100' },
-              { label: 'Emergencia', path: '/emergency', color: 'bg-red-50 text-red-700 hover:bg-red-100' },
+              { label: 'New Patient', path: '/patients/create', color: 'bg-primary-50 text-primary-700 hover:bg-primary-100' },
+              { label: 'Schedule Appointment', path: '/appointments', color: 'bg-secondary-50 text-secondary-700 hover:bg-secondary-100' },
+              { label: 'View Laboratory', path: '/lab/orders', color: 'bg-yellow-50 text-yellow-700 hover:bg-yellow-100' },
+              { label: 'Emergency', path: '/emergency', color: 'bg-red-50 text-red-700 hover:bg-red-100' },
             ].map((action) => (
               <Link
                 key={action.path}

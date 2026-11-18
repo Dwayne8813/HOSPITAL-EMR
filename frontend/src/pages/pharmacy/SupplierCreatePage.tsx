@@ -40,8 +40,8 @@ export default function SupplierCreatePage() {
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Nuevo Proveedor</h1>
-          <p className="text-sm text-gray-500">Registrar proveedor de medicamentos</p>
+          <h1 className="text-2xl font-bold text-gray-900">New Supplier</h1>
+          <p className="text-sm text-gray-500">Register a medication supplier</p>
         </div>
       </div>
 
@@ -49,30 +49,30 @@ export default function SupplierCreatePage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Building2 className="h-5 w-5 text-primary-600" />
-            Datos del Proveedor
+            Supplier Details
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Input label="Nombre de la Empresa" required value={formData.name} onChange={(e) => updateField('name', e.target.value)} />
-            <Input label="Persona de Contacto" value={formData.contact_person} onChange={(e) => updateField('contact_person', e.target.value)} />
-            <Input label="Teléfono" value={formData.phone} onChange={(e) => updateField('phone', e.target.value)} />
+            <Input label="Company Name" required value={formData.name} onChange={(e) => updateField('name', e.target.value)} />
+            <Input label="Contact Person" value={formData.contact_person} onChange={(e) => updateField('contact_person', e.target.value)} />
+            <Input label="Phone" value={formData.phone} onChange={(e) => updateField('phone', e.target.value)} />
             <Input label="Email" type="email" value={formData.email} onChange={(e) => updateField('email', e.target.value)} />
             <Input label="NIT" value={formData.nit} onChange={(e) => updateField('nit', e.target.value)} />
           </div>
-          <Input label="Dirección" value={formData.address} onChange={(e) => updateField('address', e.target.value)} />
+          <Input label="Address" value={formData.address} onChange={(e) => updateField('address', e.target.value)} />
         </CardContent>
       </Card>
 
       <div className="flex justify-end gap-3">
-        <Button variant="outline" onClick={() => navigate(-1)}>Cancelar</Button>
+        <Button variant="outline" onClick={() => navigate(-1)}>Cancel</Button>
         <Button
           leftIcon={<Save className="h-4 w-4" />}
           onClick={handleSave}
           isLoading={createSupplier.isPending}
           disabled={!formData.name}
         >
-          Guardar Proveedor
+          Save Supplier
         </Button>
       </div>
     </div>

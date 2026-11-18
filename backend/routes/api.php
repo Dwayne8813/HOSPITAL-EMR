@@ -58,6 +58,8 @@ Route::prefix('v1')->group(function () {
     | PUBLIC ROUTES (no auth required)
     |--------------------------------------------------------------------------
     */
+    Route::get('/health', fn () => response()->json(['status' => 'healthy']));
+
     Route::prefix('auth')->group(function () {
         Route::post('/login', [AuthController::class, 'login']);
         Route::post('/register', [AuthController::class, 'register']);
@@ -83,8 +85,8 @@ Route::prefix('v1')->group(function () {
         });
 
         // ─── Patients ──────────────────────────────────────────
-        Route::apiResource('patients', PatientController::class);
         Route::get('/patients/search', [PatientController::class, 'search']);
+        Route::apiResource('patients', PatientController::class);
         Route::get('/patients/{patient}/medical-history', [PatientController::class, 'medicalHistory']);
         Route::get('/patients/{patient}/documents', [PatientController::class, 'documents']);
         Route::post('/patients/{patient}/documents', [PatientController::class, 'addDocument']);
@@ -127,12 +129,12 @@ Route::prefix('v1')->group(function () {
         Route::get('/cie10/search', [Cie10Controller::class, 'search']);
 
         // ─── Appointments ──────────────────────────────────────
+        Route::get('/appointments/available-slots', [AppointmentController::class, 'availableSlots']);
         Route::apiResource('appointments', AppointmentController::class);
         Route::post('/appointments/{appointment}/confirm', [AppointmentController::class, 'confirm']);
         Route::post('/appointments/{appointment}/cancel', [AppointmentController::class, 'cancel']);
         Route::post('/appointments/{appointment}/complete', [AppointmentController::class, 'complete']);
         Route::post('/appointments/{appointment}/no-show', [AppointmentController::class, 'noShow']);
-        Route::get('/appointments/available-slots', [AppointmentController::class, 'availableSlots']);
 
         // ─── Doctor Schedules ──────────────────────────────────
         Route::apiResource('doctor-schedules', DoctorScheduleController::class);
@@ -154,9 +156,9 @@ Route::prefix('v1')->group(function () {
         Route::get('/imaging-results/{imagingOrder}', [ImagingResultController::class, 'show']);
 
         // ─── Medications ───────────────────────────────────────
-        Route::apiResource('medications', MedicationController::class);
         Route::get('/medications/low-stock', [MedicationController::class, 'lowStock']);
         Route::get('/medications/expiring', [MedicationController::class, 'expiring']);
+        Route::apiResource('medications', MedicationController::class);
 
         // ─── Suppliers ─────────────────────────────────────────
         Route::apiResource('suppliers', SupplierController::class);
@@ -261,7 +263,7 @@ Route::prefix('v1')->group(function () {
             return response()->json([
                 'success' => true,
                 'data' => $institution->fresh(),
-                'message' => 'Institución actualizada correctamente.',
+                'message' => 'Institution updated successfully.',
             ]);
         });
 

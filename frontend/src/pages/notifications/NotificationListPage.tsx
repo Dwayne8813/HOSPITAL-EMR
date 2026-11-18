@@ -1,10 +1,11 @@
-import { useState } from 'react'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { Card, CardContent } from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
-import { Badge } from '@/components/ui/Badge'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { formatRelativeTime } from '@/lib/utils'
-import { Bell, Check, CheckCheck, Trash2, Info, AlertTriangle, CheckCircle, XCircle } from 'lucide-react'
+import api from '@/lib/api'
+import { Bell, Check, CheckCheck, Info, AlertTriangle, CheckCircle, XCircle } from 'lucide-react'
+import toast from 'react-hot-toast'
 
 interface Notification {
   id: string
@@ -12,11 +13,37 @@ interface Notification {
   message: string
   type: 'info' | 'success' | 'warning' | 'error'
   read: boolean
+  link?: string
   created_at: string
 }
 
 export default function NotificationListPage() {
-  const [notifications, setNotifications] = useState<Notification[]>([])
+  const queryClient = useQueryClient()
+
+  const { data: notifications = [], isLoading } = useQuery({
+    queryKey: ['notifications'],
+    queryFn: async () => {
+      const response = await api.get('/notifications', { params: { per_page: 100 } })
+      return (response.data?.data ?? []) as Notification[]
+    },
+  })
+
+  const refresh = () => {
+    queryClient.invalidateQueries({ queryKey: ['notifications'] })
+    queryClient.invalidateQueries({ queryKey: ['notificationUnreadCount'] })
+  }
+
+  const markAsReadMutation = useMutation({
+    mutationFn: (id: string) => api.post(`/notifications/${id}/read`),
+    onSuccess: refresh,
+    onError: () => toast.error('Failed to mark notification as read'),
+  })
+
+  const markAllAsReadMutation = useMutation({
+    mutationFn: () => api.post('/notifications/read-all'),
+    onSuccess: refresh,
+    onError: () => toast.error('Failed to mark all notifications as read'),
+  })
 
   const typeIcons = {
     info: <Info className="h-5 w-5 text-blue-500" />,
@@ -25,40 +52,37 @@ export default function NotificationListPage() {
     error: <XCircle className="h-5 w-5 text-red-500" />,
   }
 
-  const markAsRead = (id: string) => {
-    setNotifications(prev =>
-      prev.map(n => n.id === id ? { ...n, read: true } : n)
-    )
-  }
-
-  const markAllAsRead = () => {
-    setNotifications(prev => prev.map(n => ({ ...n, read: true })))
-  }
-
   const unreadCount = notifications.filter(n => !n.read).length
 
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Notificaciones</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Notifications</h1>
           <p className="text-sm text-gray-500">
-            {unreadCount > 0 ? `${unreadCount} notificación(es) sin leer` : 'Todas las notificaciones leídas'}
+            {unreadCount > 0 ? `${unreadCount} unread notification(s)` : 'All notifications read'}
           </p>
         </div>
         {unreadCount > 0 && (
-          <Button variant="outline" leftIcon={<CheckCheck className="h-4 w-4" />} onClick={markAllAsRead}>
-            Marcar todas como leídas
+          <Button
+            variant="outline"
+            leftIcon={<CheckCheck className="h-4 w-4" />}
+            onClick={() => markAllAsReadMutation.mutate()}
+            disabled={markAllAsReadMutation.isPending}
+          >
+            Mark all as read
           </Button>
         )}
       </div>
 
       <Card variant="elevated">
         <CardContent>
-          {notifications.length === 0 ? (
+          {isLoading ? (
+            <p className="text-sm text-gray-500">Loading notifications...</p>
+          ) : notifications.length === 0 ? (
             <EmptyState
-              title="No hay notificaciones"
-              description="Las notificaciones del sistema aparecerán aquí"
+              title="No notifications"
+              description="System notifications will appear here"
               icon={<Bell className="h-8 w-8 text-gray-400" />}
             />
           ) : (
@@ -83,17 +107,16 @@ export default function NotificationListPage() {
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      {!notification.read && (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => markAsRead(notification.id)}
-                        >
-                          <Check className="h-4 w-4" />
-                        </Button>
-                      )}
-                    </div>
+                    {!notification.read && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => markAsReadMutation.mutate(notification.id)}
+                        disabled={markAsReadMutation.isPending}
+                      >
+                        <Check className="h-4 w-4" />
+                      </Button>
+                    )}
                   </div>
                 </div>
               ))}
