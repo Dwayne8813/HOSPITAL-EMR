@@ -15,6 +15,12 @@ services:
       DB_CONNECTION: sqlite
       DB_DATABASE: /data/database.sqlite
       PHP_CLI_SERVER_WORKERS: "4"
+      HOSPITAL_EMR_BASE_URL: ${HOSPITAL_EMR_BASE_URL:-}
+      HOSPITAL_EMR_OUTBOUND_API_KEY: ${HOSPITAL_EMR_OUTBOUND_API_KEY:-}
+      HOSPITAL_EMR_INBOUND_API_KEY: ${HOSPITAL_EMR_INBOUND_API_KEY:-}
+      HOSPITAL_EMR_WEBHOOK_SIGNING_SECRET: ${HOSPITAL_EMR_WEBHOOK_SIGNING_SECRET:-}
+      HOSPITAL_EMR_WEBHOOK_VERIFY_SECRET: ${HOSPITAL_EMR_WEBHOOK_VERIFY_SECRET:-}
+      HOSPITAL_EMR_WEBHOOK_URL: ${HOSPITAL_EMR_WEBHOOK_URL:-}
     volumes:
       - api-db:/data
     healthcheck:
@@ -34,7 +40,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      VITE_API_URL: http://localhost:8000/api/v1
+      VITE_API_URL: /api/v1
       VITE_API_PROXY_TARGET: http://api:8000
     depends_on:
       - api

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,6 +11,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ApiToken extends Model
 {
     use HasFactory;
+
+    // The api_tokens migration intentionally defines only created_at.
+    public $timestamps = false;
 
     protected $fillable = [
         'user_id',
@@ -41,7 +46,7 @@ class ApiToken extends Model
 
     public function isExpired(): bool
     {
-        return $this->expires_at && $this->expires_at->isPast();
+        return $this->expires_at !== null && $this->expires_at->isPast();
     }
 
     public function scopeActive($query)
@@ -55,5 +60,25 @@ class ApiToken extends Model
     public function scopeForUser($query, int $userId)
     {
         return $query->where('user_id', $userId);
+    }
+
+    /**
+     * Only a SHA-256 hash of the secret is stored. The plaintext is shown once
+     * at creation time and can never be recovered from the database.
+     */
+    public static function hashToken(string $plainToken): string
+    {
+        return hash('sha256', $plainToken);
+    }
+
+    public function hasAbility(string $ability): bool
+    {
+        $abilities = $this->abilities ?? [];
+
+        if (!is_array($abilities)) {
+            return false;
+        }
+
+        return in_array('*', $abilities, true) || in_array($ability, $abilities, true);
     }
 }

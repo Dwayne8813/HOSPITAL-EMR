@@ -411,7 +411,7 @@ php artisan serve
 cd ../frontend
 npm install
 cp .env.example .env
-# Set VITE_API_URL=http://localhost:8000/api/v1
+# Set VITE_API_URL=/api/v1 (Vite proxies /api to http://localhost:8000)
 npm run dev
 ```
 
@@ -493,6 +493,12 @@ This system is designed for deployment on shared hosting:
 ```
 
 Full deployment guide: [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
+
+### AWS EC2 (Ubuntu)
+For a static public address, allocate an **Elastic IP**, associate it with the
+instance, allow SSH (port 22) in the security group, and connect with
+`ssh ubuntu@<ELASTIC_IP>`. See [AWS EC2: Elastic IP + SSH](docs/DEPLOYMENT.md#aws-ec2-ubuntu-elastic-ip--ssh)
+for key setup, sshd hardening, and app configuration.
 
 ### Web Installer
 Built-in installer available at `/install` for guided setup.

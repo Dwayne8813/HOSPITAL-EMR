@@ -40,6 +40,8 @@ use App\Http\Controllers\V1\SettingController;
 use App\Http\Controllers\V1\UserController;
 use App\Http\Controllers\V1\NotificationController;
 use App\Http\Controllers\V1\BackupController;
+use App\Http\Controllers\V1\ApiKeyController;
+use App\Http\Controllers\V1\WebhookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,12 +69,16 @@ Route::prefix('v1')->group(function () {
         Route::post('/reset-password', [AuthController::class, 'resetPassword']);
     });
 
+    // Signed inbound webhooks from the hospital EMR integration.
+    Route::post('/webhooks/hospital-emr', [WebhookController::class, 'receive'])
+        ->middleware('webhook.signature');
+
     /*
     |--------------------------------------------------------------------------
-    | PROTECTED ROUTES (JWT auth required)
+    | PROTECTED ROUTES (JWT or long-lived API key required)
     |--------------------------------------------------------------------------
     */
-    Route::middleware(['jwt.auth', 'ensure.active'])->group(function () {
+    Route::middleware(['api.auth', 'ensure.active'])->group(function () {
 
         // ─── Auth ───────────────────────────────────────────────
         Route::prefix('auth')->group(function () {
@@ -282,6 +288,21 @@ Route::prefix('v1')->group(function () {
             Route::get('/', [BackupController::class, 'list']);
             Route::get('/{backup}/download', [BackupController::class, 'download']);
             Route::post('/{backup}/restore', [BackupController::class, 'restore']);
+        });
+
+        // ─── Integration: long-lived API keys ──────────────────
+        Route::prefix('api-keys')->group(function () {
+            Route::get('/', [ApiKeyController::class, 'index']);
+            Route::post('/', [ApiKeyController::class, 'store']);
+            Route::delete('/{apiKey}', [ApiKeyController::class, 'destroy']);
+        });
+
+        // ─── Integration: webhooks ─────────────────────────────
+        Route::prefix('webhooks')->group(function () {
+            Route::get('/events', [WebhookController::class, 'events']);
+            Route::get('/events/{webhookEvent}', [WebhookController::class, 'show']);
+            Route::patch('/events/{webhookEvent}/processed', [WebhookController::class, 'markProcessed']);
+            Route::post('/test', [WebhookController::class, 'test']);
         });
     });
 });

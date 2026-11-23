@@ -1,7 +1,10 @@
 import axios, { type AxiosError, type InternalAxiosRequestConfig } from 'axios'
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1',
+  // Relative URL goes through the Vite/dev-server proxy (or the production
+  // reverse proxy), so the app works on localhost, LAN IPs, and deployed hosts
+  // without cross-origin/CORS problems.
+  baseURL: import.meta.env.VITE_API_URL || '/api/v1',
   headers: {
     'Content-Type': 'application/json',
   },

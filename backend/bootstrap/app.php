@@ -3,6 +3,9 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use App\Console\Commands\CreateApiKeyCommand;
+use App\Http\Middleware\AuthenticateApi;
+use App\Http\Middleware\VerifyWebhookSignature;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -15,8 +18,13 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'installer.check' => \App\Http\Middleware\InstallerCheck::class,
             'ensure.active' => \App\Http\Middleware\EnsureActive::class,
+            'api.auth' => AuthenticateApi::class,
+            'webhook.signature' => VerifyWebhookSignature::class,
         ]);
     })
+    ->withCommands([
+        CreateApiKeyCommand::class,
+    ])
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();

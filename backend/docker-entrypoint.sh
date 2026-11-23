@@ -30,6 +30,21 @@ if ! grep -Eq '^JWT_SECRET=.+' .env; then
     php artisan jwt:secret --force
 fi
 
+# Forward integration credentials from the container environment into .env,
+# because `artisan serve` does not pass process env vars to its child process.
+for key in HOSPITAL_EMR_BASE_URL HOSPITAL_EMR_OUTBOUND_API_KEY \
+           HOSPITAL_EMR_INBOUND_API_KEY HOSPITAL_EMR_WEBHOOK_SIGNING_SECRET \
+           HOSPITAL_EMR_WEBHOOK_VERIFY_SECRET HOSPITAL_EMR_WEBHOOK_URL; do
+    value=$(printenv "$key" || true)
+    [ -z "$value" ] && continue
+    escaped=$(printf '%s' "$value" | sed -e 's/[\\&|]/\\&/g')
+    if grep -Eq "^${key}=" .env; then
+        sed -i "s|^${key}=.*|${key}=${escaped}|" .env
+    else
+        echo "${key}=${value}" >> .env
+    fi
+done
+
 # Apply all migrations; this is safe to run on every start.
 php artisan migrate --force
 

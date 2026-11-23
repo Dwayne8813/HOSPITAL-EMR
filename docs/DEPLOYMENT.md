@@ -190,6 +190,158 @@ php artisan route:cache
 
 ---
 
+## AWS EC2 (Ubuntu): Elastic IP + SSH
+
+An **Elastic IP (EIP)** is a static public IPv4 address that survives instance
+stop/start or replacement. Associate it with the Ubuntu instance first, then use
+that address for every SSH command below.
+
+### Step 1: Allocate and associate the Elastic IP
+
+AWS Console: **EC2 → Network & Security → Elastic IPs → Allocate Elastic IP address**,
+then **Actions → Associate address** and select the Ubuntu instance.
+
+Or with the AWS CLI:
+
+```bash
+aws ec2 allocate-address --domain vpc --region us-east-1
+aws ec2 associate-address \
+  --instance-id i-0123456789abcdef0 \
+  --allocation-id eipalloc-0123456789abcdef0 \
+  --region us-east-1
+```
+
+Copy the `PublicIp` from the output — that is `<ELASTIC_IP>` below. An Elastic IP
+is free while associated with a running instance, but is charged when unassociated.
+
+### Step 2: Allow SSH in the security group
+
+Attach a security group to the instance with these inbound rules:
+
+| Type | Protocol | Port | Source |
+|------|----------|------|--------|
+| SSH | TCP | 22 | `YOUR_PUBLIC_IP/32` |
+| HTTP | TCP | 80 | `0.0.0.0/0` (optional) |
+| HTTPS | TCP | 443 | `0.0.0.0/0` (optional) |
+
+Restrict port 22 to your own IP. CLI example:
+
+```bash
+aws ec2 authorize-security-group-ingress \
+  --group-id sg-0123456789abcdef0 \
+  --protocol tcp --port 22 --cidr YOUR_PUBLIC_IP/32
+```
+
+If you expose the Docker ports directly, also allow `8000` (API) and `3000` (web).
+Prefer nginx + TLS in front of them instead.
+
+### Step 3: Enable SSH on Ubuntu
+
+Ubuntu EC2 AMIs normally include OpenSSH. Verify/start it:
+
+```bash
+ssh ubuntu@<ELASTIC_IP>   # first connection asks to accept the host key
+
+sudo apt update
+sudo apt install -y openssh-server
+sudo systemctl enable --now ssh
+sudo systemctl status ssh --no-pager
+```
+
+If UFW is enabled:
+
+```bash
+sudo ufw allow OpenSSH
+sudo ufw status
+```
+
+For stricter rules, use `sudo ufw allow from YOUR_PUBLIC_IP/32 to any port 22 proto tcp`.
+
+### Step 4: Use key-based authentication
+
+On your local machine (skip if reusing an existing key):
+
+```bash
+# macOS / Linux / Git Bash
+ssh-keygen -t ed25519 -f ~/.ssh/hospital_emr -C "hospital-emr"
+ssh-copy-id -i ~/.ssh/hospital_emr.pub ubuntu@<ELASTIC_IP>
+```
+
+PowerShell (Windows OpenSSH):
+
+```powershell
+ssh-keygen -t ed25519 -f "$env:USERPROFILE\.ssh\hospital_emr" -C "hospital-emr"
+type "$env:USERPROFILE\.ssh\hospital_emr.pub" | ssh ubuntu@<ELASTIC_IP> "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys"
+```
+
+Connect with the key:
+
+```bash
+ssh -i ~/.ssh/hospital_emr ubuntu@<ELASTIC_IP>
+```
+
+Optional `~/.ssh/config` alias (works in PowerShell too):
+
+```sshconfig
+Host hospital-emr
+    HostName <ELASTIC_IP>
+    User ubuntu
+    IdentityFile ~/.ssh/hospital_emr
+    IdentitiesOnly yes
+```
+
+Then simply:
+
+```bash
+ssh hospital-emr
+```
+
+### Step 5: Harden sshd (after key login works)
+
+Use a drop-in file so package upgrades do not overwrite your settings:
+
+```bash
+sudo tee /etc/ssh/sshd_config.d/99-hospital-emr.conf >/dev/null <<'EOF'
+PasswordAuthentication no
+PermitRootLogin no
+PubkeyAuthentication yes
+EOF
+
+sudo sshd -t && sudo systemctl reload ssh
+```
+
+Keep one SSH session open while testing a new one so you do not lock yourself out.
+
+### Step 6: Point the app at the Elastic IP
+
+On the instance, use the stable address in `docker-compose.yml` and `backend/config/cors.php`:
+
+```yaml
+# docker-compose.yml
+api:
+  environment:
+    APP_URL: http://<ELASTIC_IP>:8000
+    FRONTEND_URL: http://<ELASTIC_IP>:3000
+web:
+  environment:
+    VITE_API_URL: http://<ELASTIC_IP>:8000/api/v1
+```
+
+```php
+// backend/config/cors.php
+'allowed_origins' => [
+    'http://<ELASTIC_IP>:3000',
+],
+'allowed_hosts' => [
+    '<ELASTIC_IP>',
+],
+```
+
+Restart with `docker compose up -d --build`. Verify the IP stays the same after an
+instance stop/start — that is the point of the Elastic IP.
+
+---
+
 ## FTP Upload Instructions
 
 ### Using FileZilla
